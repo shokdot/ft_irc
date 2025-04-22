@@ -1,0 +1,14 @@
+#build dirs
+/.vscode/
+/build/
+
+#compiled files
+*.o
+
+# Mac OS
+.DS_Store
+
+# Other
+*.swp
+*.bak
+*.tmp
