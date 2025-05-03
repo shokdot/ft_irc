@@ -8,6 +8,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <poll.h>
+#include <vector>
 
 #define MAX_CONN 100
 
@@ -21,6 +23,7 @@ void send_wrapper(const String &str, int sock_fd);
 #include <Parsing.hpp>
 #include <Server.hpp>
 #include <User.hpp>
+#include <EventHandler.hpp>
 #include <Channel.hpp>
 
 #endif

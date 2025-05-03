@@ -37,6 +37,19 @@ void Server::setup()
 
 void Server::run()
 {
+	EventHandler eventHandler(server_fd);
+	while (true)
+	{
+		eventHandler.handleEvents();
+	}
+	// This is the old run method using select
+	// Uncomment the above lines and comment this method to use the new event handler
+	// and remove the old select-based implementation.
+}
+
+/*
+void Server::run()
+{
 	fd_set master_set, read_set; // declaring 2 fd_set variables
 	int max_fd = server_fd;		 // setting max_fd to server_fd for select()
 
@@ -79,3 +92,5 @@ void Server::run()
 		}
 	}
 }
+
+*/
