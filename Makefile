@@ -19,8 +19,8 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 DEBUG = # -fsanitize=address -g3
 
-HEADERS = $(foreach H, $(INCLPATH), $(wildcard $(H)*.hpp))
-CMP_HEADERS = $(patsubst %,-I%, $(INCLPATH))
+HEADERS     := $(shell find $(INCLPATH) -type f -name '*.hpp')
+CMP_HEADERS := $(sort $(patsubst %,-I%,$(dir $(HEADERS))))
 
 all : $(NAME)
 
@@ -28,6 +28,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(HEADERS)  Makefile
+	@echo "$(YELLOW) Compiling $(NAME) $(RESET)"
 	@$(CC) $(CFLAGS) $(CMP_HEADERS) $(OBJ) -o $(NAME)
 	@echo "$(GREEN) Executable file has been created $(RESET)"
 
