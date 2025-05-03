@@ -1,9 +1,9 @@
-#ifndef SERVER_HPP
-#define SERVER_HPP
+#ifndef IRCSERVER_HPP
+#define IRCSERVER_HPP
 
 #include <IRC.hpp>
 
-class Server
+class IRCServer
 {
 private:
 	int port;
@@ -11,8 +11,8 @@ private:
 	int server_fd;
 
 public:
-	Server(std::pair<int, String>);
-	~Server();
+	IRCServer(std::pair<int, String>);
+	~IRCServer();
 
 private:
 	void setup();
@@ -20,4 +20,4 @@ private:
 };
 
 #endif
-// SERVER_HPP
+// IRCSERVER_HPP

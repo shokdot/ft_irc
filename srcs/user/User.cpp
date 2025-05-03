@@ -1,12 +1,8 @@
 #include <User.hpp>
 
-User::User(int socketFd) : socketFd(socketFd), isAuth(false)
-{
-}
+User::User(int socketFd) : socketFd(socketFd), isAuth(false) {}
 
-User::~User()
-{
-}
+User::~User() {}
 
 void User::setUsername(const String &username)
 {

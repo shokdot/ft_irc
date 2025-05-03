@@ -1,12 +1,12 @@
-#include <Server.hpp>
+#include <IRCServer.hpp>
 
-Server::Server(std::pair<int, String> pair) : port(pair.first), password(pair.second)
+IRCServer::IRCServer(std::pair<int, String> pair) : port(pair.first), password(pair.second)
 {
 	this->setup();
 	this->run();
 }
 
-Server::~Server()
+IRCServer::~IRCServer()
 {
 	if (close(server_fd) < 0)
 	{
@@ -14,7 +14,7 @@ Server::~Server()
 	}
 }
 
-void Server::setup()
+void IRCServer::setup()
 {
 	this->server_fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (server_fd < 0)
@@ -35,7 +35,7 @@ void Server::setup()
 	}
 }
 
-void Server::run()
+void IRCServer::run()
 {
 	EventHandler eventHandler(server_fd);
 	while (true)

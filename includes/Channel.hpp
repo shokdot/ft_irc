@@ -4,3 +4,4 @@
 #include <IRC.hpp>
 
 #endif
+// CHANNEL_HPP

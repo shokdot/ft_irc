@@ -10,20 +10,18 @@
 #include <unistd.h>
 #include <poll.h>
 #include <vector>
-
-#define MAX_CONN 100
+#include <Defines.hpp>
 
 using std::cout;
 using std::endl;
 typedef std::string String;
 
-String trim(const String &str);
-void send_wrapper(const String &str, int sock_fd);
-
 #include <Parsing.hpp>
-#include <Server.hpp>
+#include <IRCServer.hpp>
 #include <User.hpp>
 #include <EventHandler.hpp>
 #include <Channel.hpp>
+#include <Utils.hpp>
 
 #endif
+// IRC_HPP
