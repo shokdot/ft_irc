@@ -11,6 +11,7 @@
 #include <poll.h>
 #include <vector>
 #include <Defines.hpp>
+#include <exception>
 
 using std::cout;
 using std::endl;
@@ -22,6 +23,7 @@ typedef std::string String;
 #include <EventHandler.hpp>
 #include <Channel.hpp>
 #include <Utils.hpp>
+#include <IRCException.hpp>
 
 #endif
 // IRC_HPP
