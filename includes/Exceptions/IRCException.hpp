@@ -8,7 +8,7 @@ namespace IRCException
 	class IRCException : public std::exception
 	{
 	public:
-		IRCException(const std::string &message);
+		IRCException(const String &message);
 		virtual ~IRCException() throw();
 
 		virtual const char *what() const throw();
@@ -17,6 +17,9 @@ namespace IRCException
 		String m_msg;
 	};
 }
+
+#include <InputError.hpp>
+#include <ServerError.hpp>
 
 #endif
 // IRCEXCEPTION_HPP

@@ -1,6 +1,6 @@
 #include <IRCException.hpp>
 
-IRCException::IRCException::IRCException(const std::string &message) : m_msg(message) {}
+IRCException::IRCException::IRCException(const String &message) : m_msg(message) {}
 
 IRCException::IRCException::~IRCException() throw() {}
 

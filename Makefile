@@ -8,7 +8,7 @@ NAME = ircserv
 SRC_DIR = srcs/
 OBJ_DIR = build/
 
-SUBDIRS = parsing/ server/ utils/ user/ event/
+SUBDIRS = parsing/ server/ utils/ user/ event/ exceptions/
 INCLPATH = includes/
 
 SRCDIRS = $(addprefix $(SRC_DIR)/, $(SUBDIRS))
