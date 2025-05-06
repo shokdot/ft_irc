@@ -1,11 +1,11 @@
 #include <User.hpp>
 
 User::User(int socketFd) : socketFd(socketFd),
-						   isAuth(false),
 						   username("unknown"),
 						   nickname("unknown"),
 						   realname("unknown"),
-						   hostname("unknown") {}
+						   hostname("unknown"),
+						   isAuth(false) {}
 
 User::~User() {}
 
