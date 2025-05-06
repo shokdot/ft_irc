@@ -16,19 +16,15 @@
 #include <Defines.hpp>
 #include <exception>
 #include <cstring>
-
-using std::cout;
-using std::endl;
-typedef std::string String;
+#include <Types.hpp>
 
 #include <Parsing.hpp>
-#include <IRCServer.hpp>
 #include <User.hpp>
-#include <EventHandler.hpp>
 #include <Channel.hpp>
 #include <Utils.hpp>
 #include <IRCException.hpp>
 #include <Ident.hpp>
+#include <EventHandler.hpp>
 
 #endif
 // IRC_HPP

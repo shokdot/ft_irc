@@ -53,7 +53,7 @@ void EventHandler::handleNewConnection()
 		throw IRCException::ServerError(strerror(errno));
 	fds.push_back(createConnection(clientFd, POLLIN));
 	Ident::IdentLookup(clientAddr, 6667);
-	cout << Ident::reverseDNS(clientAddr) << std::endl;
+	std::cout << Ident::reverseDNS(clientAddr) << std::endl;
 	std::cout << "New client connected: " << clientFd << std::endl;
 }
 
