@@ -9,6 +9,7 @@ private:
 	int port;
 	String password;
 	int server_fd;
+	EventHandler eventhandler;
 
 public:
 	IRCServer(std::pair<int, String>);

@@ -6,8 +6,10 @@
 class EventHandler
 {
 public:
-	EventHandler(int);
+	EventHandler();
 	void handleEvents();
+	void setServerFd(const int);
+	int getServerFd();
 
 private:
 	int serverFd;

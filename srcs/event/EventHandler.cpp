@@ -1,9 +1,6 @@
 #include <EventHandler.hpp>
 
-EventHandler::EventHandler(int serverFd) : serverFd(serverFd)
-{
-	fds.push_back(createConnection(serverFd, POLLIN));
-}
+EventHandler::EventHandler() {}
 
 struct pollfd EventHandler::createConnection(int fd, short events)
 {
@@ -17,6 +14,7 @@ struct pollfd EventHandler::createConnection(int fd, short events)
 
 void EventHandler::handleEvents()
 {
+	fds.push_back(createConnection(serverFd, POLLIN));
 	if (poll(&fds[0], fds.size(), -1) < 0)
 		throw IRCException::ServerError(strerror(errno));
 
@@ -83,4 +81,14 @@ void EventHandler::handleClientMessage(int clientFd)
 		std::cout << "Message from " << clientFd << ": " << buffer;
 		// TODO: Parse and respond to IRC commands
 	}
+}
+
+void EventHandler::setServerFd(int fd)
+{
+	this->serverFd = fd;
+}
+
+int EventHandler::getServerFd()
+{
+	return this->serverFd;
 }
