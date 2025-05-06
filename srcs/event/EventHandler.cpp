@@ -2,17 +2,17 @@
 
 EventHandler::EventHandler(int serverFd) : serverFd(serverFd)
 {
-	createConnection(serverFd, POLLIN);
+	fds.push_back(createConnection(serverFd, POLLIN));
 }
 
-void EventHandler::createConnection(int fd, short events)
+struct pollfd EventHandler::createConnection(int fd, short events)
 {
-	struct pollfd serverPollFd;
-	serverPollFd.fd = fd;
-	serverPollFd.events = events; // error and hangup events, also
+	struct pollfd pollStruct;
+	pollStruct.fd = fd;
+	pollStruct.events = events; // error and hangup events, also
 	// POLLOUT for write check, for send response
-	serverPollFd.revents = 0; //  ?
-	fds.push_back(serverPollFd);
+	pollStruct.revents = 0; //  ?
+	return pollStruct;
 }
 
 void EventHandler::handleEvents()
@@ -53,13 +53,9 @@ void EventHandler::handleNewConnection()
 	int clientFd = accept(serverFd, (struct sockaddr *)&clientAddr, &len);
 	if (clientFd < 0)
 		throw IRCException::ServerError(strerror(errno));
-	struct pollfd clientPollFd;
-	clientPollFd.fd = clientFd;
-	clientPollFd.events = POLLIN;
-	clientPollFd.revents = 0;
-	fds.push_back(clientPollFd);
-	Indent::init(clientAddr, 6667);
-	cout << Indent::reverseDNS(clientAddr) << std::endl;
+	fds.push_back(createConnection(clientFd, POLLIN));
+	Ident::IdentLookup(clientAddr, 6667);
+	cout << Ident::reverseDNS(clientAddr) << std::endl;
 	std::cout << "New client connected: " << clientFd << std::endl;
 }
 

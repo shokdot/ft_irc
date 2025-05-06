@@ -13,7 +13,7 @@ private:
 	int serverFd;
 	std::vector<pollfd> fds;
 
-	void createConnection(int, short);
+	struct pollfd createConnection(int, short);
 	void handlePOLLIN(int);
 	void handlePOLLERR(int);
 	void handleNewConnection();

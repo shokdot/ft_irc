@@ -6,7 +6,10 @@
 #include <cstdlib>
 #include <sstream>
 #include <sys/socket.h>
+#include <sys/types.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
 #include <unistd.h>
 #include <poll.h>
 #include <vector>
@@ -25,6 +28,7 @@ typedef std::string String;
 #include <Channel.hpp>
 #include <Utils.hpp>
 #include <IRCException.hpp>
+#include <Ident.hpp>
 
 #endif
 // IRC_HPP
