@@ -1,74 +1,83 @@
 #include <EventHandler.hpp>
 
-EventHandler::EventHandler(int serverFd) : _serverFd(serverFd)
+EventHandler::EventHandler(int serverFd) : serverFd(serverFd)
+{
+	createConnection(serverFd, POLLIN);
+}
+
+void EventHandler::createConnection(int fd, short events)
 {
 	struct pollfd serverPollFd;
-	serverPollFd.fd = _serverFd;
-	serverPollFd.events = POLLIN;
-	serverPollFd.revents = 0;
-	_fds.push_back(serverPollFd);
+	serverPollFd.fd = fd;
+	serverPollFd.events = events; // error and hangup events, also
+	// POLLOUT for write check, for send response
+	serverPollFd.revents = 0; //  ?
+	fds.push_back(serverPollFd);
 }
 
 void EventHandler::handleEvents()
 {
-	if (poll(&_fds[0], _fds.size(), -1) < 0)
-	{
-		perror("poll");
-		return;
-	}
+	if (poll(&fds[0], fds.size(), -1) < 0)
+		throw IRCException::ServerError(strerror(errno));
 
-	for (size_t i = 0; i < _fds.size(); ++i)
+	for (size_t i = 0; i < fds.size(); ++i)
 	{
-		if (_fds[i].revents & POLLIN)
-		{
-			if (_fds[i].fd == _serverFd)
-			{
-				handleNewConnection();
-			}
-			else
-			{
-				handleClientMessage(_fds[i].fd);
-			}
-		}
+		if (fds[i].revents & POLLIN)
+			handlePOLLIN(i);
+		else if (fds[i].revents & (POLLERR | POLL_HUP))
+			handlePOLLERR(i);
 	}
+}
+
+void EventHandler::handlePOLLIN(int index)
+{
+	if (fds[index].fd == serverFd)
+		handleNewConnection();
+	else
+		handleClientMessage(fds[index].fd);
+}
+
+void EventHandler::handlePOLLERR(int index)
+{
+	std::cout << "Error or hangup on fd: " << fds[index].fd << std::endl;
+	// close(fds[index].fd);
+	// fds.erase(fds.begin() + index);
+	// --i; // Adjust index after erasing
 }
 
 void EventHandler::handleNewConnection()
 {
 	struct sockaddr_in clientAddr;
-	memset(&clientAddr, 0, sizeof(clientAddr));
 	socklen_t len = sizeof(clientAddr);
-	int clientFd = accept(_serverFd, (struct sockaddr *)&clientAddr, &len);
+	std::memset(&clientAddr, 0, len);
+	int clientFd = accept(serverFd, (struct sockaddr *)&clientAddr, &len);
 	if (clientFd < 0)
-	{
-		perror("accept");
-		return;
-	}
-
+		throw IRCException::ServerError(strerror(errno));
 	struct pollfd clientPollFd;
 	clientPollFd.fd = clientFd;
 	clientPollFd.events = POLLIN;
 	clientPollFd.revents = 0;
-	_fds.push_back(clientPollFd);
-
+	fds.push_back(clientPollFd);
+	Indent::init(clientAddr, 6667);
+	cout << Indent::reverseDNS(clientAddr) << std::endl;
 	std::cout << "New client connected: " << clientFd << std::endl;
 }
 
 void EventHandler::handleClientMessage(int clientFd)
 {
-	char buffer[512];
-	memset(buffer, 0, sizeof(buffer));
+	char buffer[1024];
+	std::memset(buffer, 0, sizeof(buffer));
 	int bytes = read(clientFd, buffer, sizeof(buffer) - 1);
 	if (bytes <= 0)
 	{
 		std::cout << "Client disconnected: " << clientFd << std::endl;
 		close(clientFd);
 
-		for (std::vector<struct pollfd>::iterator it = _fds.begin(); it != _fds.end(); ++it)
+		for (std::vector<struct pollfd>::iterator it = fds.begin(); it != fds.end(); ++it)
 		{
 			if (it->fd == clientFd)
 			{
-				_fds.erase(it);
+				fds.erase(it);
 				break;
 			}
 		}

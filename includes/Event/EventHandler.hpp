@@ -6,13 +6,16 @@
 class EventHandler
 {
 public:
-	EventHandler(int serverFd);
+	EventHandler(int);
 	void handleEvents();
 
 private:
-	int _serverFd;
-	std::vector<pollfd> _fds;
+	int serverFd;
+	std::vector<pollfd> fds;
 
+	void createConnection(int, short);
+	void handlePOLLIN(int);
+	void handlePOLLERR(int);
 	void handleNewConnection();
 	void handleClientMessage(int clientFd);
 };
