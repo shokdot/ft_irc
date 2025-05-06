@@ -14,30 +14,30 @@ struct pollfd EventHandler::createConnection(int fd, short events)
 
 void EventHandler::handleEvents()
 {
-	fds.push_back(createConnection(serverFd, POLLIN));
-	if (poll(&fds[0], fds.size(), -1) < 0)
+	_fds.push_back(createConnection(_serverFd, POLLIN));
+	if (poll(&_fds[0], _fds.size(), -1) < 0)
 		throw IRCException::ServerError(strerror(errno));
 
-	for (size_t i = 0; i < fds.size(); ++i)
+	for (size_t i = 0; i < _fds.size(); ++i)
 	{
-		if (fds[i].revents & POLLIN)
+		if (_fds[i].revents & POLLIN)
 			handlePOLLIN(i);
-		else if (fds[i].revents & (POLLERR | POLL_HUP))
+		else if (_fds[i].revents & (POLLERR | POLL_HUP))
 			handlePOLLERR(i);
 	}
 }
 
 void EventHandler::handlePOLLIN(int index)
 {
-	if (fds[index].fd == serverFd)
+	if (_fds[index].fd == _serverFd)
 		handleNewConnection();
 	else
-		handleClientMessage(fds[index].fd);
+		handleClientMessage(_fds[index].fd);
 }
 
 void EventHandler::handlePOLLERR(int index)
 {
-	std::cout << "Error or hangup on fd: " << fds[index].fd << std::endl;
+	std::cout << "Error or hangup on fd: " << _fds[index].fd << std::endl;
 	// close(fds[index].fd);
 	// fds.erase(fds.begin() + index);
 	// --i; // Adjust index after erasing
@@ -48,11 +48,11 @@ void EventHandler::handleNewConnection()
 	struct sockaddr_in clientAddr;
 	socklen_t len = sizeof(clientAddr);
 	std::memset(&clientAddr, 0, len);
-	int clientFd = accept(serverFd, (struct sockaddr *)&clientAddr, &len);
+	int clientFd = accept(_serverFd, (struct sockaddr *)&clientAddr, &len);
 	if (clientFd < 0)
 		throw IRCException::ServerError(strerror(errno));
-	fds.push_back(createConnection(clientFd, POLLIN));
-	Ident::IdentLookup(clientAddr, 6667);
+	_fds.push_back(createConnection(clientFd, POLLIN));
+	Ident::identLookup(clientAddr, 6667);
 	std::cout << Ident::reverseDNS(clientAddr) << std::endl;
 	std::cout << "New client connected: " << clientFd << std::endl;
 }
@@ -67,11 +67,11 @@ void EventHandler::handleClientMessage(int clientFd)
 		std::cout << "Client disconnected: " << clientFd << std::endl;
 		close(clientFd);
 
-		for (std::vector<struct pollfd>::iterator it = fds.begin(); it != fds.end(); ++it)
+		for (std::vector<struct pollfd>::iterator it = _fds.begin(); it != _fds.end(); ++it)
 		{
 			if (it->fd == clientFd)
 			{
-				fds.erase(it);
+				_fds.erase(it);
 				break;
 			}
 		}
@@ -85,10 +85,10 @@ void EventHandler::handleClientMessage(int clientFd)
 
 void EventHandler::setServerFd(int fd)
 {
-	this->serverFd = fd;
+	this->_serverFd = fd;
 }
 
 int EventHandler::getServerFd()
 {
-	return this->serverFd;
+	return this->_serverFd;
 }

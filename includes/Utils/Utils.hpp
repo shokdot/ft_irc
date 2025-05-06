@@ -9,7 +9,7 @@ public:
 	static String rtrim(const String &str);
 	static String ltrim(const String &str);
 	static String trim(const String &str);
-	static void send_wrapper(const String &str, int sock_fd);
+	static void sendWrapper(const String &str, int sock_fd);
 };
 
 #endif

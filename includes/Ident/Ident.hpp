@@ -7,7 +7,7 @@ class Ident
 {
 public:
 	static String reverseDNS(struct sockaddr_in &clientAddr);
-	static void IdentLookup(struct sockaddr_in &clientAddr, int serverPort);
+	static void identLookup(struct sockaddr_in &clientAddr, int serverPort);
 };
 
 #endif

@@ -8,12 +8,12 @@ class EventHandler
 public:
 	EventHandler();
 	void handleEvents();
-	void setServerFd(const int);
+	void setServerFd(int);
 	int getServerFd();
 
 private:
-	int serverFd;
-	std::vector<pollfd> fds;
+	int _serverFd;
+	std::vector<pollfd> _fds;
 
 	struct pollfd createConnection(int, short);
 	void handlePOLLIN(int);

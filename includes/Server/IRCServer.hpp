@@ -6,10 +6,10 @@
 class IRCServer
 {
 private:
-	int port;
-	String password;
-	int server_fd;
-	EventHandler eventhandler;
+	int _port;
+	String _password;
+	int _serverFd;
+	EventHandler _eventHandler;
 
 public:
 	IRCServer(std::pair<int, String>);

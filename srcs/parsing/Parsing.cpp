@@ -1,15 +1,15 @@
 #include <Parsing.hpp>
 
-std::pair<int, String> Parsing::args_validate(int ac, char *av[])
+std::pair<int, String> Parsing::argsValidate(int ac, char *av[])
 {
 	if (ac != 3)
 		throw IRCException::InputError("Arguments too few or too many");
-	int port = validate_port(av[1]);
-	String password = validate_password(av[2]);
+	int port = validatePort(av[1]);
+	String password = validatePassword(av[2]);
 	return std::make_pair(port, password);
 }
 
-int Parsing::validate_port(char *str)
+int Parsing::validatePort(char *str)
 {
 	for (int i = 0; str[i]; ++i)
 		if (!std::isdigit(str[i]))
@@ -23,7 +23,7 @@ int Parsing::validate_port(char *str)
 	return static_cast<int>(port);
 }
 
-String Parsing::validate_password(char *str)
+String Parsing::validatePassword(char *str)
 {
 	String password = String(str);
 	if (password.length() < 8)

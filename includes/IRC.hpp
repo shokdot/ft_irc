@@ -2,9 +2,11 @@
 #define IRC_HPP
 
 #include <iostream>
-#include <string>
-#include <cstdlib>
+#include <exception>
 #include <sstream>
+#include <vector>
+#include <cstdlib>
+#include <cstring>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -12,12 +14,9 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <poll.h>
-#include <vector>
-#include <Defines.hpp>
-#include <exception>
-#include <cstring>
-#include <Types.hpp>
 
+#include <Defines.hpp>
+#include <Types.hpp>
 #include <Parsing.hpp>
 #include <User.hpp>
 #include <Channel.hpp>

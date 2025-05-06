@@ -19,7 +19,7 @@ String Ident::reverseDNS(struct sockaddr_in &clientAddr)
 	return String(ip);
 }
 
-void Ident::IdentLookup(struct sockaddr_in &clientAddr, int serverPort)
+void Ident::identLookup(struct sockaddr_in &clientAddr, int serverPort)
 {
 	int indentSock = socket(AF_INET, SOCK_STREAM, 0);
 	if (indentSock < 0)

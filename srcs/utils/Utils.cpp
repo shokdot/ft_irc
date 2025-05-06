@@ -25,7 +25,7 @@ String Utils::trim(const String &str)
 	return Utils::ltrim(Utils::rtrim(str));
 }
 
-void Utils::send_wrapper(const String &str, int sock_fd)
+void Utils::sendWrapper(const String &str, int sock_fd)
 {
 	send(sock_fd, str.c_str(), str.length(), 0);
 }

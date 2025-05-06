@@ -4,7 +4,7 @@ int main(int ac, char **av)
 {
 	try
 	{
-		IRCServer server(Parsing::args_validate(ac, av));
+		IRCServer server(Parsing::argsValidate(ac, av));
 	}
 	catch (const std::exception &e)
 	{

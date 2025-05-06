@@ -6,12 +6,12 @@
 class User
 {
 private:
-	int socketFd;
-	String username;
-	String nickname;
-	String realname;
-	String hostname;
-	bool isAuth;
+	int _socketFd;
+	String _username;
+	String _nickname;
+	String _realname;
+	String _hostname;
+	bool _isAuth;
 
 public:
 	User(int);
