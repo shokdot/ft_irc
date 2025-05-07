@@ -1,7 +1,7 @@
 #ifndef EVENT_HANDLER_HPP
 #define EVENT_HANDLER_HPP
 
-#include <IRC.hpp>
+#include <IdentService.hpp>
 
 class EventHandler
 {
@@ -14,8 +14,8 @@ public:
 private:
 	int _serverFd;
 	std::vector<pollfd> _fds;
-
-	struct pollfd createConnection(int, short);
+	struct pollfd
+	createConnection(int, short);
 	void handlePOLLIN(int);
 	void handlePOLLERR(int);
 	void handleNewConnection();

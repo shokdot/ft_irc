@@ -1,6 +1,6 @@
-#include <Ident.hpp>
+#include <IdentService.hpp>
 
-String Ident::reverseDNS(struct sockaddr_in &clientAddr)
+String IdentService::reverseDNS(struct sockaddr_in &clientAddr)
 {
 
 	const char *ip = inet_ntoa(clientAddr.sin_addr);
@@ -19,7 +19,7 @@ String Ident::reverseDNS(struct sockaddr_in &clientAddr)
 	return String(ip);
 }
 
-void Ident::identLookup(struct sockaddr_in &clientAddr, int serverPort)
+void IdentService::identLookup(struct sockaddr_in &clientAddr, int serverPort)
 {
 	int indentSock = socket(AF_INET, SOCK_STREAM, 0);
 	if (indentSock < 0)

@@ -22,8 +22,7 @@
 #include <Channel.hpp>
 #include <Utils.hpp>
 #include <IRCException.hpp>
-#include <Ident.hpp>
-#include <EventHandler.hpp>
+// #include <EventHandler.hpp>
 
 #endif
 // IRC_HPP

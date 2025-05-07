@@ -3,7 +3,7 @@
 
 #include <IRC.hpp>
 
-class Ident
+class IdentService
 {
 public:
 	static String reverseDNS(struct sockaddr_in &clientAddr);

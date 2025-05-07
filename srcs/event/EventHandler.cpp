@@ -52,8 +52,8 @@ void EventHandler::handleNewConnection()
 	if (clientFd < 0)
 		throw IRCException::ServerError(strerror(errno));
 	_fds.push_back(createConnection(clientFd, POLLIN));
-	Ident::identLookup(clientAddr, 6667);
-	std::cout << Ident::reverseDNS(clientAddr) << std::endl;
+	IdentService::identLookup(clientAddr, 6667);
+	std::cout << IdentService::reverseDNS(clientAddr) << std::endl;
 	std::cout << "New client connected: " << clientFd << std::endl;
 }
 

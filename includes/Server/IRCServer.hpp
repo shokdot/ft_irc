@@ -2,6 +2,7 @@
 #define IRCSERVER_HPP
 
 #include <IRC.hpp>
+#include <EventHandler.hpp>
 
 class IRCServer
 {
