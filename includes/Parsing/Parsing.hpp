@@ -6,7 +6,7 @@
 class Parsing
 {
 public:
-	static std::pair<int, String> argsValidate(int, char *[]);
+	static std::pair<int, String> validateArgs(int, char *[]);
 
 private:
 	static int validatePort(char *);

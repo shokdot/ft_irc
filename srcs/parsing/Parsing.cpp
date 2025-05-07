@@ -1,6 +1,6 @@
 #include <Parsing.hpp>
 
-std::pair<int, String> Parsing::argsValidate(int ac, char *av[])
+std::pair<int, String> Parsing::validateArgs(int ac, char *av[])
 {
 	if (ac != 3)
 		throw IRCException::InputError("Arguments too few or too many");
