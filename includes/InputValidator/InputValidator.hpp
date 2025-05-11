@@ -1,9 +1,9 @@
-#ifndef PARSING_HPP
-#define PARSING_HPP
+#ifndef INPUTVALIDATOR_HPP
+#define INPUTVALIDATOR_HPP
 
 #include <IRC.hpp>
 
-class Parsing
+class InputValidator
 {
 public:
 	static std::pair<int, String> validateArgs(int, char *[]);
@@ -14,4 +14,4 @@ private:
 };
 
 #endif
-// PARSING_HPP
+// INPUTVALIDATOR_HPP

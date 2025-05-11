@@ -1,6 +1,6 @@
-#include <Parsing.hpp>
+#include <InputValidator.hpp>
 
-std::pair<int, String> Parsing::validateArgs(int ac, char *av[])
+std::pair<int, String> InputValidator::validateArgs(int ac, char *av[])
 {
 	if (ac != 3)
 		throw IRCException::InputError("Arguments too few or too many");
@@ -9,7 +9,7 @@ std::pair<int, String> Parsing::validateArgs(int ac, char *av[])
 	return std::make_pair(port, password);
 }
 
-int Parsing::validatePort(char *str)
+int InputValidator::validatePort(char *str)
 {
 	for (int i = 0; str[i]; ++i)
 		if (!std::isdigit(str[i]))
@@ -23,7 +23,7 @@ int Parsing::validatePort(char *str)
 	return static_cast<int>(port);
 }
 
-String Parsing::validatePassword(char *str)
+String InputValidator::validatePassword(char *str)
 {
 	String password = String(str);
 	if (password.length() < 8)

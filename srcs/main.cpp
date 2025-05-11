@@ -4,7 +4,7 @@ int main(int ac, char **av)
 {
 	try
 	{
-		std::pair<int, String> conf = Parsing::validateArgs(ac, av);
+		std::pair<int, String> conf = InputValidator::validateArgs(ac, av);
 		IRCServer server(conf.first, conf.second);
 	}
 	catch (const std::exception &e)
