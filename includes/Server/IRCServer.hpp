@@ -13,7 +13,7 @@ private:
 	EventHandler _eventHandler;
 
 public:
-	IRCServer(std::pair<int, String>);
+	IRCServer(int port, String password);
 	~IRCServer();
 
 private:

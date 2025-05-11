@@ -1,6 +1,6 @@
 #include <IRCServer.hpp>
 
-IRCServer::IRCServer(std::pair<int, String> pair) : _port(pair.first), _password(pair.second)
+IRCServer::IRCServer(int port, String password) : _port(port), _password(password)
 {
 	this->setup();
 	this->run();
