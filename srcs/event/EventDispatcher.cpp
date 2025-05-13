@@ -6,32 +6,28 @@ void EventDispatcher::handleEvents()
 {
 	if (_pollManager.wait() < -1)
 		throw IRCException::ServerError(std::strerror(errno));
-	for (size_t i = 0; i < _pollManager.getPollSize(); i++)
+
+	const std::vector<struct pollfd> &fds = _pollManager.getPollFds();
+	for (size_t i = 0; i < fds.size(); i++)
 	{
-		if (_pollManager.getPollFds()[i].revents & POLLIN)
+		if (fds[i].revents & POLL_IN)
 		{
 			// smth
 		}
-		else if (_pollManager.getPollFds()[i].revents & (POLL_ERR | POLL_HUP))
+		else if (fds[i].revents & POLL_HUP)
+		{
+			// smth
+		}
+		else if (fds[i].revents & POLL_OUT)
+		{
+			// smth
+		}
+		else if (fds[i].revents & POLL_ERR)
 		{
 			// smth
 		}
 	}
 }
-
-// void EventHandler::handleEvents()
-// {
-// 	// if (poll(&_fds[0], _fds.size(), -1) < 0)
-// 	// 	throw IRCException::ServerError(strerror(errno));
-
-// 	// for (size_t i = 0; i < _fds.size(); ++i)
-// 	// {
-// 	// 	if (_fds[i].revents & POLLIN)
-// 	// 		handlePOLLIN(i);
-// 	// 	else if (_fds[i].revents & (POLLERR | POLL_HUP))
-// 	// 		handlePOLLERR(i);
-// 	// }
-// }
 
 // void EventHandler::handlePOLLIN(int index)
 // {
