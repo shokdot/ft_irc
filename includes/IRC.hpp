@@ -14,11 +14,11 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <poll.h>
+#include <map>
 
 #include <Defines.hpp>
 #include <Types.hpp>
 #include <InputValidator.hpp>
-#include <User.hpp>
 #include <Channel.hpp>
 #include <Utils.hpp>
 #include <IRCException.hpp>
