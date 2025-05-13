@@ -1,6 +1,6 @@
-#include <EventHandler.hpp>
+#include <EventDispatcher.hpp>
 
-EventHandler::EventHandler() {}
+EventDispatcher::EventDispatcher() {}
 
 // void EventHandler::handleEvents()
 // {
@@ -75,12 +75,7 @@ EventHandler::EventHandler() {}
 // 	}
 // }
 
-void EventHandler::setServerFd(int fd)
+void EventDispatcher::setServerFd(int fd)
 {
 	this->_serverFd = fd;
-}
-
-int EventHandler::getServerFd()
-{
-	return this->_serverFd;
 }

@@ -1,15 +1,14 @@
-#ifndef EVENT_HANDLER_HPP
-#define EVENT_HANDLER_HPP
+#ifndef EVENT_DISPATCHER_HPP
+#define EVENT_DISPATCHER_HPP
 
 // #include <IdentService.hpp>
 
-class EventHandler
+class EventDispatcher
 {
 public:
-	EventHandler();
+	EventDispatcher();
 	// void handleEvents();
 	void setServerFd(int);
-	int getServerFd();
 
 private:
 	int _serverFd;
@@ -20,4 +19,4 @@ private:
 };
 
 #endif
-// EVENT_HANDLER_HPP
+// EVENT_DISPATCHER_HPP

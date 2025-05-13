@@ -2,7 +2,7 @@
 #define IRCSERVER_HPP
 
 #include <IRC.hpp>
-#include <EventHandler.hpp>
+#include <EventDispatcher.hpp>
 
 class IRCServer
 {
@@ -10,7 +10,7 @@ private:
 	int _port;
 	String _password;
 	int _serverFd;
-	EventHandler _eventHandler;
+	EventDispatcher _eventDispatcher;
 
 public:
 	IRCServer(int port, String password);

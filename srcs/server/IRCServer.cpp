@@ -23,7 +23,7 @@ void IRCServer::setup()
 		throw IRCException::ServerError(std::strerror(errno));
 	if (listen(_serverFd, MAX_CONN) < 0)
 		throw IRCException::ServerError(std::strerror(errno));
-	// _eventHandler.setServerFd(this->_serverFd);
+	_eventDispatcher.setServerFd(this->_serverFd);
 }
 
 void IRCServer::run()
