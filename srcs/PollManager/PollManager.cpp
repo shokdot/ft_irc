@@ -7,12 +7,7 @@ int PollManager::wait()
 
 void PollManager::addFd(int fd, short events)
 {
-	struct pollfd pollStruct;
-	pollStruct.fd = fd;
-	pollStruct.events = events; // error and hangup events, also
-	// POLLOUT for write check, for send response
-	pollStruct.revents = 0; //  ?
-	_fds.push_back(pollStruct);
+	_fds.push_back(createPollStruct(fd, events, 0));
 }
 
 void PollManager::removeFd(int fd)
@@ -29,4 +24,14 @@ void PollManager::removeFd(int fd)
 std::vector<struct pollfd> &PollManager::getPollFds()
 {
 	return _fds;
+}
+
+struct pollfd PollManager::createPollStruct(int fd, short events, short revents)
+{
+	struct pollfd pollStruct;
+	pollStruct.fd = fd;
+	pollStruct.events = events; // error and hangup events, also
+	// POLLOUT for write check, for send response
+	pollStruct.revents = revents; //  ?
+	return pollStruct;
 }
