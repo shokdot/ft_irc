@@ -12,7 +12,7 @@ void EventDispatcher::handleEvents()
 		{
 			// smth
 		}
-		else if (_pollManager.getPollFds()[i].revents & POLL_ERR | POLL_HUP)
+		else if (_pollManager.getPollFds()[i].revents & (POLL_ERR | POLL_HUP))
 		{
 			// smth
 		}
