@@ -26,6 +26,11 @@ std::vector<struct pollfd> &PollManager::getPollFds()
 	return _fds;
 }
 
+size_t PollManager::getPollSize()
+{
+	return _fds.size();
+}
+
 struct pollfd PollManager::createPollStruct(int fd, short events, short revents)
 {
 	struct pollfd pollStruct;

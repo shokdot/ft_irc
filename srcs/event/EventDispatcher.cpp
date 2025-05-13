@@ -2,10 +2,25 @@
 
 EventDispatcher::EventDispatcher() {}
 
+void EventDispatcher::handleEvents()
+{
+	if (_pollManager.wait() < -1)
+		throw IRCException::ServerError(std::strerror(errno));
+	for (size_t i = 0; i < _pollManager.getPollSize(); i++)
+	{
+		if (_pollManager.getPollFds()[i].revents & POLLIN)
+		{
+			// smth
+		}
+		else if (_pollManager.getPollFds()[i].revents & POLL_ERR | POLL_HUP)
+		{
+			// smth
+		}
+	}
+}
+
 // void EventHandler::handleEvents()
 // {
-// 	// addFd(_serverFd, POLLIN);
-// 	// _fds.push_back(createConnection(_serverFd, POLLIN));
 // 	// if (poll(&_fds[0], _fds.size(), -1) < 0)
 // 	// 	throw IRCException::ServerError(strerror(errno));
 
@@ -75,7 +90,7 @@ EventDispatcher::EventDispatcher() {}
 // 	}
 // }
 
-void EventDispatcher::setServerFd(int fd)
+void EventDispatcher::init(int fd)
 {
-	this->_serverFd = fd;
+	_pollManager.addFd(fd, POLLIN);
 }

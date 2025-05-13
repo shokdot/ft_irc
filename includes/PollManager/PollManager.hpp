@@ -14,6 +14,7 @@ public:
 	void addFd(int fd, short events);
 	void removeFd(int fd);
 	std::vector<struct pollfd> &getPollFds();
+	size_t getPollSize();
 };
 
 #endif

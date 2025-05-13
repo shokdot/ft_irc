@@ -2,16 +2,17 @@
 #define EVENT_DISPATCHER_HPP
 
 // #include <IdentService.hpp>
+#include <PollManager.hpp>
 
 class EventDispatcher
 {
 public:
 	EventDispatcher();
-	// void handleEvents();
-	void setServerFd(int);
+	void handleEvents();
+	void init(int);
 
 private:
-	int _serverFd;
+	PollManager _pollManager;
 	// void handlePOLLIN(int);
 	// void handlePOLLERR(int);
 	// void handleNewConnection();

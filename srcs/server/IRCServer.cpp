@@ -23,15 +23,15 @@ void IRCServer::setup()
 		throw IRCException::ServerError(std::strerror(errno));
 	if (listen(_serverFd, MAX_CONN) < 0)
 		throw IRCException::ServerError(std::strerror(errno));
-	_eventDispatcher.setServerFd(this->_serverFd);
+	_eventDispatcher.init(this->_serverFd);
 }
 
 void IRCServer::run()
 {
-	// while (true)
-	// {
-	// 	_eventHandler.handleEvents();
-	// }
+	while (true)
+	{
+		_eventDispatcher.handleEvents();
+	}
 }
 
 struct sockaddr_in IRCServer::createSockStruct(sa_family_t family, in_port_t port, in_addr_t addr)
