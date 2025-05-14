@@ -8,7 +8,7 @@ int Acceptor::acceptConnection(int serverFd)
 	socklen_t len = sizeof(clientAddr);
 	std::memset(&clientAddr, 0, len);
 	int clientFd = accept(serverFd, (struct sockaddr *)&clientAddr, &len);
-	if (clientFd < 0)
+	if (clientFd < 0 || fcntl(clientFd, F_SETFL, O_NONBLOCK) < 0)
 		throw IRCException::ServerError(strerror(errno));
 	std::cout << "[INFO] Client connected; fd -> " << clientFd << std::endl;
 	return clientFd;

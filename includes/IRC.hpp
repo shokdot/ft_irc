@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <poll.h>
 #include <map>
+#include <fcntl.h>
 
 #include <Defines.hpp>
 #include <Types.hpp>
