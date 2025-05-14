@@ -10,6 +10,8 @@ IRCServer::~IRCServer()
 {
 	if (close(_serverFd) < 0)
 		throw IRCException::ServerError(std::strerror(errno));
+
+	// implement
 }
 
 void IRCServer::setup()
