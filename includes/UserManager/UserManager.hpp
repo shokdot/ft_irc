@@ -1,5 +1,5 @@
-#ifndef USERMANAGER_HPP
-#define USERMANAGER_HPP
+#ifndef USER_MANAGER_HPP
+#define USER_MANAGER_HPP
 
 #include <IRC.hpp>
 #include <User.hpp>
@@ -16,3 +16,4 @@ public:
 };
 
 #endif
+// USER_MANAGER_HPP
