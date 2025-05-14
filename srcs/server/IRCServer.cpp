@@ -1,6 +1,6 @@
 #include <IRCServer.hpp>
 
-IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1), _running(false) {}
+IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1), _running(false), _eventDispatcher(this) {}
 
 IRCServer::~IRCServer()
 {
@@ -58,9 +58,4 @@ struct sockaddr_in IRCServer::createSockStruct(sa_family_t family, in_port_t por
 void IRCServer::stop()
 {
 	_running = false;
-}
-
-int IRCServer::getServerFd()
-{
-	return _serverFd;
 }

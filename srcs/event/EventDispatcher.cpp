@@ -1,5 +1,7 @@
 #include <EventDispatcher.hpp>
 
+EventDispatcher::EventDispatcher(IRCServer *server) : _server(server) {}
+
 void EventDispatcher::init(int fd)
 {
 	this->_serverFd = fd;
@@ -32,9 +34,12 @@ void EventDispatcher::handlePollErr(int fd)
 void EventDispatcher::handlePollIn(int fd)
 {
 	if (fd == _serverFd)
+	{
 		_pollManager.addFd(_acceptor.acceptConnection(fd), POLL_IN);
+	}
 	else
-		return;
+	{
+	}
 }
 
 void EventDispatcher::handlePollOut(int fd)
