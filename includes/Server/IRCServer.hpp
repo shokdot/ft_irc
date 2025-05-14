@@ -19,6 +19,7 @@ public:
 
 	void start();
 	void stop();
+	int getServerFd();
 
 private:
 	void setup();

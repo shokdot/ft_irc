@@ -59,3 +59,8 @@ void IRCServer::stop()
 {
 	_running = false;
 }
+
+int IRCServer::getServerFd()
+{
+	return _serverFd;
+}
