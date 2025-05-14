@@ -1,5 +1,5 @@
-#ifndef POLLMANAGER_HPP
-#define POLLMANAGER_HPP
+#ifndef POLL_MANAGER_HPP
+#define POLL_MANAGER_HPP
 
 #include <IRC.hpp>
 
@@ -18,3 +18,4 @@ public:
 };
 
 #endif
+// POLL_MANAGER_HPP
