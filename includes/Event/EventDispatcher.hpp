@@ -3,6 +3,7 @@
 
 // #include <IdentService.hpp>
 #include <PollManager.hpp>
+#include <Acceptor.hpp>
 
 class EventDispatcher
 {
@@ -13,6 +14,7 @@ public:
 private:
 	int _serverFd;
 	PollManager _pollManager;
+	Acceptor _acceptor;
 	void handlePollErr(int fd);
 	void handlePollIn(int fd);
 	void handlePollOut(int fd);

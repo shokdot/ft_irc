@@ -31,32 +31,16 @@ void EventDispatcher::handlePollErr(int fd)
 
 void EventDispatcher::handlePollIn(int fd)
 {
-	std::cout << "do smth. " << fd << std::endl;
-	// if (_fds[index].fd == _serverFd)
-	// 	handleNewConnection();
-	// else
-	// 	handleClientMessage(_fds[index].fd);
+	if (fd == _serverFd)
+		_pollManager.addFd(_acceptor.acceptConnection(fd), POLL_IN);
+	else
+		return;
 }
 
 void EventDispatcher::handlePollOut(int fd)
 {
 	std::cout << "do smth. " << fd << std::endl;
 }
-
-// void EventHandler::handleNewConnection()
-// {
-// 	struct sockaddr_in clientAddr;
-// 	socklen_t len = sizeof(clientAddr);
-// 	std::memset(&clientAddr, 0, len);
-// 	int clientFd = accept(_serverFd, (struct sockaddr *)&clientAddr, &len);
-// 	if (clientFd < 0)
-// 		throw IRCException::ServerError(strerror(errno));
-// 	// addFd(clientFd, POLLIN);
-// 	// _fds.push_back(createConnection(clientFd, POLLIN));
-// 	// IdentService::identLookup(clientAddr, 6667);
-// 	// std::cout << IdentService::reverseDNS(clientAddr) << std::endl;
-// 	std::cout << "New client connected: " << clientFd << std::endl;
-// }
 
 // void EventHandler::handleClientMessage(int clientFd)
 // {
