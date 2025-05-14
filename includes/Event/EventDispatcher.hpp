@@ -7,7 +7,6 @@
 class EventDispatcher
 {
 public:
-	EventDispatcher();
 	void handleEvents();
 	void init(int);
 

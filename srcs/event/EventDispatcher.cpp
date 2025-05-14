@@ -1,7 +1,5 @@
 #include <EventDispatcher.hpp>
 
-EventDispatcher::EventDispatcher() {}
-
 void EventDispatcher::handleEvents()
 {
 	if (_pollManager.wait() < -1)
