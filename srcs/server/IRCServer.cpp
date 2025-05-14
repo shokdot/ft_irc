@@ -1,10 +1,6 @@
 #include <IRCServer.hpp>
 
-IRCServer::IRCServer(int port, String password) : _port(port), _password(password)
-{
-	this->setup();
-	this->run();
-}
+IRCServer::IRCServer(int port, String password) : _port(port), _password(password) {}
 
 IRCServer::~IRCServer()
 {
@@ -12,6 +8,12 @@ IRCServer::~IRCServer()
 		throw IRCException::ServerError(std::strerror(errno));
 
 	// implement
+}
+
+void IRCServer::start()
+{
+	this->setup();
+	this->run();
 }
 
 void IRCServer::setup()

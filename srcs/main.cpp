@@ -6,6 +6,7 @@ int main(int ac, char **av)
 	{
 		std::pair<int, String> conf = InputValidator::validateArgs(ac, av);
 		IRCServer server(conf.first, conf.second);
+		server.start();
 	}
 	catch (const std::exception &e)
 	{
