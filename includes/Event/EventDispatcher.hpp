@@ -12,6 +12,7 @@ public:
 	void init(int);
 
 private:
+	int _serverFd;
 	PollManager _pollManager;
 	// void handlePOLLIN(int);
 	// void handlePOLLERR(int);

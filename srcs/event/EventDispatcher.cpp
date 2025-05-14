@@ -88,5 +88,6 @@ void EventDispatcher::handleEvents()
 
 void EventDispatcher::init(int fd)
 {
-	_pollManager.addFd(fd, POLLIN);
+	this->_serverFd = fd;
+	_pollManager.addFd(_serverFd, POLLIN);
 }
