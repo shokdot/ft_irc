@@ -1,5 +1,5 @@
-#ifndef INPUTVALIDATOR_HPP
-#define INPUTVALIDATOR_HPP
+#ifndef INPUT_VALIDATOR_HPP
+#define INPUT_VALIDATOR_HPP
 
 #include <IRC.hpp>
 
@@ -14,4 +14,4 @@ private:
 };
 
 #endif
-// INPUTVALIDATOR_HPP
+// INPUT_VALIDATOR_HPP
