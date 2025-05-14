@@ -1,6 +1,9 @@
 #include <EventDispatcher.hpp>
 
-EventDispatcher::EventDispatcher(IRCServer *server) : _server(server) {}
+EventDispatcher::EventDispatcher(IRCServer *server) : _server(server)
+{
+	_cmdHandler.setServer(_server);
+}
 
 void EventDispatcher::init(int fd)
 {

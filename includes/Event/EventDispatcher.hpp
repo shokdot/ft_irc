@@ -4,6 +4,7 @@
 // #include <IdentService.hpp>
 #include <PollManager.hpp>
 #include <Acceptor.hpp>
+#include <CmdHandler.hpp>
 
 class IRCServer;
 
@@ -19,12 +20,11 @@ private:
 	IRCServer *_server;
 	PollManager _pollManager;
 	Acceptor _acceptor;
+	CmdHandler _cmdHandler;
 	void handlePollErr(int fd);
 	void handlePollIn(int fd);
 	void handlePollOut(int fd);
 };
-
-#include <IRCServer.hpp>
 
 #endif
 // EVENT_DISPATCHER_HPP
