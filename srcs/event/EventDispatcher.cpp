@@ -26,7 +26,6 @@ void EventDispatcher::handleEvents()
 void EventDispatcher::handlePollErr(int fd)
 {
 	std::cout << "Error or Disconected fd -> " << fd << std::endl;
-	close(fd);
 	_pollManager.removeFd(fd);
 }
 

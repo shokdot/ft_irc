@@ -15,7 +15,10 @@ void PollManager::removeFd(int fd)
 	for (std::vector<struct pollfd>::iterator it = _fds.begin(); it != _fds.end();)
 	{
 		if (it->fd == fd)
+		{
+			close(fd);
 			it = _fds.erase(it);
+		}
 		else
 			++it;
 	}
