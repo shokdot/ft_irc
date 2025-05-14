@@ -1,12 +1,14 @@
 #include <IRCServer.hpp>
 
-IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1) {}
+IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1), _running(false) {}
 
 IRCServer::~IRCServer()
 {
 	if (_serverFd >= 0)
 		if (close(_serverFd) < 0)
-			throw IRCException::ServerError(std::strerror(errno));
+			std::cerr << "Error closing server socket: " << strerror(errno) << std::endl;
+
+	// to be continued
 }
 
 void IRCServer::start()
@@ -35,7 +37,8 @@ void IRCServer::setup()
 
 void IRCServer::run()
 {
-	while (true)
+	_running = true;
+	while (_running)
 	{
 		_eventDispatcher.handleEvents();
 	}
@@ -48,4 +51,9 @@ struct sockaddr_in IRCServer::createSockStruct(sa_family_t family, in_port_t por
 	sockStruct.sin_port = htons(port);
 	sockStruct.sin_addr.s_addr = addr;
 	return sockStruct;
+}
+
+void IRCServer::stop()
+{
+	_running = false;
 }

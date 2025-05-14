@@ -10,6 +10,7 @@ private:
 	int _port;
 	String _password;
 	int _serverFd;
+	bool _running;
 	EventDispatcher _eventDispatcher;
 
 public:
@@ -17,6 +18,7 @@ public:
 	~IRCServer();
 
 	void start();
+	void stop();
 
 private:
 	void setup();
