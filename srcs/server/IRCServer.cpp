@@ -18,6 +18,10 @@ void IRCServer::setup()
 	if (this->_serverFd < 0)
 		throw IRCException::ServerError(std::strerror(errno));
 
+	int opt = 1;
+	if (setsockopt(_serverFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
+		throw IRCException::ServerError(std::strerror(errno));
+
 	struct sockaddr_in sockStruct = createSockStruct(AF_INET, _port, INADDR_ANY);
 	if (bind(_serverFd, (struct sockaddr *)&sockStruct, sizeof(sockStruct)) < 0)
 		throw IRCException::ServerError(std::strerror(errno));
