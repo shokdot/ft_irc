@@ -8,7 +8,7 @@ void EventDispatcher::init(int fd)
 
 void EventDispatcher::handleEvents()
 {
-	if (_pollManager.wait() < -1)
+	if (_pollManager.wait() < 0)
 		throw IRCException::ServerError(std::strerror(errno));
 
 	const std::vector<struct pollfd> &fds = _pollManager.getPollFds();
