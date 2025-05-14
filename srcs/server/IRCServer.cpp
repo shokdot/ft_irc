@@ -1,13 +1,12 @@
 #include <IRCServer.hpp>
 
-IRCServer::IRCServer(int port, String password) : _port(port), _password(password) {}
+IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1) {}
 
 IRCServer::~IRCServer()
 {
-	if (close(_serverFd) < 0)
-		throw IRCException::ServerError(std::strerror(errno));
-
-	// implement
+	if (_serverFd >= 0)
+		if (close(_serverFd) < 0)
+			throw IRCException::ServerError(std::strerror(errno));
 }
 
 void IRCServer::start()
