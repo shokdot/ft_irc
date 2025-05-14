@@ -13,10 +13,9 @@ public:
 private:
 	int _serverFd;
 	PollManager _pollManager;
-	// void handlePOLLIN(int);
-	// void handlePOLLERR(int);
-	// void handleNewConnection();
-	// void handleClientMessage(int clientFd);
+	void handlePollErr(int fd);
+	void handlePollIn(int fd);
+	void handlePollOut(int fd);
 };
 
 #endif
