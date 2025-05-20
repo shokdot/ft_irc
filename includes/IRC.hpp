@@ -16,6 +16,8 @@
 #include <poll.h>
 #include <map>
 #include <fcntl.h>
+#include <errno.h>
+#include <climits>
 
 #include <Defines.hpp>
 #include <Types.hpp>
