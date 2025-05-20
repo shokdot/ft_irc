@@ -4,11 +4,7 @@ IRCServer::IRCServer(int port, String password) : _port(port), _password(passwor
 
 IRCServer::~IRCServer()
 {
-	if (_serverFd >= 0)
-		if (close(_serverFd) < 0)
-			std::cerr << "Error closing server socket: " << strerror(errno) << std::endl;
-
-	// to be continued
+	stop();
 }
 
 void IRCServer::start()
@@ -58,4 +54,10 @@ struct sockaddr_in IRCServer::createSockStruct(sa_family_t family, in_port_t por
 void IRCServer::stop()
 {
 	_running = false;
+	if (_serverFd >= 0)
+	{
+		if (close(_serverFd) < 0)
+			throw IRCException::ServerError(std::strerror(errno));
+		_serverFd = -1;
+	}
 }
