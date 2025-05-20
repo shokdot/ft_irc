@@ -8,7 +8,19 @@ NAME = ircserv
 SRC_DIR = srcs/
 OBJ_DIR = build/
 
-SUBDIRS = inputValidator/ server/ utils/ user/ event/ exceptions/ identService/ pollManager/ acceptor/ cmdHandler/
+SUBDIRS = inputValidator/ \
+		ircServer/ \
+		utils/ \
+		user/ \
+		eventDispatcher/ \
+		exceptions/ \
+		identService/ \
+		pollManager/ \
+		iEventStrategy/ \
+		acceptStrategy/ \
+		errorStrategy/ \
+		msgStrategy/
+
 INCLPATH = includes/
 
 SRCDIRS = $(addprefix $(SRC_DIR)/, $(SUBDIRS))
@@ -16,7 +28,7 @@ SRCS = $(notdir $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.cpp))) $(notdir $
 OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 DEBUG = # -fsanitize=address -g3
 
 HEADERS     = $(shell find $(INCLPATH) -type f -name '*.hpp')
