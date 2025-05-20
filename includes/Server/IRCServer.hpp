@@ -15,7 +15,7 @@ private:
 
 public:
 	IRCServer(int port, String password);
-	~IRCServer();
+	~IRCServer() throw();
 
 	void start();
 	void stop();
