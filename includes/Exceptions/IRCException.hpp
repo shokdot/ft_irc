@@ -13,7 +13,7 @@ namespace IRCException
 
 		virtual const char *what() const throw();
 
-	private:
+	protected:
 		String _msg;
 	};
 }
