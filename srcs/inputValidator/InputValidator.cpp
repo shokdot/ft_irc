@@ -17,9 +17,9 @@ int InputValidator::validatePort(char *str)
 	errno = 0;
 	long port = std::strtol(str, 0, 10);
 	if (errno == ERANGE || port > INT_MAX || port < INT_MIN)
-		throw IRCException::InputError("Port value out of int range");
-	else if (port < 1024 || port > 65535)
-		throw IRCException::InputError("Port value out of int range");
+		throw IRCException::InputError("Port must be between 1024 and 65535");
+	else if (port < PORT_MIN_RANGE || port > PORT_MAX_RANGE)
+		throw IRCException::InputError("Port must be between 1024 and 65535");
 	return static_cast<int>(port);
 }
 
