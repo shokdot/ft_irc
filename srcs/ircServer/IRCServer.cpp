@@ -31,6 +31,7 @@ void IRCServer::setup()
 	if (listen(_serverFd, MAX_CONN) < 0)
 		throw IRCException::ServerError(std::strerror(errno));
 	_eventDispatcher.init(this->_serverFd);
+	std::cout << "[INFO] Server running on port " << _port << std::endl;
 }
 
 void IRCServer::run()
