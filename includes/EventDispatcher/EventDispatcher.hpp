@@ -1,13 +1,10 @@
 #ifndef EVENT_DISPATCHER_HPP
 #define EVENT_DISPATCHER_HPP
 
-// #include <IdentService.hpp>
 #include <PollManager.hpp>
 #include <MsgStrategy.hpp>
 #include <ErrorStrategy.hpp>
 #include <AcceptStrategy.hpp>
-// #include <Acceptor.hpp>
-// #include <CmdHandler.hpp>
 
 class IRCServer;
 
@@ -24,11 +21,6 @@ private:
 	IRCServer *_server __unused;
 	PollManager _pollManager;
 	std::map<int, IEventStrategy *> _strategies;
-	// Acceptor _acceptor;
-	// CmdHandler _cmdHandler;
-	// void handlePollErr(int fd);
-	// void handlePollIn(int fd);
-	// void handlePollOut(int fd);
 };
 
 #endif
