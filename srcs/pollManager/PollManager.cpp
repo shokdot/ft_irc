@@ -7,7 +7,7 @@ int PollManager::wait()
 
 void PollManager::addFd(int fd, short events)
 {
-	_fds.push_back(createPollStruct(fd, events));
+	_fds.push_back(Utils::createPollStruct(fd, events));
 }
 
 void PollManager::removeFd(int fd)
@@ -27,18 +27,4 @@ void PollManager::removeFd(int fd)
 std::vector<struct pollfd> &PollManager::getPollFds()
 {
 	return _fds;
-}
-
-size_t PollManager::getPollSize()
-{
-	return _fds.size();
-}
-
-struct pollfd PollManager::createPollStruct(int fd, short events)
-{
-	struct pollfd pollStruct;
-	pollStruct.fd = fd;
-	pollStruct.events = events;
-	pollStruct.revents = 0;
-	return pollStruct;
 }

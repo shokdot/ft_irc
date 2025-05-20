@@ -38,3 +38,12 @@ struct sockaddr_in Utils::createSockStruct(sa_family_t family, in_port_t port, i
 	sockStruct.sin_addr.s_addr = addr;
 	return sockStruct;
 }
+
+struct pollfd Utils::createPollStruct(int fd, short events)
+{
+	struct pollfd pollStruct;
+	pollStruct.fd = fd;
+	pollStruct.events = events;
+	pollStruct.revents = 0;
+	return pollStruct;
+}
