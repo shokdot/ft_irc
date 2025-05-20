@@ -7,7 +7,7 @@ class PollManager
 {
 private:
 	std::vector<struct pollfd> _fds;
-	struct pollfd createPollStruct(int fd, short events, short revents);
+	struct pollfd createPollStruct(int fd, short events);
 
 public:
 	int wait();
