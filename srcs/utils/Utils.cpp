@@ -29,3 +29,12 @@ void Utils::sendWrapper(const String &str, int sock_fd)
 {
 	send(sock_fd, str.c_str(), str.length(), 0);
 }
+
+struct sockaddr_in Utils::createSockStruct(sa_family_t family, in_port_t port, in_addr_t addr)
+{
+	struct sockaddr_in sockStruct;
+	sockStruct.sin_family = family;
+	sockStruct.sin_port = htons(port);
+	sockStruct.sin_addr.s_addr = addr;
+	return sockStruct;
+}
