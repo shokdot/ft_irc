@@ -16,7 +16,8 @@ void PollManager::removeFd(int fd)
 	{
 		if (it->fd == fd)
 		{
-			close(fd);
+			if (close(fd) < 0)
+				std::cout << "[ERROR] Close client " << fd << std::endl;
 			it = _fds.erase(it);
 		}
 		else
