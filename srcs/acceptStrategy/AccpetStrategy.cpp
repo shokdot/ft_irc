@@ -1,13 +1,9 @@
 #include <AcceptStrategy.hpp>
 #include <IRCServer.hpp>
 
-AcceptStrategy::AcceptStrategy()
-{
-}
+AcceptStrategy::AcceptStrategy() {}
 
-AcceptStrategy::~AcceptStrategy()
-{
-}
+AcceptStrategy::~AcceptStrategy() {}
 
 void AcceptStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &server)
 {
