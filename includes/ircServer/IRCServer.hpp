@@ -2,8 +2,8 @@
 #define IRCSERVER_HPP
 
 #include <IRC.hpp>
-#include <EventDispatcher.hpp>
 #include <UserManager.hpp>
+#include <EventDispatcher.hpp>
 
 class IRCServer
 {
@@ -21,6 +21,7 @@ public:
 
 	void start();
 	void stop();
+	UserManager &getUserManager();
 
 private:
 	void setup();

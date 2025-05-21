@@ -53,3 +53,5 @@ void IRCServer::stop()
 		_serverFd = -1;
 	}
 }
+
+UserManager &IRCServer::getUserManager() { return _userManager; }
