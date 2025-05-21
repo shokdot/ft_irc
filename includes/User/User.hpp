@@ -6,7 +6,7 @@
 class User
 {
 private:
-	int _socketFd;
+	const int _socketFd;
 	String _username;
 	String _nickname;
 	String _realname;
@@ -14,7 +14,7 @@ private:
 	bool _isAuth;
 
 public:
-	User(int);
+	User(int fd);
 	~User();
 
 	void setUsername(const String &);
