@@ -15,11 +15,7 @@ void PollManager::removeFd(int fd)
 	for (std::vector<struct pollfd>::iterator it = _fds.begin(); it != _fds.end();)
 	{
 		if (it->fd == fd)
-		{
-			if (close(fd) < 0)
-				std::cout << "[ERROR] Close client " << fd << std::endl;
 			it = _fds.erase(it);
-		}
 		else
 			++it;
 	}
