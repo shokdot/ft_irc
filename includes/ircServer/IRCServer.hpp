@@ -3,6 +3,7 @@
 
 #include <IRC.hpp>
 #include <EventDispatcher.hpp>
+#include <UserManager.hpp>
 
 class IRCServer
 {
@@ -12,6 +13,7 @@ private:
 	int _serverFd;
 	bool _running;
 	EventDispatcher _eventDispatcher;
+	UserManager _userManager;
 
 public:
 	IRCServer(int port, String password);
