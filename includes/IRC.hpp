@@ -4,9 +4,11 @@
 #include <iostream>
 #include <exception>
 #include <sstream>
+#include <map>
 #include <vector>
 #include <cstdlib>
 #include <cstring>
+#include <climits>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -14,10 +16,8 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <poll.h>
-#include <map>
 #include <fcntl.h>
 #include <errno.h>
-#include <climits>
 
 #include <Defines.hpp>
 #include <Types.hpp>
@@ -25,7 +25,6 @@
 #include <Channel.hpp>
 #include <Utils.hpp>
 #include <IRCException.hpp>
-// #include <EventHandler.hpp>
 
 #endif
 // IRC_HPP
