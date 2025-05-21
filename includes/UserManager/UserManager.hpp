@@ -13,6 +13,7 @@ private:
 public:
 	void addUser(int fd, User *);
 	void removeUser(int fd);
+	User *createUser(int fd);
 };
 
 #endif
