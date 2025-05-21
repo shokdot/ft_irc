@@ -46,50 +46,7 @@ void EventDispatcher::handleEvents()
 	}
 }
 
-// void EventDispatcher::handlePollErr(int fd)
-// {
-// 	std::cout << "Error or Disconected fd -> " << fd << std::endl;
-// 	_pollManager.removeFd(fd);
-// }
-
-// void EventDispatcher::handlePollIn(int fd)
-// {
-// 	if (fd == _serverFd)
-// 	{
-// 		_pollManager.addFd(_acceptor.acceptConnection(fd), POLL_IN);
-// 	}
-// 	else
-// 	{
-// 	}
-// }
-
 // void EventDispatcher::handlePollOut(int fd)
 // {
 // 	std::cout << "do smth. " << fd << std::endl;
-// }
-
-// void EventHandler::handleClientMessage(int clientFd)
-// {
-// 	char buffer[1024];
-// 	std::memset(buffer, 0, sizeof(buffer));
-// 	int bytes = read(clientFd, buffer, sizeof(buffer) - 1);
-// 	if (bytes <= 0)
-// 	{
-// 		std::cout << "Client disconnected: " << clientFd << std::endl;
-// 		close(clientFd);
-// 		// removeFd(clientFd)
-// 		// for (std::vector<struct pollfd>::iterator it = _fds.begin(); it != _fds.end(); ++it)
-// 		// {
-// 		// 	if (it->fd == clientFd)
-// 		// 	{
-// 		// 		_fds.erase(it);
-// 		// 		break;
-// 		// 	}
-// 		// }
-// 	}
-// 	else
-// 	{
-// 		std::cout << "Message from " << clientFd << ": " << buffer;
-// 		// TODO: Parse and respond to IRC commands
-// 	}
 // }
