@@ -13,6 +13,7 @@ SUBDIRS = inputValidator/ \
 		utils/ \
 		user/ \
 		eventDispatcher/ \
+		userManager/ \
 		exceptions/ \
 		identService/ \
 		pollManager/ \

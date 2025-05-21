@@ -10,7 +10,7 @@ void UserManager::addUser(int fd, User *newUser)
 		_usersByNick[nickname] = newUser;
 }
 
-void UserManager::removeUser(int fd)
+void UserManager::removeUser(int fd __unused)
 {
 	// remove behavior
 }
