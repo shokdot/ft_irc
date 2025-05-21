@@ -8,8 +8,8 @@
 class IRCServer
 {
 private:
-	int _port;
-	String _password;
+	const int _port;
+	const String _password;
 	int _serverFd;
 	bool _running;
 	EventDispatcher _eventDispatcher;
