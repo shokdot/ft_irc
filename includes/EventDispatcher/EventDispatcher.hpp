@@ -11,14 +11,14 @@ class IRCServer;
 class EventDispatcher
 {
 public:
-	EventDispatcher(IRCServer *server);
+	EventDispatcher(IRCServer &server);
 	~EventDispatcher();
 	void handleEvents();
 	void init(int);
 
 private:
 	int _serverFd;
-	IRCServer *_server __unused;
+	IRCServer &_server;
 	PollManager _pollManager;
 	std::map<int, IEventStrategy *> _strategies;
 };

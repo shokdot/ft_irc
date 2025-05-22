@@ -1,6 +1,6 @@
 #include <EventDispatcher.hpp>
 
-EventDispatcher::EventDispatcher(IRCServer *server) : _server(server)
+EventDispatcher::EventDispatcher(IRCServer &server) : _server(server)
 {
 	_strategies[MESSAGE] = new MsgStrategy();
 	_strategies[ERROR] = new ErrorStrategy();
@@ -42,7 +42,7 @@ void EventDispatcher::handleEvents()
 			strategy = _strategies[ERROR];
 
 		if (strategy)
-			strategy->handleEvent(fds[i].fd, _pollManager, *_server);
+			strategy->handleEvent(fds[i].fd, _pollManager, _server);
 	}
 }
 
