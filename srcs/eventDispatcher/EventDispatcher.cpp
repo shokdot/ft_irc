@@ -45,8 +45,3 @@ void EventDispatcher::handleEvents()
 			strategy->handleEvent(fds[i].fd, _pollManager, _server);
 	}
 }
-
-// void EventDispatcher::handlePollOut(int fd)
-// {
-// 	std::cout << "do smth. " << fd << std::endl;
-// }
