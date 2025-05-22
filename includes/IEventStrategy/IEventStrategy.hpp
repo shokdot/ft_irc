@@ -10,7 +10,7 @@ class IEventStrategy
 {
 public:
 	virtual ~IEventStrategy();
-	virtual void handleEvent(int fd __unused, PollManager &pollManager __unused, IRCServer &server __unused) = 0;
+	virtual void handleEvent(int fd, PollManager &pollManager, IRCServer &server) = 0;
 };
 
 #endif
