@@ -10,36 +10,56 @@ void MsgStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &serve
 	UserManager &userManager = server.getUserManager();
 	// ChannelManager &channelManager = server.getChannelManager();
 
+	if (!readFromSock(fd, pollManager, userManager))
+		return;
+	if (!checkBuffLength(fd, pollManager, userManager))
+		return;
+	processMsg(fd);
+}
+
+void MsgStrategy::processMsg(int fd)
+{
+	std::string &data = sockBuffer[fd];
+	size_t pos;
+	while ((pos = data.find("\r\n")) != std::string::npos)
+	{
+		std::string line = data.substr(0, pos);
+		data.erase(0, pos + 2);
+		if (line.length() > 510)
+		{
+			std::cout << "[WARNING] Client " << fd << " sent too much data" << std::endl;
+			continue;
+		}
+		std::cout << "Message from " << fd << ": " << line << std::endl;
+	}
+}
+
+bool MsgStrategy::readFromSock(int fd, PollManager &pollManager, UserManager &userManager)
+{
 	char buffer[1024];
 	std::memset(buffer, 0, sizeof(buffer));
 	int bytes = recv(fd, buffer, sizeof(buffer) - 1, 0);
 	if (bytes <= 0)
 	{
 		if (errno == EAGAIN || errno == EWOULDBLOCK)
-			return;
+			return false;
 		disconnect(fd, bytes, pollManager, userManager);
-		return;
+		return false;
 	}
 	sockBuffer[fd] += std::string(buffer, bytes);
+	return true;
+}
+
+bool MsgStrategy::checkBuffLength(int fd, PollManager &pollManager, UserManager &userManager)
+{
 	std::string &data = sockBuffer[fd];
 	if (data.length() > 2048)
 	{
-		std::cerr << "Client " << fd << " sent too much data without newline. Disconnecting" << std::endl; // change
+		std::cout << "[WARNING] Client " << fd << " sent too much data" << std::endl;
 		disconnect(fd, -1, pollManager, userManager);
-		return;
+		return false;
 	}
-	size_t pos;
-	while ((pos = data.find("\r\n")) != std::string::npos)
-	{
-		std::string line = data.substr(0, pos);
-		data.erase(0, pos + 2); // remove the line and \r\n
-		if (line.length() > 510)
-		{
-			std::cout << "Error too long" << std::endl; // change
-			continue;
-		}
-		std::cout << "Message from " << fd << ": " << line << std::endl;
-	}
+	return true;
 }
 
 void MsgStrategy::disconnect(int fd, int bytes, PollManager &pollManager, UserManager &userManager)

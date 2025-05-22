@@ -17,6 +17,9 @@ public:
 	void handleEvent(int fd, PollManager &pollManager, IRCServer &server);
 
 private:
+	bool readFromSock(int fd, PollManager &pollManager, UserManager &userManager);
+	bool checkBuffLength(int fd, PollManager &PollManager, UserManager &UserManager);
+	void processMsg(int fd);
 	void disconnect(int fd, int bytes, PollManager &pollManager, UserManager &userManager);
 };
 
