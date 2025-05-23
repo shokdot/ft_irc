@@ -20,7 +20,11 @@ SUBDIRS = inputValidator/ \
 		iEventStrategy/ \
 		acceptStrategy/ \
 		errorStrategy/ \
-		msgStrategy/
+		msgStrategy/ \
+		cmdRegistry/ \
+		cmdDispatcher/ \
+		ACommand/ \
+		commands/
 
 INCLPATH = includes/
 

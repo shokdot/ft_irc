@@ -14,16 +14,16 @@ void MsgStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &serve
 		return;
 	if (!checkBuffLength(fd, pollManager, userManager))
 		return;
-	processMsg(fd);
+	processMsg(fd, server);
 }
 
-void MsgStrategy::processMsg(int fd)
+void MsgStrategy::processMsg(int fd, IRCServer &server)
 {
-	std::string &data = sockBuffer[fd];
+	String &data = sockBuffer[fd];
 	size_t pos;
-	while ((pos = data.find("\r\n")) != std::string::npos)
+	while ((pos = data.find("\r\n")) != String::npos)
 	{
-		std::string line = data.substr(0, pos);
+		String line = data.substr(0, pos);
 		data.erase(0, pos + 2);
 		if (line.length() > 510)
 		{
@@ -31,6 +31,7 @@ void MsgStrategy::processMsg(int fd)
 			continue;
 		}
 		std::cout << "Message from " << fd << ": " << line << std::endl;
+		_dispatcher.dispatch(fd, line, server);
 	}
 }
 
