@@ -2,6 +2,7 @@
 
 void CmdParser::parseCmd(String &rawLine)
 {
+	(void)rawLine;
 }
 
 bool CmdParser::isValidHostname(const String &hostname)
