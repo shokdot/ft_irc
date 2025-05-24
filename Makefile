@@ -24,7 +24,8 @@ SUBDIRS = inputValidator/ \
 		cmdRegistry/ \
 		cmdDispatcher/ \
 		ACommand/ \
-		commands/
+		commands/ \
+		cmdParser/
 
 INCLPATH = includes/
 

@@ -3,6 +3,7 @@
 
 #include <IRC.hpp>
 #include <CmdRegistry.hpp>
+#include <CmdParser.hpp>
 
 class IRCServer;
 
