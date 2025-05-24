@@ -8,7 +8,6 @@ MsgStrategy::~MsgStrategy() {}
 void MsgStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &server)
 {
 	UserManager &userManager = server.getUserManager();
-	// ChannelManager &channelManager = server.getChannelManager();
 
 	if (!readFromSock(fd, pollManager, userManager))
 		return;
