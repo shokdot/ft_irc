@@ -29,7 +29,6 @@ void MsgStrategy::processMsg(int fd, IRCServer &server)
 			std::cout << "[WARNING] Client " << fd << " sent too much data" << std::endl;
 			continue;
 		}
-		std::cout << "Message from " << fd << ": " << line << std::endl;
 		_dispatcher.dispatch(fd, line, server);
 	}
 }
