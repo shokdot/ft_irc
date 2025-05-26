@@ -1,8 +1,50 @@
 #include <CmdParser.hpp>
 
-void CmdParser::parseCmd(String &rawLine)
+bool CmdParser::parseCmd(String &rawLine, FullCmd &command)
 {
-	(void)rawLine;
+	if (rawLine.empty() || rawLine.size() > 510)
+		return false;
+	if (rawLine.front() == ':' && !parsePrefix(rawLine, command.prefix))
+		return false;
+	if (!parseCmdName(rawLine, command.cmdName))
+		return false;
+
+	return true;
+}
+
+bool CmdParser::parseCmdName(String &rawLine, String &cmdName)
+{
+	size_t spacePos = rawLine.find(' ');
+	if (spacePos == String::npos)
+		cmdName = rawLine;
+	else
+	{
+		cmdName = rawLine.substr(0, spacePos);
+		rawLine = rawLine.erase(0, spacePos + 1);
+	}
+	if (cmdName.empty())
+		return false;
+	int c;
+	for (size_t i = 0; i < cmdName.size(); ++i)
+	{
+		c = static_cast<unsigned char>(cmdName[i]);
+		if (!std::isalpha(c))
+			return false;
+	}
+	cmdName = Utils::strToUpper(cmdName);
+	return true;
+}
+
+bool CmdParser::parsePrefix(String &rawLine, CmdPrefix &cmdPrefix)
+{
+	size_t spacePos = rawLine.find(' ');
+	if (spacePos == String::npos || spacePos == 1)
+		return false;
+	String prefix = rawLine.substr(1, spacePos - 1);
+	if (!extractPrefix(prefix, cmdPrefix))
+		return false;
+	rawLine = rawLine.erase(0, spacePos + 1);
+	return true;
 }
 
 bool CmdParser::isValidHostname(const String &hostname)
@@ -111,43 +153,49 @@ bool CmdParser::isValidHost(const String &host)
 	return true;
 }
 
-struct PrefixInfo
+bool CmdParser::extractPrefix(const String &prefix, CmdPrefix &res)
 {
-	std::string nickname;
-	std::string user;
-	std::string host;
-};
+	size_t exclPos = prefix.find('!');
+	size_t atPos = prefix.find('@');
 
-bool CmdParser::isValidPrefix(const String &prefix)
-{
-	PrefixInfo result;
-	size_t excl_pos = prefix.find('!');
-	size_t at_pos = prefix.find('@');
-
-	if (excl_pos != std::string::npos && at_pos != std::string::npos && excl_pos < at_pos)
+	if (exclPos != String::npos && atPos != String::npos && exclPos < atPos)
 	{
-		result.nickname = prefix.substr(0, excl_pos);
-		result.user = prefix.substr(excl_pos + 1, at_pos - excl_pos - 1);
-		result.host = prefix.substr(at_pos + 1);
-		if (!isValidNick(result.nickname) || !isValidUser(result.user) || !isValidHost(result.host))
+		res.nickname = prefix.substr(0, exclPos);
+		res.user = prefix.substr(exclPos + 1, atPos - exclPos - 1);
+		res.host = prefix.substr(atPos + 1);
+		res.type = PREFIX_USER;
+
+		if (!isValidNick(res.nickname) || !isValidUser(res.user) || !isValidHost(res.host))
 			return false;
 	}
-	else if (at_pos != std::string::npos)
+	else if (atPos != String::npos)
 	{
-		result.nickname = prefix.substr(0, at_pos);
-		result.user = "";
-		result.host = prefix.substr(at_pos + 1);
-		if (!isValidNick(result.nickname) || !isValidHost(result.host))
+		res.nickname = prefix.substr(0, atPos);
+		res.host = prefix.substr(atPos + 1);
+		res.user = "";
+		res.type = PREFIX_USER;
+
+		if (!isValidNick(res.nickname) || !isValidHost(res.host))
 			return false;
 	}
 	else
 	{
-		result.nickname = prefix;
-		result.user = "";
-		result.host = "";
-		if (!isValidNick(result.nickname))
+		if (isValidNick(prefix))
+		{
+			res.nickname = prefix;
+			res.user = "";
+			res.host = "";
+			res.type = PREFIX_USER;
+		}
+		else if (isValidHostname(prefix))
+		{
+			res.server = prefix;
+			res.type = PREFIX_SERVER;
+		}
+		else
 			return false;
 	}
+
 	return true;
 }
 

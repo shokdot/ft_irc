@@ -6,7 +6,9 @@
 class CmdParser
 {
 public:
-	static void parseCmd(String &rawLine);
+	static bool parseCmd(String &rawLine, FullCmd &command);
+	static bool parsePrefix(String &rawLine, CmdPrefix &cmdPrefix);
+	static bool extractPrefix(const String &prefix, CmdPrefix &res);
 	static bool isValidHostname(const String &hostname);
 	static bool isValidShortName(const String &shortName);
 	static std::vector<String> splitByDelim(const String &str, char delimeter);
@@ -15,8 +17,8 @@ public:
 	static bool isSpecial(char c);
 	static bool isValidHostPart(const String &part);
 	static bool isValidHost(const String &host);
-	static bool isValidPrefix(const String &prefix);
 	static bool isValidUser(const String &user);
+	static bool parseCmdName(String &rawLine, String &cmdName);
 };
 
 #endif
