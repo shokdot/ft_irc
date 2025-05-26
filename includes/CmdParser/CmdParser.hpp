@@ -19,6 +19,7 @@ public:
 	static bool isValidHost(const String &host);
 	static bool isValidUser(const String &user);
 	static bool parseCmdName(String &rawLine, String &cmdName);
+	static bool parseParams(String &rawLine, std::vector<String> &params, String &trailing);
 };
 
 #endif

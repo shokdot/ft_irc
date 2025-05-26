@@ -8,6 +8,41 @@ bool CmdParser::parseCmd(String &rawLine, FullCmd &command)
 		return false;
 	if (!parseCmdName(rawLine, command.cmdName))
 		return false;
+	if (!parseParams(rawLine, command.params, command.trailing))
+		return false;
+	return true;
+}
+
+bool CmdParser::parseParams(String &rawLine, std::vector<String> &params, String &trailing)
+{
+	std::istringstream iss(rawLine);
+	std::string token;
+	int paramCount = 0;
+
+	while (iss >> token)
+	{
+		if (token[0] == ':' || paramCount == 14)
+		{
+			std::string tmp_trailing;
+			if (token[0] == ':')
+				tmp_trailing = token.substr(1);
+			else
+				tmp_trailing = token;
+
+			std::string rest;
+			std::getline(iss, rest);
+			if (!rest.empty())
+				tmp_trailing += rest;
+
+			trailing = tmp_trailing;
+			break;
+		}
+		else
+		{
+			params.push_back(token);
+			paramCount++;
+		}
+	}
 
 	return true;
 }
