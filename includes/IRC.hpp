@@ -19,8 +19,8 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#include <Defines.hpp>
 #include <Types.hpp>
+#include <Defines.hpp>
 #include <InputValidator.hpp>
 #include <Channel.hpp>
 #include <Utils.hpp>
