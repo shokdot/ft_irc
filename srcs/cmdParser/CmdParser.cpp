@@ -57,15 +57,15 @@ std::vector<String> CmdParser::splitByDelim(const String &str, char delimiter)
 
 bool CmdParser::isValidNick(const String &nick)
 {
-	if (nick.empty() || nick.size() > 8)
+	if (nick.empty() || nick.size() > 9)
 		return false;
-	if (!std::isalpha(static_cast<unsigned char>(nick.front())) || !isSpecial(static_cast<unsigned char>(nick.front())))
+	if (!std::isalpha(static_cast<unsigned char>(nick.front())) && !isSpecial(static_cast<unsigned char>(nick.front())))
 		return false;
 	char c;
 	for (size_t i = 0; i < nick.size(); ++i)
 	{
 		c = static_cast<unsigned char>(nick[i]);
-		if (!std::isalnum(c) || !isSpecial(c) || c == '-')
+		if (!std::isalnum(c) && !isSpecial(c) && c == '-')
 			return false;
 	}
 	return true;
@@ -106,7 +106,7 @@ bool CmdParser::isValidHostPart(const String &part)
 
 bool CmdParser::isValidHost(const String &host)
 {
-	if (!isValidHostname(host) || !isValidHostAddr(host))
+	if (!isValidHostname(host) && !isValidHostAddr(host))
 		return false;
 	return true;
 }
