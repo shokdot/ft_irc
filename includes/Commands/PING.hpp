@@ -10,7 +10,7 @@ private:
 public:
 	PING(/* args */);
 	~PING();
-	void execute();
+	void execute(int fd, FullCmd &cmd, IRCServer &server);
 };
 
 #endif

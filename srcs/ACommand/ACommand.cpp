@@ -3,7 +3,3 @@
 ACommand::~ACommand()
 {
 }
-
-void ACommand::execute()
-{
-}
