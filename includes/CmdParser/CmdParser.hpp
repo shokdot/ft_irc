@@ -20,6 +20,9 @@ public:
 	static bool isValidUser(const String &user);
 	static bool parseCmdName(String &rawLine, String &cmdName);
 	static bool parseParams(String &rawLine, std::vector<String> &params, String &trailing);
+	static bool isValidMiddle(const String &middle);
+	static bool isNospcrlfcl(const char c);
+	static bool isValidTrailing(const String &trailing);
 };
 
 #endif

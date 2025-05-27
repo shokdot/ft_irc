@@ -15,6 +15,8 @@ bool CmdParser::parseCmd(String &rawLine, FullCmd &command)
 
 bool CmdParser::parseParams(String &rawLine, std::vector<String> &params, String &trailing)
 {
+	params.clear();
+	trailing = "";
 	std::istringstream iss(rawLine);
 	std::string token;
 	int paramCount = 0;
@@ -43,15 +45,63 @@ bool CmdParser::parseParams(String &rawLine, std::vector<String> &params, String
 			paramCount++;
 		}
 	}
+	for (size_t i = 0; i < params.size(); i++)
+	{
+		if (!isValidMiddle(params[i]))
+			return false;
+	}
+	if (!isValidTrailing(trailing))
+		return false;
 
 	return true;
+}
+
+bool CmdParser::isValidTrailing(const String &trailing)
+{
+	char c;
+	for (size_t i = 0; i < trailing.size(); i++)
+	{
+		c = trailing[i];
+		if (c != ':' && c != ' ' && !isNospcrlfcl(c))
+			return false;
+	}
+
+	return true;
+}
+
+bool CmdParser::isValidMiddle(const String &middle)
+{
+	if (middle.empty())
+		return false;
+	if (!isNospcrlfcl(middle[0]))
+		return false;
+	for (size_t i = 1; i < middle.size(); ++i)
+	{
+		if (middle[i] != ':' && !isNospcrlfcl(middle[i]))
+			return false;
+	}
+	return true;
+}
+
+bool CmdParser::isNospcrlfcl(const char c)
+{
+	unsigned char uc = static_cast<unsigned char>(c);
+	return (uc >= 0x01 && uc <= 0x06) ||
+		   (uc >= 0x08 && uc <= 0x09) ||
+		   (uc >= 0x0B && uc <= 0x0C) ||
+		   (uc >= 0x0E && uc <= 0x1F) ||
+		   (uc >= 0x21 && uc <= 0x39) ||
+		   (uc >= 0x3B && uc <= 0xFF);
 }
 
 bool CmdParser::parseCmdName(String &rawLine, String &cmdName)
 {
 	size_t spacePos = rawLine.find(' ');
 	if (spacePos == String::npos)
+	{
 		cmdName = rawLine;
+		rawLine.clear();
+	}
 	else
 	{
 		cmdName = rawLine.substr(0, spacePos);
