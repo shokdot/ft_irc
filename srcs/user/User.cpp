@@ -2,7 +2,7 @@
 
 User::User(int socketFd) : _socketFd(socketFd),
 						   _username("unknown"),
-						   _nickname("unknown"),
+						   _nickname("*"),
 						   _realname("unknown"),
 						   _hostname("unknown"),
 						   _isAuth(false) {}
