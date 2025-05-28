@@ -55,3 +55,5 @@ void IRCServer::stop()
 }
 
 UserManager &IRCServer::getUserManager() { return _userManager; }
+
+const String &IRCServer::getPass() { return _password; }

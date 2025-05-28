@@ -22,6 +22,7 @@ public:
 	void start();
 	void stop();
 	UserManager &getUserManager();
+	const String &getPass();
 
 private:
 	void setup();
