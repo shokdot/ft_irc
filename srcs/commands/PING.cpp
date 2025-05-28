@@ -9,7 +9,7 @@ PING::~PING()
 {
 }
 
-void PING::execute(int fd, FullCmd &cmd, IRCServer &server)
+void PING::execute(int fd, CmdStruct &cmd, IRCServer &server)
 {
 	(void)server;
 	(void)cmd;

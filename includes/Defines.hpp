@@ -17,27 +17,27 @@ enum PollState
 	NEWCONN
 };
 
-enum PrefixType
-{
-	PREFIX_NONE,
-	PREFIX_USER,
-	PREFIX_SERVER
-};
+// enum PrefixType
+// {
+// 	PREFIX_NONE,
+// 	PREFIX_USER,
+// 	PREFIX_SERVER
+// };
 
-struct CmdPrefix
-{
-	PrefixType type;
-	String nickname;
-	String user;
-	String host;
-	String server;
+// struct CmdPrefix
+// {
+// 	PrefixType type;
+// 	String nickname;
+// 	String user;
+// 	String host;
+// 	String server;
 
-	CmdPrefix() : type(PREFIX_NONE), nickname(""), user(""), host(""), server("") {}
-};
+// 	CmdPrefix() : type(PREFIX_NONE), nickname(""), user(""), host(""), server("") {}
+// };
 
-struct FullCmd
+struct CmdStruct
 {
-	CmdPrefix prefix;
+	// CmdPrefix prefix;
 	String cmdName;
 	std::vector<String> params;
 	String trailing;

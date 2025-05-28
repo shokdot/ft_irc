@@ -9,7 +9,7 @@ class ACommand
 {
 public:
 	virtual ~ACommand();
-	virtual void execute(int fd, FullCmd &cmd, IRCServer &server) = 0;
+	virtual void execute(int fd, CmdStruct &cmd, IRCServer &server) = 0;
 };
 
 #endif
