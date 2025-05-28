@@ -14,6 +14,8 @@ public:
 	void addUser(int fd, User *);
 	void removeUser(int fd);
 	User *createUser(int fd);
+	User *getUserByFd(int fd);
+	User *getUserByNick(const String &nick);
 };
 
 #endif
