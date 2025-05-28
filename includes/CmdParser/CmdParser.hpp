@@ -23,6 +23,7 @@ public:
 	static bool isValidMiddle(const String &middle);
 	static bool isNospcrlfcl(const char c);
 	static bool isValidTrailing(const String &trailing);
+	static bool isValidUserChar(char c);
 };
 
 #endif

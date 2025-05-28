@@ -61,7 +61,7 @@ bool CmdParser::isValidTrailing(const String &trailing)
 	char c;
 	for (size_t i = 0; i < trailing.size(); i++)
 	{
-		c = trailing[i];
+		c = static_cast<unsigned char>(trailing[i]);
 		if (c != ':' && c != ' ' && !isNospcrlfcl(c))
 			return false;
 	}
@@ -75,9 +75,11 @@ bool CmdParser::isValidMiddle(const String &middle)
 		return false;
 	if (!isNospcrlfcl(middle[0]))
 		return false;
+	char c;
 	for (size_t i = 1; i < middle.size(); ++i)
 	{
-		if (middle[i] != ':' && !isNospcrlfcl(middle[i]))
+		c = static_cast<unsigned char>(middle[i]);
+		if (c != ':' && !isNospcrlfcl(c))
 			return false;
 	}
 	return true;
@@ -86,12 +88,11 @@ bool CmdParser::isValidMiddle(const String &middle)
 bool CmdParser::isNospcrlfcl(const char c)
 {
 	unsigned char uc = static_cast<unsigned char>(c);
-	return (uc >= 0x01 && uc <= 0x06) ||
-		   (uc >= 0x08 && uc <= 0x09) ||
-		   (uc >= 0x0B && uc <= 0x0C) ||
-		   (uc >= 0x0E && uc <= 0x1F) ||
-		   (uc >= 0x21 && uc <= 0x39) ||
-		   (uc >= 0x3B && uc <= 0xFF);
+	return (uc >= 1 && uc <= 9) ||
+		   (uc >= 11 && uc <= 12) ||
+		   (uc >= 14 && uc <= 31) ||
+		   (uc >= 33 && uc <= 57) ||
+		   (uc >= 58 && uc <= 255);
 }
 
 bool CmdParser::parseCmdName(String &rawLine, String &cmdName)
@@ -109,7 +110,7 @@ bool CmdParser::parseCmdName(String &rawLine, String &cmdName)
 	}
 	if (cmdName.empty())
 		return false;
-	int c;
+	char c;
 	for (size_t i = 0; i < cmdName.size(); ++i)
 	{
 		c = static_cast<unsigned char>(cmdName[i]);
@@ -132,9 +133,9 @@ bool CmdParser::parsePrefix(String &rawLine, CmdPrefix &cmdPrefix)
 	return true;
 }
 
-bool CmdParser::isValidHostname(const String &hostname)
+bool CmdParser::isValidHostname(const String &hostname) // fix
 {
-	if (hostname.empty())
+	if (hostname.empty() || hostname.length() > 253)
 		return false;
 
 	std::vector<String> parts = splitByDelim(hostname, '.');
@@ -153,21 +154,12 @@ bool CmdParser::isValidShortName(const String &shortName)
 	if (!std::isalnum(static_cast<unsigned char>(shortName.back())))
 		return false;
 
-	bool lastWasHyphen = false;
-	int c;
+	char c;
 	for (size_t i = 0; i < shortName.size(); ++i)
 	{
 		c = static_cast<unsigned char>(shortName[i]);
-		if (!std::isalnum(c) && c != '-')
+		if (!(std::isalnum(c) || c == '-'))
 			return false;
-		if (c == '-')
-		{
-			if (lastWasHyphen)
-				return false;
-			lastWasHyphen = true;
-		}
-		else
-			lastWasHyphen = false;
 	}
 	return true;
 }
@@ -198,12 +190,12 @@ bool CmdParser::isValidNick(const String &nick)
 	return true;
 }
 
-bool CmdParser::isSpecial(char c)
+bool CmdParser::isSpecial(char c) // change it
 {
 	return (c >= '[' && c <= '`') || (c >= '{' && c <= '}');
 }
 
-bool CmdParser::isValidHostAddr(const String &hostAddr)
+bool CmdParser::isValidHostAddr(const String &hostAddr) // fix
 {
 	std::vector<String> hostPart = splitByDelim(hostAddr, '.');
 	if (hostPart.size() != 4)
@@ -216,9 +208,11 @@ bool CmdParser::isValidHostAddr(const String &hostAddr)
 	return true;
 }
 
-bool CmdParser::isValidHostPart(const String &part)
+bool CmdParser::isValidHostPart(const String &part) // fix
 {
 	if (part.empty() || part.size() > 3)
+		return false;
+	if (part.size() > 1 && part[0] == '0')
 		return false;
 	char c;
 	for (size_t i = 0; i < part.size(); ++i)
@@ -231,11 +225,12 @@ bool CmdParser::isValidHostPart(const String &part)
 	return num >= 0 && num <= 255;
 }
 
-bool CmdParser::isValidHost(const String &host)
+bool CmdParser::isValidHost(const String &host) // fix
 {
-	if (!isValidHostname(host) && !isValidHostAddr(host))
-		return false;
-	return true;
+	return isValidHostAddr(host) || isValidHostname(host);
+	// if (!isValidHostAddr(host) && !isValidHostname(host))
+	// 	return false;
+	// return true;
 }
 
 bool CmdParser::extractPrefix(const String &prefix, CmdPrefix &res)
@@ -284,6 +279,12 @@ bool CmdParser::extractPrefix(const String &prefix, CmdPrefix &res)
 	return true;
 }
 
+bool CmdParser::isValidUserChar(char c)
+{
+	c = static_cast<unsigned char>(c);
+	return (c != '\0' && c != '\n' && c != '\r' && c != ' ' && c != '@');
+}
+
 bool CmdParser::isValidUser(const String &user)
 {
 	if (user.empty())
@@ -291,7 +292,7 @@ bool CmdParser::isValidUser(const String &user)
 	for (size_t i = 0; i < user.size(); ++i)
 	{
 		char c = user[i];
-		if (c == ' ' || c == '@' || c == '!' || c == '\r' || c == '\n' || c == '\0')
+		if (!isValidUserChar(c))
 			return false;
 	}
 	return true;
