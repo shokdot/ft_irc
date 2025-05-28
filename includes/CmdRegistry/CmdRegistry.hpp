@@ -3,6 +3,7 @@
 
 #include <IRC.hpp>
 #include <PING.hpp>
+#include <PASS.hpp>
 
 class CmdRegistry
 {

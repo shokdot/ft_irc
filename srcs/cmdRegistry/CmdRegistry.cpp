@@ -3,7 +3,7 @@
 CmdRegistry::CmdRegistry()
 {
 	_commands["PING"] = new PING();
-	// _commands["PASS"] = new PASS();
+	_commands["PASS"] = new PASS();
 	// _commands["USER"] = new USER();
 	// _commands["NICK"] = new NICK();
 	// _commands["JOIN"] = new JOIN();
