@@ -22,7 +22,7 @@ void MsgStrategy::processMsg(int fd, IRCServer &server)
 	size_t pos;
 	while ((pos = data.find("\r\n")) != String::npos)
 	{
-		String line = data.substr(0, pos);
+		String line = Utils::trim(data.substr(0, pos));
 		data.erase(0, pos + 2);
 		if (line.length() > 510)
 		{
