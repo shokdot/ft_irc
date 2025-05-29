@@ -9,7 +9,7 @@
 class CmdRegistry
 {
 private:
-	std::unordered_map<String, ACommand *> _commands;
+	std::map<String, ACommand *> _commands;
 
 public:
 	CmdRegistry();

@@ -17,7 +17,7 @@ CmdRegistry::CmdRegistry()
 
 CmdRegistry::~CmdRegistry()
 {
-	std::unordered_map<String, ACommand *>::iterator it = _commands.begin();
+	std::map<String, ACommand *>::iterator it = _commands.begin();
 	for (; it != _commands.end(); ++it)
 		delete it->second;
 	_commands.clear();
@@ -25,6 +25,6 @@ CmdRegistry::~CmdRegistry()
 
 ACommand *CmdRegistry::getCmd(String cmdName)
 {
-	std::unordered_map<String, ACommand *>::iterator it = _commands.find(cmdName);
+	std::map<String, ACommand *>::iterator it = _commands.find(cmdName);
 	return (it != _commands.end()) ? it->second : nullptr;
 }

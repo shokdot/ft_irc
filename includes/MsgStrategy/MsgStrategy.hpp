@@ -11,7 +11,7 @@ class MsgStrategy : implements IEventStrategy
 {
 private:
 	CmdDispatcher _dispatcher;
-	std::unordered_map<int, String> sockBuffer;
+	std::map<int, String> sockBuffer;
 
 public:
 	MsgStrategy();
