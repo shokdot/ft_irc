@@ -4,6 +4,7 @@
 #include <IRC.hpp>
 #include <PING.hpp>
 #include <PASS.hpp>
+#include <NICK.hpp>
 
 class CmdRegistry
 {
