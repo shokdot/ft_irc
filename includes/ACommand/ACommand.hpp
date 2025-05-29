@@ -4,6 +4,8 @@
 #include <IRC.hpp>
 
 class IRCServer;
+class UserManager;
+class ChannelManager;
 
 class ACommand
 {
