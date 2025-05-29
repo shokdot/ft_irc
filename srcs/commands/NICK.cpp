@@ -53,7 +53,7 @@ bool NICK::isValidNick(const String &nickname)
 	// trim
 	if (nickname.empty() || nickname.size() > 9)
 		return false;
-	if (!(std::isalpha(static_cast<unsigned char>(nickname.front())) || isSpecial(static_cast<unsigned char>(nickname.front()))))
+	if (!(std::isalpha(static_cast<unsigned char>(nickname[0])) || isSpecial(static_cast<unsigned char>(nickname[0]))))
 		return false;
 	char c;
 	for (size_t i = 0; i < nickname.size(); ++i)

@@ -34,11 +34,11 @@ void EventDispatcher::handleEvents()
 	for (size_t i = 0; i < fds.size(); i++)
 	{
 		IEventStrategy *strategy = NULL;
-		if ((fds[i].revents & POLL_IN) && fds[i].fd == _serverFd)
+		if ((fds[i].revents & POLLIN) && fds[i].fd == _serverFd)
 			strategy = _strategies[NEWCONN];
-		else if (fds[i].revents & POLL_IN)
+		else if (fds[i].revents & POLLIN)
 			strategy = _strategies[MESSAGE];
-		else if (fds[i].revents & (POLL_HUP | POLL_ERR))
+		else if (fds[i].revents & (POLLHUP | POLLERR))
 			strategy = _strategies[ERROR];
 
 		if (strategy)

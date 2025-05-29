@@ -26,5 +26,5 @@ CmdRegistry::~CmdRegistry()
 ACommand *CmdRegistry::getCmd(String cmdName)
 {
 	std::map<String, ACommand *>::iterator it = _commands.find(cmdName);
-	return (it != _commands.end()) ? it->second : nullptr;
+	return (it != _commands.end()) ? it->second : NULL;
 }

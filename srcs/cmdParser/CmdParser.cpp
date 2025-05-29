@@ -4,7 +4,7 @@ bool CmdParser::parseCmd(String &rawLine, CmdStruct &command)
 {
 	if (rawLine.empty() || rawLine.size() > 510)
 		return false;
-	if (rawLine.front() == ':' && !parsePrefix(rawLine))
+	if (rawLine[0] == ':' && !parsePrefix(rawLine))
 		return false;
 	if (!parseCmdName(rawLine, command.cmdName))
 		return false;
