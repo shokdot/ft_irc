@@ -35,7 +35,7 @@ OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
-DEBUG = # -fsanitize=address -g3
+DEBUG = -g3# -fsanitize=address -g3
 
 HEADERS     = $(shell find $(INCLPATH) -type f -name '*.hpp')
 CMP_HEADERS = $(sort $(patsubst %,-I%,$(dir $(HEADERS))))
