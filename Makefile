@@ -35,7 +35,7 @@ OBJ = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
-DEBUG = -g3# -fsanitize=address -g3
+DEBUG =  -fsanitize=address -g3
 
 HEADERS     = $(shell find $(INCLPATH) -type f -name '*.hpp')
 CMP_HEADERS = $(sort $(patsubst %,-I%,$(dir $(HEADERS))))
@@ -47,7 +47,7 @@ $(OBJ_DIR):
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(HEADERS)  Makefile
 	@echo "$(YELLOW) Compiling $(NAME) $(RESET)"
-	@$(CC) $(CFLAGS) $(CMP_HEADERS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(DEBUG) $(CMP_HEADERS) $(OBJ) -o $(NAME)
 	@echo "$(GREEN) Executable file has been created $(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS) Makefile
