@@ -15,7 +15,6 @@ SUBDIRS = inputValidator/ \
 		eventDispatcher/ \
 		userManager/ \
 		exceptions/ \
-		identService/ \
 		pollManager/ \
 		iEventStrategy/ \
 		acceptStrategy/ \
