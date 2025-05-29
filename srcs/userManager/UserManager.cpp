@@ -36,3 +36,18 @@ User *UserManager::getUserByNick(const String &nick)
 		return _usersByNick[nick];
 	return NULL;
 }
+
+bool UserManager::changeNick(const String &nickname, User *user)
+{
+	if (!user)
+		return false;
+	std::map<String, User *>::iterator it = _usersByNick.find(nickname);
+	if (it != _usersByNick.end() && it->second != user)
+		return false;
+	const String &old_nick = user->getNickname();
+	if (old_nick != "*")
+		_usersByNick.erase(old_nick);
+	user->setNickname(nickname);
+	_usersByNick[nickname] = user;
+	return true;
+}

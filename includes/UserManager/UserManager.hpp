@@ -16,6 +16,7 @@ public:
 	User *createUser(int fd);
 	User *getUserByFd(int fd);
 	User *getUserByNick(const String &nick);
+	bool changeNick(const String &nickname, User *user);
 };
 
 #endif
