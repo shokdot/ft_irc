@@ -36,6 +36,17 @@ String Utils::strToUpper(const String &str)
 	return res;
 }
 
+String Utils::strToLower(const String &str)
+{
+	String res;
+	res.reserve(str.size());
+	for (size_t i = 0; i < str.size(); i++)
+	{
+		res += std::tolower(static_cast<unsigned char>(str[i]));
+	}
+	return res;
+}
+
 void Utils::sendWrapper(const String &str, int sock_fd)
 {
 	send(sock_fd, str.c_str(), str.length(), 0);
