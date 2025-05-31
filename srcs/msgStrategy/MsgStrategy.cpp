@@ -7,11 +7,10 @@ MsgStrategy::~MsgStrategy() {}
 
 void MsgStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &server)
 {
-	ClientManager &clientManager = server.getClientManager();
-
-	if (!readFromSock(fd, pollManager, clientManager))
+	(void)pollManager;
+	if (!readFromSock(fd, server))
 		return;
-	if (!checkBuffLength(fd, pollManager, clientManager))
+	if (!checkBuffLength(fd, server))
 		return;
 	processMsg(fd, server);
 }
@@ -33,7 +32,7 @@ void MsgStrategy::processMsg(int fd, IRCServer &server)
 	}
 }
 
-bool MsgStrategy::readFromSock(int fd, PollManager &pollManager, ClientManager &clientManager)
+bool MsgStrategy::readFromSock(int fd, IRCServer &server)
 {
 	char buffer[1024];
 	std::memset(buffer, 0, sizeof(buffer));
@@ -42,35 +41,31 @@ bool MsgStrategy::readFromSock(int fd, PollManager &pollManager, ClientManager &
 	{
 		if (errno == EAGAIN || errno == EWOULDBLOCK)
 			return false;
-		disconnect(fd, bytes, pollManager, clientManager);
+		disconnect(fd, bytes, server);
 		return false;
 	}
 	sockBuffer[fd] += std::string(buffer, bytes);
 	return true;
 }
 
-bool MsgStrategy::checkBuffLength(int fd, PollManager &pollManager, ClientManager &clientManager)
+bool MsgStrategy::checkBuffLength(int fd, IRCServer &server)
 {
 	std::string &data = sockBuffer[fd];
 	if (data.length() > 2048)
 	{
 		std::cout << "[WARNING] Client " << fd << " sent too much data" << std::endl;
-		disconnect(fd, -1, pollManager, clientManager);
+		disconnect(fd, -1, server);
 		return false;
 	}
 	return true;
 }
 
-void MsgStrategy::disconnect(int fd, int bytes, PollManager &pollManager, ClientManager &clientManager)
+void MsgStrategy::disconnect(int fd, int bytes, IRCServer &server)
 {
-	if (close(fd) < 0)
-		std::cerr << "[ERROR] Failed to close client " << fd << ": " << strerror(errno) << std::endl;
+	EventDispatcher &eventDispatcher = server.getEventDispatcher();
 
-	if (bytes == 0)
-		std::cout << "[INFO] client " << fd << " disconnected" << std::endl;
-	else
+	if (bytes != 0)
 		std::cerr << "[ERROR] Failed to recv client " << fd << ": " << strerror(errno) << std::endl;
 
-	pollManager.removeFd(fd);
-	clientManager.removeClient(fd);
+	eventDispatcher.disconnectClient(fd, server);
 }

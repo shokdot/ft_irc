@@ -14,6 +14,7 @@ public:
 	EventDispatcher(IRCServer &server);
 	~EventDispatcher();
 	void handleEvents();
+	void disconnectClient(int fd, IRCServer &server);
 	void init(int);
 
 private:

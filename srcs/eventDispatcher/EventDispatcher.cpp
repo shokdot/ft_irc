@@ -1,4 +1,5 @@
 #include <EventDispatcher.hpp>
+#include <IRCServer.hpp>
 
 EventDispatcher::EventDispatcher(IRCServer &server) : _server(server)
 {
@@ -44,4 +45,11 @@ void EventDispatcher::handleEvents()
 		if (strategy)
 			strategy->handleEvent(fds[i].fd, _pollManager, _server);
 	}
+}
+
+void EventDispatcher::disconnectClient(int fd, IRCServer &server)
+{
+	IEventStrategy *strategy = _strategies[ERROR];
+	if (strategy)
+		strategy->handleEvent(fd, _pollManager, server);
 }

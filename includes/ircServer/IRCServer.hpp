@@ -22,6 +22,7 @@ public:
 	void start();
 	void stop();
 	ClientManager &getClientManager();
+	EventDispatcher &getEventDispatcher();
 	const String &getPass();
 
 private:
