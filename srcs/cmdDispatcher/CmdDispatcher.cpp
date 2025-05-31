@@ -13,5 +13,10 @@ void CmdDispatcher::dispatch(int fd, String line, IRCServer &server)
 	if (handler)
 		handler->execute(fd, command, server);
 	else
+	{
+		std::string reply = ":localhost 421 " + command.cmdName + " :Unknown command\r\n";
+		Utils::sendWrapper(reply, fd);
 		std::cout << "[WARNING] Client " << fd << " send unrecognized command" << std::endl;
+		return;
+	}
 }
