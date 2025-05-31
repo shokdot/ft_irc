@@ -2,7 +2,7 @@
 #define IRCSERVER_HPP
 
 #include <IRC.hpp>
-#include <UserManager.hpp>
+#include <ClientManager.hpp>
 #include <EventDispatcher.hpp>
 
 class IRCServer
@@ -13,7 +13,7 @@ private:
 	int _serverFd;
 	bool _running;
 	EventDispatcher _eventDispatcher;
-	UserManager _userManager;
+	ClientManager _clientManager;
 
 public:
 	IRCServer(int port, String password);
@@ -21,7 +21,7 @@ public:
 
 	void start();
 	void stop();
-	UserManager &getUserManager();
+	ClientManager &getClientManager();
 	const String &getPass();
 
 private:

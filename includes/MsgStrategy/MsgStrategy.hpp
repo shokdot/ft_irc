@@ -5,7 +5,7 @@
 #include <CmdDispatcher.hpp>
 
 class IRCServer;
-class UserManager;
+class ClientManager;
 
 class MsgStrategy : implements IEventStrategy
 {
@@ -19,10 +19,10 @@ public:
 	void handleEvent(int fd, PollManager &pollManager, IRCServer &server);
 
 private:
-	bool readFromSock(int fd, PollManager &pollManager, UserManager &userManager);
-	bool checkBuffLength(int fd, PollManager &PollManager, UserManager &UserManager);
+	bool readFromSock(int fd, PollManager &pollManager, ClientManager &clientManager);
+	bool checkBuffLength(int fd, PollManager &PollManager, ClientManager &ClientManager);
 	void processMsg(int fd, IRCServer &server);
-	void disconnect(int fd, int bytes, PollManager &pollManager, UserManager &userManager);
+	void disconnect(int fd, int bytes, PollManager &pollManager, ClientManager &clientManager);
 };
 
 #endif

@@ -7,10 +7,10 @@ ErrorStrategy::~ErrorStrategy() {}
 
 void ErrorStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &server)
 {
-	UserManager &userManager = server.getUserManager();
+	ClientManager &clientManager = server.getClientManager();
 	if (close(fd) < 0)
 		std::cerr << "[ERROR] Failed to close client " << fd << ": " << strerror(errno) << std::endl;
 	pollManager.removeFd(fd);
-	userManager.removeUser(fd);
+	clientManager.removeClient(fd);
 	std::cout << "[INFO] Client " << fd << " disconnected" << std::endl;
 }

@@ -11,8 +11,8 @@ PASS::~PASS()
 
 void PASS::execute(int fd, CmdStruct &cmd, IRCServer &server)
 {
-	UserManager &userManager = server.getUserManager();
-	User *user = userManager.getUserByFd(fd);
+	ClientManager &clientManager = server.getClientManager();
+	Client *client = clientManager.getClientByFd(fd);
 	if (cmd.params.size() < 1)
 	{
 		std::string reply = ":localhost 461 pass :Not enough parameters\r\n";
@@ -25,7 +25,7 @@ void PASS::execute(int fd, CmdStruct &cmd, IRCServer &server)
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
-	if (!user)
+	if (!client)
 	{
 		std::string reply = "Something went wrong\r\n";
 		Utils::sendWrapper(reply, fd);
@@ -33,13 +33,13 @@ void PASS::execute(int fd, CmdStruct &cmd, IRCServer &server)
 	}
 	else
 	{
-		if (user->getAuth())
+		if (client->getAuth())
 		{
-			std::string reply = ":localhost 462 " + user->getNickname() + " :You may not reregister\r\n";
+			std::string reply = ":localhost 462 " + client->getNickname() + " :You may not reregister\r\n";
 			Utils::sendWrapper(reply, fd);
 			return;
 		}
-		user->setAuth(true);
+		client->setAuth(true);
 		std::cout << "[INFO] Client " << fd << " registered" << std::endl;
 	}
 }

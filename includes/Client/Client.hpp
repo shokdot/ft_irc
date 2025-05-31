@@ -1,9 +1,9 @@
-#ifndef USER_HPP
-#define USER_HPP
+#ifndef CLIENT_HPP
+#define CLIENT_HPP
 
 #include <IRC.hpp>
 
-class User
+class Client
 {
 private:
 	const int _socketFd;
@@ -14,8 +14,8 @@ private:
 	bool _isAuth;
 
 public:
-	User(int fd);
-	~User();
+	Client(int fd);
+	~Client();
 
 	void setUsername(const String &);
 	void setNickname(const String &);
@@ -27,9 +27,9 @@ public:
 	const String &getNickname() const;
 	const String &getRealname() const;
 	const String &getHostname() const;
-	int getUserFd() const;
+	int getClientFd() const;
 	bool getAuth() const;
 };
 
 #endif
-// USER_HPP
+// CLIENT_HPP

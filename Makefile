@@ -11,9 +11,9 @@ OBJ_DIR = build/
 SUBDIRS = inputValidator/ \
 		ircServer/ \
 		utils/ \
-		user/ \
+		client/ \
 		eventDispatcher/ \
-		userManager/ \
+		clientManager/ \
 		exceptions/ \
 		pollManager/ \
 		iEventStrategy/ \

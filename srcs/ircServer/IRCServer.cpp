@@ -54,6 +54,6 @@ void IRCServer::stop()
 	}
 }
 
-UserManager &IRCServer::getUserManager() { return _userManager; }
+ClientManager &IRCServer::getClientManager() { return _clientManager; }
 
 const String &IRCServer::getPass() { return _password; }

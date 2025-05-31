@@ -12,7 +12,7 @@ public:
 
 private:
 	bool isValidNick(const String &nickname);
-	bool isNickAvalible(const String &nickname, UserManager &userManager);
+	bool isNickAvalible(const String &nickname, ClientManager &clientManager);
 	bool isSpecial(char c);
 };
 

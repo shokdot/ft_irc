@@ -7,11 +7,11 @@ MsgStrategy::~MsgStrategy() {}
 
 void MsgStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &server)
 {
-	UserManager &userManager = server.getUserManager();
+	ClientManager &clientManager = server.getClientManager();
 
-	if (!readFromSock(fd, pollManager, userManager))
+	if (!readFromSock(fd, pollManager, clientManager))
 		return;
-	if (!checkBuffLength(fd, pollManager, userManager))
+	if (!checkBuffLength(fd, pollManager, clientManager))
 		return;
 	processMsg(fd, server);
 }
@@ -33,7 +33,7 @@ void MsgStrategy::processMsg(int fd, IRCServer &server)
 	}
 }
 
-bool MsgStrategy::readFromSock(int fd, PollManager &pollManager, UserManager &userManager)
+bool MsgStrategy::readFromSock(int fd, PollManager &pollManager, ClientManager &clientManager)
 {
 	char buffer[1024];
 	std::memset(buffer, 0, sizeof(buffer));
@@ -42,26 +42,26 @@ bool MsgStrategy::readFromSock(int fd, PollManager &pollManager, UserManager &us
 	{
 		if (errno == EAGAIN || errno == EWOULDBLOCK)
 			return false;
-		disconnect(fd, bytes, pollManager, userManager);
+		disconnect(fd, bytes, pollManager, clientManager);
 		return false;
 	}
 	sockBuffer[fd] += std::string(buffer, bytes);
 	return true;
 }
 
-bool MsgStrategy::checkBuffLength(int fd, PollManager &pollManager, UserManager &userManager)
+bool MsgStrategy::checkBuffLength(int fd, PollManager &pollManager, ClientManager &clientManager)
 {
 	std::string &data = sockBuffer[fd];
 	if (data.length() > 2048)
 	{
 		std::cout << "[WARNING] Client " << fd << " sent too much data" << std::endl;
-		disconnect(fd, -1, pollManager, userManager);
+		disconnect(fd, -1, pollManager, clientManager);
 		return false;
 	}
 	return true;
 }
 
-void MsgStrategy::disconnect(int fd, int bytes, PollManager &pollManager, UserManager &userManager)
+void MsgStrategy::disconnect(int fd, int bytes, PollManager &pollManager, ClientManager &clientManager)
 {
 	if (close(fd) < 0)
 		std::cerr << "[ERROR] Failed to close client " << fd << ": " << strerror(errno) << std::endl;
@@ -72,5 +72,5 @@ void MsgStrategy::disconnect(int fd, int bytes, PollManager &pollManager, UserMa
 		std::cerr << "[ERROR] Failed to recv client " << fd << ": " << strerror(errno) << std::endl;
 
 	pollManager.removeFd(fd);
-	userManager.removeUser(fd);
+	clientManager.removeClient(fd);
 }

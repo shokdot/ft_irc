@@ -7,7 +7,7 @@ AcceptStrategy::~AcceptStrategy() {}
 
 void AcceptStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &server)
 {
-	UserManager &_userManager = server.getUserManager();
+	ClientManager &clientManager = server.getClientManager();
 
 	struct sockaddr_in clientAddr;
 	socklen_t len = sizeof(clientAddr);
@@ -18,6 +18,6 @@ void AcceptStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &se
 		throw IRCException::ServerError(strerror(errno));
 
 	pollManager.addFd(clientFd, POLLIN);
-	_userManager.addUser(clientFd, _userManager.createUser(clientFd));
+	clientManager.addClient(clientFd, clientManager.createClient(clientFd));
 	std::cout << "[INFO] Client " << clientFd << " connected" << std::endl;
 }

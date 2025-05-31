@@ -11,9 +11,9 @@ NICK::~NICK()
 
 void NICK::execute(int fd, CmdStruct &cmd, IRCServer &server)
 {
-	UserManager &userManager = server.getUserManager();
-	User *user = userManager.getUserByFd(fd);
-	if (!user)
+	ClientManager &clientManager = server.getClientManager();
+	Client *client = clientManager.getClientByFd(fd);
+	if (!client)
 	{
 		std::string reply = ":localhost 437 * :Nick is temporarily unavailable\r\n";
 		Utils::sendWrapper(reply, fd);
@@ -26,7 +26,7 @@ void NICK::execute(int fd, CmdStruct &cmd, IRCServer &server)
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
-	String current_nick = user->getNickname();
+	String current_nick = client->getNickname();
 	String nickname = Utils::strToLower(cmd.params[0]);
 	if (nickname == current_nick)
 		return;
@@ -36,13 +36,13 @@ void NICK::execute(int fd, CmdStruct &cmd, IRCServer &server)
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
-	else if (!isNickAvalible(nickname, userManager))
+	else if (!isNickAvalible(nickname, clientManager))
 	{
 		std::string reply = ":localhost 433 " + nickname + " :Nickname is already in use\r\n";
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
-	else if (!userManager.changeNick(nickname, user))
+	else if (!clientManager.changeNick(nickname, client))
 		return;
 	// broadcast messages
 	std::cout << "nick changed" << std::endl;
@@ -70,9 +70,9 @@ bool NICK::isSpecial(char c)
 	return (c >= '[' && c <= '`') || (c >= '{' && c <= '}');
 }
 
-bool NICK::isNickAvalible(const String &nickname, UserManager &userManager)
+bool NICK::isNickAvalible(const String &nickname, ClientManager &clientManager)
 {
-	if (userManager.getUserByNick(nickname))
+	if (clientManager.getClientByNick(nickname))
 		return false;
 	return true;
 }
