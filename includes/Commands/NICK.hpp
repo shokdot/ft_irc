@@ -6,7 +6,7 @@
 class NICK : public ACommand
 {
 public:
-	NICK(/* args */);
+	NICK();
 	~NICK();
 	void execute(int fd, CmdStruct &cmd, IRCServer &server);
 

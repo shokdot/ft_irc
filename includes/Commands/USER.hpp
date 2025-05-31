@@ -9,7 +9,7 @@ private:
 	bool isValidUsername(const String &username);
 
 public:
-	USER(/* args */);
+	USER();
 	~USER();
 	void execute(int fd, CmdStruct &cmd, IRCServer &server);
 };

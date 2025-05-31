@@ -5,10 +5,8 @@
 
 class PING : public ACommand
 {
-private:
-	/* data */
 public:
-	PING(/* args */);
+	PING();
 	~PING();
 	void execute(int fd, CmdStruct &cmd, IRCServer &server);
 };

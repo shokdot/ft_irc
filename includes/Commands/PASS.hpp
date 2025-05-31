@@ -6,7 +6,7 @@
 class PASS : public ACommand
 {
 public:
-	PASS(/* args */);
+	PASS();
 	~PASS();
 	void execute(int fd, CmdStruct &cmd, IRCServer &server);
 };
