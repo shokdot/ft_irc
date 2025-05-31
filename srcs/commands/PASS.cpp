@@ -40,6 +40,6 @@ void PASS::execute(int fd, CmdStruct &cmd, IRCServer &server)
 			return;
 		}
 		client->setAuth(true);
-		std::cout << "[INFO] Client " << fd << " registered" << std::endl;
+		std::cout << "[INFO] Client " << fd << " authorized" << std::endl;
 	}
 }
