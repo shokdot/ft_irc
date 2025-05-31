@@ -25,6 +25,10 @@ void USER::execute(int fd, CmdStruct &cmd, IRCServer &server)
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
+	else if (cmd.params.size() == 4 && cmd.trailing.empty())
+	{
+		cmd.trailing = cmd.params[3];
+	}
 	else if (cmd.params.size() < 3 || cmd.trailing.empty())
 	{
 		std::string reply = ":localhost 461 USER :Not enough parameters\r\n";
