@@ -27,7 +27,8 @@ void USER::execute(int fd, CmdStruct &cmd, IRCServer &server)
 	}
 	else if (cmd.params.size() == 4 && cmd.trailing.empty())
 	{
-		cmd.trailing = cmd.params[3];
+		cmd.trailing = cmd.params.back();
+		cmd.params.pop_back();
 	}
 	else if (cmd.params.size() < 3 || cmd.trailing.empty())
 	{
