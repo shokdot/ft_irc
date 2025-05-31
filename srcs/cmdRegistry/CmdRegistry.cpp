@@ -2,7 +2,6 @@
 
 CmdRegistry::CmdRegistry()
 {
-	_commands["PING"] = new PING();
 	_commands["PASS"] = new PASS();
 	_commands["NICK"] = new NICK();
 	_commands["USER"] = new USER();

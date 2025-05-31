@@ -2,7 +2,6 @@
 #define CMD_REGISTRY_HPP
 
 #include <IRC.hpp>
-#include <PING.hpp>
 #include <PASS.hpp>
 #include <NICK.hpp>
 #include <USER.hpp>
