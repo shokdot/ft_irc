@@ -29,6 +29,7 @@ public:
 	const String &getHostname() const;
 	int getClientFd() const;
 	bool getAuth() const;
+	bool isRegistered() const;
 };
 
 #endif

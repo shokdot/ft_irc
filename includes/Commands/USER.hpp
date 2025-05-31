@@ -6,7 +6,8 @@
 class USER : public ACommand
 {
 private:
-	/* data */
+	bool isValidUsername(const String &username);
+
 public:
 	USER(/* args */);
 	~USER();

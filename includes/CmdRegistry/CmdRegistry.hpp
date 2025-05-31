@@ -5,6 +5,7 @@
 #include <PING.hpp>
 #include <PASS.hpp>
 #include <NICK.hpp>
+#include <USER.hpp>
 
 class CmdRegistry
 {

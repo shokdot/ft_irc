@@ -1,7 +1,7 @@
 #include <Client.hpp>
 
 Client::Client(int socketFd) : _socketFd(socketFd),
-							   _username("unknown"),
+							   _username("*"),
 							   _nickname("*"),
 							   _realname("unknown"),
 							   _hostname("unknown"),
@@ -62,4 +62,11 @@ int Client::getClientFd() const
 bool Client::getAuth() const
 {
 	return this->_isAuth;
+}
+
+bool Client::isRegistered() const
+{
+	if (_isAuth && _nickname != "*" && _username != "*")
+		return true;
+	return false;
 }
