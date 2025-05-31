@@ -6,6 +6,7 @@
 #include <PASS.hpp>
 #include <NICK.hpp>
 #include <USER.hpp>
+#include <QUIT.hpp>
 
 class CmdRegistry
 {
