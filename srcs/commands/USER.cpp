@@ -21,7 +21,7 @@ void USER::execute(int fd, CmdStruct &cmd, IRCServer &server)
 	}
 	else if (client->isRegistered())
 	{
-		std::string reply = ":localhost 462 :" + client->getNickname() + " already registered\r\n";
+		std::string reply = ":localhost 462 :" + client->getNickname() + " You may not reregister\r\n";
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
