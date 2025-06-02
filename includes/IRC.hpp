@@ -5,6 +5,7 @@
 #include <exception>
 #include <sstream>
 #include <map>
+#include <set>
 #include <vector>
 #include <cstdlib>
 #include <cstring>
