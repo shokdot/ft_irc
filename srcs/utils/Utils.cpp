@@ -52,6 +52,19 @@ void Utils::sendWrapper(const String &str, int sock_fd)
 	send(sock_fd, str.c_str(), str.length(), 0);
 }
 
+std::vector<String> Utils::splitByDelim(const String &line, char delimeter)
+{
+	std::vector<String> tokens;
+	std::istringstream iss(line);
+	std::string token;
+
+	while (std::getline(iss, token, delimeter))
+	{
+		tokens.push_back(token);
+	}
+	return tokens;
+}
+
 struct sockaddr_in Utils::createSockStruct(sa_family_t family, in_port_t port, in_addr_t addr)
 {
 	struct sockaddr_in sockStruct;
