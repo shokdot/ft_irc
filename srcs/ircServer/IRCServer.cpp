@@ -56,6 +56,8 @@ void IRCServer::stop()
 
 ClientManager &IRCServer::getClientManager() { return _clientManager; }
 
+ChannelManager &IRCServer::getChannelManager() { return _channelManager; }
+
 EventDispatcher &IRCServer::getEventDispatcher() { return _eventDispatcher; }
 
 const String &IRCServer::getPass() { return _password; }

@@ -4,6 +4,7 @@
 #include <IRC.hpp>
 #include <ClientManager.hpp>
 #include <EventDispatcher.hpp>
+#include <ChannelManager.hpp>
 
 class IRCServer
 {
@@ -13,6 +14,7 @@ private:
 	int _serverFd;
 	bool _running;
 	EventDispatcher _eventDispatcher;
+	ChannelManager _channelManager;
 	ClientManager _clientManager;
 
 public:
@@ -23,6 +25,7 @@ public:
 	void stop();
 	ClientManager &getClientManager();
 	EventDispatcher &getEventDispatcher();
+	ChannelManager &getChannelManager();
 	const String &getPass();
 
 private:
