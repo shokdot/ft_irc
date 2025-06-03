@@ -18,6 +18,9 @@ private:
 	bool isTopicRestricted;
 
 public:
+	Channel(const String &name);
+
+public:
 	const String &getName() const;
 	const String &getTopic() const;
 	const String &getPassword() const;

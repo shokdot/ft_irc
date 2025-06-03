@@ -1,5 +1,9 @@
 #include <Channel.hpp>
 
+Channel::Channel(const String &name) : name(name)
+{
+}
+
 const String &Channel::getName() const { return name; }
 
 const String &Channel::getTopic() const { return topic; }
