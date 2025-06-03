@@ -25,7 +25,8 @@ SUBDIRS = inputValidator/ \
 		ACommand/ \
 		commands/ \
 		cmdParser/ \
-		channel/
+		channel/ \
+		channelManager/
 
 INCLPATH = includes/
 
