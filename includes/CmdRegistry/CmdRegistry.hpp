@@ -6,6 +6,7 @@
 #include <NICK.hpp>
 #include <USER.hpp>
 #include <QUIT.hpp>
+#include <JOIN.hpp>
 
 class CmdRegistry
 {
