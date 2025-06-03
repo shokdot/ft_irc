@@ -12,8 +12,16 @@ void ClientManager::addClient(int fd, Client *newClient)
 
 void ClientManager::removeClient(int fd)
 {
-	(void)fd;
-	// remove behavior
+	std::map<int, Client *>::iterator it = _clientsByFd.find(fd);
+	if (it == _clientsByFd.end())
+		return;
+
+	Client *client = it->second;
+	String nickname = client->getNickname();
+	if (nickname != "*")
+		_clientsByNick.erase(nickname);
+	delete client;
+	_clientsByFd.erase(it);
 }
 
 Client *ClientManager::createClient(int fd)
