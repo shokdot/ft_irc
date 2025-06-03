@@ -8,7 +8,7 @@ class NICK : public ACommand
 public:
 	NICK();
 	~NICK();
-	void execute(int fd, CmdStruct &cmd, IRCServer &server);
+	void execute(Client *client, CmdStruct &cmd, IRCServer &server);
 
 private:
 	bool isValidNick(const String &nickname);

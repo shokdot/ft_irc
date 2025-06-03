@@ -1,8 +1,12 @@
 #include <CmdDispatcher.hpp>
+#include <Client.hpp>
 
-void CmdDispatcher::dispatch(int fd, String line, IRCServer &server)
+void CmdDispatcher::dispatch(Client *client, String line, IRCServer &server)
 {
+	if (!client)
+		return;
 	CmdStruct command;
+	int fd = client->getClientFd();
 	bool isValidCmd = CmdParser::parseCmd(line, command);
 	if (!isValidCmd)
 	{
@@ -11,7 +15,7 @@ void CmdDispatcher::dispatch(int fd, String line, IRCServer &server)
 	}
 	ACommand *handler = _registry.getCmd(command.cmdName);
 	if (handler)
-		handler->execute(fd, command, server);
+		handler->execute(client, command, server);
 	else
 	{
 		std::string reply = ":localhost 421 " + command.cmdName + " :Unknown command\r\n";

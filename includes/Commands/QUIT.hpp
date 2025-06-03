@@ -8,7 +8,7 @@ class QUIT : public ACommand
 public:
 	QUIT();
 	~QUIT();
-	void execute(int fd, CmdStruct &cmd, IRCServer &server);
+	void execute(Client *client, CmdStruct &cmd, IRCServer &server);
 };
 
 #endif

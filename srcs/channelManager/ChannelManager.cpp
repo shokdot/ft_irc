@@ -40,7 +40,3 @@ Channel *ChannelManager::getOrCreateChannel(const String &name, const String &pa
 		return NULL;
 	return it->second;
 }
-
-void ChannelManager::joinChannel()
-{
-}

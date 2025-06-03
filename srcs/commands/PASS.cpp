@@ -9,10 +9,9 @@ PASS::~PASS()
 {
 }
 
-void PASS::execute(int fd, CmdStruct &cmd, IRCServer &server)
+void PASS::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
-	ClientManager &clientManager = server.getClientManager();
-	Client *client = clientManager.getClientByFd(fd);
+	int fd = client->getClientFd();
 	if (cmd.params.size() < 1)
 	{
 		std::string reply = ":localhost 461 pass :Not enough parameters\r\n";

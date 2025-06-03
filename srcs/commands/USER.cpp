@@ -9,10 +9,10 @@ USER::~USER()
 {
 }
 
-void USER::execute(int fd, CmdStruct &cmd, IRCServer &server)
+void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
-	ClientManager &clientManager = server.getClientManager();
-	Client *client = clientManager.getClientByFd(fd);
+	(void)server;
+	int fd = client->getClientFd();
 	if (!client)
 	{
 		std::string reply = ":localhost 451 :You have not registered\r\n";

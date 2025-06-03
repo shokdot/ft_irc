@@ -11,7 +11,7 @@ private:
 public:
 	USER();
 	~USER();
-	void execute(int fd, CmdStruct &cmd, IRCServer &server);
+	void execute(Client *client, CmdStruct &cmd, IRCServer &server);
 };
 
 #endif

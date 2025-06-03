@@ -8,7 +8,7 @@ class PASS : public ACommand
 public:
 	PASS();
 	~PASS();
-	void execute(int fd, CmdStruct &cmd, IRCServer &server);
+	void execute(Client *client, CmdStruct &cmd, IRCServer &server);
 };
 
 #endif

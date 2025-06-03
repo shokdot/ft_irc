@@ -5,13 +5,13 @@
 
 class IRCServer;
 class ClientManager;
-class ChannelManager;
+class Client;
 
 class ACommand
 {
 public:
 	virtual ~ACommand();
-	virtual void execute(int fd, CmdStruct &cmd, IRCServer &server) = 0;
+	virtual void execute(Client *client, CmdStruct &cmd, IRCServer &server) = 0;
 };
 
 #endif

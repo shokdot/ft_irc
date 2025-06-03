@@ -17,6 +17,8 @@ void MsgStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &serve
 
 void MsgStrategy::processMsg(int fd, IRCServer &server)
 {
+	ClientManager &clientManager = server.getClientManager();
+	Client *client = clientManager.getClientByFd(fd);
 	String &data = sockBuffer[fd];
 	size_t pos;
 	while ((pos = data.find("\r\n")) != String::npos)
@@ -28,7 +30,7 @@ void MsgStrategy::processMsg(int fd, IRCServer &server)
 			std::cout << "[WARNING] Client " << fd << " sent too much data" << std::endl;
 			continue;
 		}
-		_dispatcher.dispatch(fd, line, server);
+		_dispatcher.dispatch(client, line, server);
 	}
 }
 
@@ -44,7 +46,7 @@ bool MsgStrategy::readFromSock(int fd, IRCServer &server)
 		disconnect(fd, bytes, server);
 		return false;
 	}
-	sockBuffer[fd] += std::string(buffer, bytes);
+	sockBuffer[fd] += String(buffer, bytes);
 	return true;
 }
 

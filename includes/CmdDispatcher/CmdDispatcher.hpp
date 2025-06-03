@@ -5,6 +5,7 @@
 #include <CmdRegistry.hpp>
 #include <CmdParser.hpp>
 
+class Client;
 class IRCServer;
 
 class CmdDispatcher
@@ -13,7 +14,7 @@ private:
 	CmdRegistry _registry;
 
 public:
-	void dispatch(int fd, String line, IRCServer &server);
+	void dispatch(Client *client, String line, IRCServer &server);
 };
 
 #endif

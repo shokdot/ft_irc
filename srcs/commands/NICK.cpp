@@ -9,10 +9,10 @@ NICK::~NICK()
 {
 }
 
-void NICK::execute(int fd, CmdStruct &cmd, IRCServer &server)
+void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
 	ClientManager &clientManager = server.getClientManager();
-	Client *client = clientManager.getClientByFd(fd);
+	int fd = client->getClientFd();
 	if (!client)
 	{
 		std::string reply = ":localhost 437 * :Nick is temporarily unavailable\r\n";
