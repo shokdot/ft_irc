@@ -12,7 +12,7 @@ private:
 public:
 	~ChannelManager();
 	Channel *getChannelByName(const String &name);
-	Channel *getOrCreateChannel(const String &name);
+	Channel *getOrCreateChannel(const String &name, const String &password);
 
 	void deleteChannel(const String &name);
 	// join channel

@@ -6,30 +6,30 @@
 class Channel
 {
 private:
-	String name;
-	String topic;
-	String password;
-	std::vector<String> channelUsers;
-	std::set<String> operators;
-	std::set<String> invitedUsers;
-	int userLimit;
+	String _name;
+	String _password;
+	String _topic;
+	std::set<String> _channelUsers;
+	std::set<String> _operators;
+	std::set<String> _invitedUsers;
+	int _userLimit;
 
-	bool isInviteOnly;
-	bool isTopicRestricted;
+	bool _isInviteOnly;
+	bool _isTopicRestricted;
 
 public:
-	Channel(const String &name);
+	Channel(const String &name, const String &password);
 
 public:
 	const String &getName() const;
 	const String &getTopic() const;
 	const String &getPassword() const;
-	const std::vector<String> &getChannelUsers() const;
-	const std::set<String> &getOperators() const;
-	const std::set<String> &getInvitedUsers() const;
+	void addUser(const String &nickname);
+	bool deleteUser(const String &nikcname);
 	int getUserLimit() const;
 	bool getIsInviteOnly() const;
 	bool getIsTopicRestricted() const;
+	void addOperator(const String &nickname);
 
 	void setName(const String &newName);
 	void setTopic(const String &newTopic);
