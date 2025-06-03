@@ -17,11 +17,11 @@ public:
 	Client(int fd);
 	~Client();
 
-	void setUsername(const String &);
-	void setNickname(const String &);
-	void setRealname(const String &);
-	void setHostname(const String &);
-	void setAuth(bool);
+	void setUsername(const String &username);
+	void setNickname(const String &nickname);
+	void setRealname(const String &realname);
+	void setHostname(const String &hostname);
+	void setAuth(bool auth);
 
 	const String &getUsername() const;
 	const String &getNickname() const;
