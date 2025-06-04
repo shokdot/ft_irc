@@ -13,12 +13,11 @@ public:
 	~ChannelManager();
 	Channel *getChannelByName(const String &name);
 	Channel *getOrCreateChannel(const String &name, const String &password);
-
 	void deleteChannel(const String &name);
-	// join channel
-	// part channel
-	// is invited
+	void joinChannel(Client *client, const String &name, const String &password);
+	// void partChannel(Client *client, const String &name);
 	// void broadcastToChannel
 };
 
 #endif
+// CHANNEL_MANAGER_HPP

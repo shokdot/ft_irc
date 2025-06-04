@@ -1,37 +1,73 @@
 #include <Channel.hpp>
+#include <Client.hpp>
 
 Channel::Channel(const String &name, const String &password) : _name(name),
 															   _password(password),
 															   _topic(""),
-															   _userLimit(0),
-															   _isInviteOnly(false),
-															   _isTopicRestricted(false)
+															   _userLimit(0)
 {
+	if (!password.empty())
+		addMode('k');
 }
 
-void Channel::addUser(const String &nickname)
+void Channel::addUser(Client *client)
 {
-	_channelUsers.insert(nickname);
+	_channelUsers.insert(client);
 	if (_channelUsers.size() == 1)
-		addOperator(nickname);
+		addOperator(client);
 }
 
-bool Channel::deleteUser(const String &nickname)
+void Channel::addMode(char c)
 {
-	_channelUsers.erase(nickname);
-	_operators.erase(nickname);
-	_invitedUsers.erase(nickname);
+	_mode.insert(c);
+}
+
+void Channel::removeMode(char c)
+{
+	_mode.erase(c);
+}
+
+bool Channel::hasMode(char c) const
+{
+	return _mode.count(c);
+}
+
+bool Channel::deleteUser(Client *client)
+{
+	_channelUsers.erase(client);
+	removeOperator(client);
+	_invitedUsers.erase(client);
 	return _channelUsers.empty();
 }
 
-void Channel::addOperator(const String &nickname)
+void Channel::addOperator(Client *client)
 {
-	_operators.insert(nickname);
+	_operators.insert(client);
+}
+
+void Channel::removeOperator(Client *client)
+{
+	_operators.erase(client);
 }
 
 const String &Channel::getName() const
 {
 	return _name;
+}
+
+bool Channel::hasClient(Client *clinet)
+{
+	return _channelUsers.count(clinet);
+}
+
+bool Channel::isClientInvited(Client *client)
+{
+	return _invitedUsers.count(client);
+}
+
+int Channel::getChannelSize()
+{
+	return _channelUsers.size();
 }
 
 const String &Channel::getTopic() const { return _topic; }
@@ -40,9 +76,9 @@ const String &Channel::getPassword() const { return _password; }
 
 int Channel::getUserLimit() const { return _userLimit; }
 
-bool Channel::getIsInviteOnly() const { return _isInviteOnly; }
+bool Channel::isInviteOnly() const { return hasMode('i'); }
 
-bool Channel::getIsTopicRestricted() const { return _isTopicRestricted; }
+bool Channel::isTopicRestricted() const { return hasMode('t'); }
 
 void Channel::setName(const String &newName) { _name = newName; }
 
@@ -52,6 +88,23 @@ void Channel::setPassword(const String &newPassword) { _password = newPassword; 
 
 void Channel::setUserLimit(int limit) { _userLimit = limit; }
 
-void Channel::setIsInviteOnly(bool flag) { _isInviteOnly = flag; }
+bool Channel::hasReachedLimit() // implement
+{
+	if (!hasMode('l'))
+		return false;
+	return true;
+}
 
-void Channel::setIsTopicRestricted(bool flag) { _isTopicRestricted = flag; }
+void Channel::print()
+{
+	for (std::set<Client *>::iterator it = _channelUsers.begin(); it != _channelUsers.end(); ++it)
+	{
+		std::cout << (*it)->getNickname() << " ";
+	}
+	std::cout << std::endl;
+}
+
+bool Channel::canJoin(Client *client)
+{
+	return !isInviteOnly() || isClientInvited(client);
+}

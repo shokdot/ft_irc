@@ -1,4 +1,5 @@
 #include <ChannelManager.hpp>
+#include <Client.hpp>
 
 ChannelManager::~ChannelManager()
 {
@@ -39,4 +40,33 @@ Channel *ChannelManager::getOrCreateChannel(const String &name, const String &pa
 	if (it->second->getPassword() != password)
 		return NULL;
 	return it->second;
+}
+
+void ChannelManager::joinChannel(Client *client, const String &name, const String &password)
+{
+	int fd = client->getClientFd();
+	Channel *channel = getOrCreateChannel(name, password);
+	if (!channel)
+	{
+		std::string reply = ":localhost 475 " + client->getNickname() + " " + name + " :Cannot join channel (+k)\r\n";
+		Utils::sendWrapper(reply, fd);
+		return;
+	}
+	else if (channel->hasClient(client))
+		return;
+	else if (!channel->canJoin(client))
+	{
+		std::string reply = ":localhost 473 " + client->getNickname() + " " + name + " :Cannot join channel (+i)\r\n";
+		Utils::sendWrapper(reply, fd);
+		return;
+	}
+	else if (channel->hasReachedLimit())
+	{
+		std::string reply = ":localhost 471 " + client->getNickname() + " " + name + " :Cannot join channel (+l)\r\n";
+		Utils::sendWrapper(reply, fd);
+		return;
+	}
+	channel->addUser(client);
+	channel->print(); // comment this
+					  // bradcast msg and other thing else
 }
