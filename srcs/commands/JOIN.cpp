@@ -15,6 +15,12 @@ void JOIN::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
+	else if (!client->isRegistered())
+	{
+		std::string reply = ":localhost 451 :You have not registered\r\n";
+		Utils::sendWrapper(reply, fd);
+		return;
+	}
 	if (cmd.params[0] == "0")
 		return; // partAllChannels();
 	std::vector<ChannelKey> channelKeyPairs = parseChannels(client, cmd.params);
