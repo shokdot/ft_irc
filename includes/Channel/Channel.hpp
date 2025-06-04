@@ -35,8 +35,9 @@ public:
 	void setTopic(const String &newTopic);
 	void setPassword(const String &newPassword);
 	void setUserLimit(int limit);
-	// void setIsInviteOnly(bool flag);
-	// void setIsTopicRestricted(bool flag);
+	void addInviteUser(Client *client);
+	void removeInvitedUser(Client *client);
+	bool isUserInvited(Client *client);
 	bool hasClient(Client *client);
 	bool isClientInvited(Client *client);
 	void addMode(char c);

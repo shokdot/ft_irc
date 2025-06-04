@@ -27,6 +27,21 @@ void Channel::removeMode(char c)
 	_mode.erase(c);
 }
 
+void Channel::addInviteUser(Client *client)
+{
+	_invitedUsers.insert(client);
+}
+
+void Channel::removeInvitedUser(Client *client)
+{
+	_invitedUsers.erase(client);
+}
+
+bool Channel::isUserInvited(Client *client)
+{
+	return _invitedUsers.count(client);
+}
+
 bool Channel::hasMode(char c) const
 {
 	return _mode.count(c);
@@ -36,7 +51,7 @@ bool Channel::deleteUser(Client *client)
 {
 	_channelUsers.erase(client);
 	removeOperator(client);
-	_invitedUsers.erase(client);
+	removeInvitedUser(client);
 	return _channelUsers.empty();
 }
 
@@ -70,23 +85,50 @@ int Channel::getChannelSize()
 	return _channelUsers.size();
 }
 
-const String &Channel::getTopic() const { return _topic; }
+const String &Channel::getTopic() const
+{
+	return _topic;
+}
 
-const String &Channel::getPassword() const { return _password; }
+const String &Channel::getPassword() const
+{
+	return _password;
+}
 
-int Channel::getUserLimit() const { return _userLimit; }
+int Channel::getUserLimit() const
+{
+	return _userLimit;
+}
 
-bool Channel::isInviteOnly() const { return hasMode('i'); }
+bool Channel::isInviteOnly() const
+{
+	return hasMode('i');
+}
 
-bool Channel::isTopicRestricted() const { return hasMode('t'); }
+bool Channel::isTopicRestricted() const
+{
+	return hasMode('t');
+}
 
-void Channel::setName(const String &newName) { _name = newName; }
+void Channel::setName(const String &newName)
+{
+	_name = newName;
+}
 
-void Channel::setTopic(const String &newTopic) { _topic = newTopic; }
+void Channel::setTopic(const String &newTopic)
+{
+	_topic = newTopic;
+}
 
-void Channel::setPassword(const String &newPassword) { _password = newPassword; }
+void Channel::setPassword(const String &newPassword)
+{
+	_password = newPassword;
+}
 
-void Channel::setUserLimit(int limit) { _userLimit = limit; }
+void Channel::setUserLimit(int limit)
+{
+	_userLimit = limit;
+}
 
 bool Channel::hasReachedLimit() // implement
 {
