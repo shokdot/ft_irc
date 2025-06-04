@@ -26,6 +26,12 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
+	else if (!client->getAuth())
+	{
+		std::string reply = ":localhost 464 :Password required\r\n";
+		Utils::sendWrapper(reply, fd);
+		return;
+	}
 	String current_nick = client->getNickname();
 	String nickname = Utils::strToLower(cmd.params[0]);
 	if (nickname == current_nick)

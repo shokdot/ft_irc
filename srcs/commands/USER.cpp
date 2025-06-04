@@ -30,6 +30,12 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
+	else if (!client->getAuth())
+	{
+		std::string reply = ":localhost 464 :Password required\r\n";
+		Utils::sendWrapper(reply, fd);
+		return;
+	}
 	else if (client->isRegistered())
 	{
 		std::string reply = ":localhost 462 :" + client->getNickname() + " You may not reregister\r\n";
