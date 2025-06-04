@@ -22,7 +22,17 @@ void JOIN::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 	}
 	if (cmd.params[0] == "0")
-		return; // partAllChannels();
+	{
+		channelManager.partAll(client);
+		std::set<Channel *> chans = client->getJoinedChannels();
+		std::set<Channel *>::iterator it = chans.begin();
+		for (; it != chans.end(); ++it)
+		{
+			std::cout << (*it)->getName() << std::endl;
+		}
+		std::cout << "verj is it" << std::endl;
+		return;
+	}
 	std::vector<ChannelKey> channelKeyPairs = parseChannels(client, cmd.params);
 
 	for (size_t i = 0; i < channelKeyPairs.size(); ++i)
@@ -50,7 +60,7 @@ std::vector<ChannelKey> JOIN::parseChannels(Client *client, std::vector<String> 
 		String channel = channels[i];
 		String key = (i < keys.size()) ? keys[i] : "";
 
-		if (!isValidChannelName(channel) || (!key.empty() && !isValidKey(key)))
+		if (!ChannelManager::isValidChannelName(channel) || (!key.empty() && !ChannelManager::isValidKey(key)))
 		{
 			std::string reply = ":localhost 403 " + nickname + " " + channel + " :No such channel\r\n";
 			Utils::sendWrapper(reply, fd);
@@ -60,22 +70,4 @@ std::vector<ChannelKey> JOIN::parseChannels(Client *client, std::vector<String> 
 		channelKeyPairs.push_back(ChannelKey(channel, key));
 	}
 	return channelKeyPairs;
-}
-
-bool JOIN::isValidChannelName(const String &name)
-{
-	if (name.empty() || name.size() > 50)
-		return false;
-	else if (name[0] != '#' && name[0] != '&')
-		return false;
-	else if (name.find(' ') != String::npos || name.find(',') != String::npos || name.find('\a') != String::npos)
-		return false;
-	return true;
-}
-
-bool JOIN::isValidKey(const String &key)
-{
-	if (key.find(' ') != String::npos || key.find(',') != String::npos)
-		return false;
-	return true;
 }
