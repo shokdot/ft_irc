@@ -8,7 +8,9 @@ ErrorStrategy::~ErrorStrategy() {}
 void ErrorStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &server)
 {
 	ClientManager &clientManager = server.getClientManager();
+	Client *client = clientManager.getClientByFd(fd);
 
+	server.getChannelManager().partAll(client);
 	pollManager.removeFd(fd);
 	clientManager.removeClient(fd);
 

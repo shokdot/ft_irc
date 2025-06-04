@@ -86,7 +86,7 @@ void ChannelManager::partChannel(Client *client, const String &name)
 
 void ChannelManager::partAll(Client *client)
 {
-	std::set<Channel *> channels = client->getJoinedChannels(); // copy to avoid invalidation
+	std::set<Channel *> channels = client->getJoinedChannels();
 	std::set<Channel *>::iterator it = channels.begin();
 	for (; it != channels.end(); ++it)
 	{
