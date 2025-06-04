@@ -13,7 +13,18 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
 	(void)server;
 	int fd = client->getClientFd();
-	if (!client)
+	if (cmd.params.size() == 4 && cmd.trailing.empty())
+	{
+		cmd.trailing = cmd.params.back();
+		cmd.params.pop_back();
+	}
+	if (cmd.params.size() < 3 || cmd.trailing.empty())
+	{
+		std::string reply = ":localhost 461 USER :Not enough parameters\r\n";
+		Utils::sendWrapper(reply, fd);
+		return;
+	}
+	else if (!client)
 	{
 		std::string reply = ":localhost 451 :You have not registered\r\n";
 		Utils::sendWrapper(reply, fd);
@@ -22,17 +33,6 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	else if (client->isRegistered())
 	{
 		std::string reply = ":localhost 462 :" + client->getNickname() + " You may not reregister\r\n";
-		Utils::sendWrapper(reply, fd);
-		return;
-	}
-	else if (cmd.params.size() == 4 && cmd.trailing.empty())
-	{
-		cmd.trailing = cmd.params.back();
-		cmd.params.pop_back();
-	}
-	else if (cmd.params.size() < 3 || cmd.trailing.empty())
-	{
-		std::string reply = ":localhost 461 USER :Not enough parameters\r\n";
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
