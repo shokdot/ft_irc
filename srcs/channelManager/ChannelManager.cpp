@@ -67,6 +67,48 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 		return;
 	}
 	channel->addUser(client);
+	client->joinChannel(channel);
 	channel->print(); // comment this
 					  // bradcast msg and other thing else
+}
+
+void ChannelManager::partChannel(Client *client, const String &name)
+{
+	Channel *channel = getChannelByName(name);
+	if (!channel)
+		return;
+	if (!client->isJoinedChannel(channel))
+		return;
+	client->removeChannel(channel);
+	if (channel->deleteUser(client))
+		deleteChannel(name);
+}
+
+void ChannelManager::partAll(Client *client)
+{
+	std::set<Channel *> channels = client->getJoinedChannels(); // copy to avoid invalidation
+	std::set<Channel *>::iterator it = channels.begin();
+	for (; it != channels.end(); ++it)
+	{
+		String name = (*it)->getName();
+		partChannel(client, name);
+	}
+}
+
+bool ChannelManager::isValidChannelName(const String &name)
+{
+	if (name.empty() || name.size() > 50)
+		return false;
+	else if (name[0] != '#' && name[0] != '&')
+		return false;
+	else if (name.find(' ') != String::npos || name.find(',') != String::npos || name.find('\a') != String::npos)
+		return false;
+	return true;
+}
+
+bool ChannelManager::isValidKey(const String &key)
+{
+	if (key.find(' ') != String::npos || key.find(',') != String::npos)
+		return false;
+	return true;
 }

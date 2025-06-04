@@ -12,7 +12,5 @@ public:
 
 private:
 	std::vector<ChannelKey> parseChannels(Client *client, std::vector<String> &params);
-	bool isValidChannelName(const String &name);
-	bool isValidKey(const String &key);
 };
 #endif
