@@ -12,7 +12,7 @@ CmdRegistry::CmdRegistry()
 	// _commands["TOPIC"] = new TOPIC();
 	// _commands["MODE"] = new MODE();
 	// _commands["PRIVMSG"] = new PRIVMSG();
-	// _commands["QUIT"] = new QUIT();
+	_commands["QUIT"] = new QUIT();
 	// _commands["CAP"] = new CAP();
 }
 

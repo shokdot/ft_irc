@@ -11,10 +11,12 @@ QUIT::~QUIT()
 
 void QUIT::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
-	(void)server;
-	(void)client;
-	(void)cmd;
-	// if (!cmd.trailing.empty())
-	// 	return; // send braodcast message
-	// server.getEventDispatcher().disconnectClient(fd, server);
+	int fd = client->getClientFd();
+	if (!cmd.params.empty())
+		return;
+	if (!cmd.trailing.empty())
+	{
+		// send braodcast message
+	}
+	server.getEventDispatcher().disconnectClient(fd, server);
 }
