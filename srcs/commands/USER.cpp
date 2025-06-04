@@ -57,7 +57,7 @@ bool USER::isValidUsername(const String &username)
 {
 	if (username.empty())
 		return false;
-	std::string invalidChars = " @\n\r\0";
+	std::string invalidChars = " *@\n\r\0";
 	for (size_t i = 0; i < username.size(); ++i)
 	{
 		if (invalidChars.find(username[i]) != std::string::npos)
