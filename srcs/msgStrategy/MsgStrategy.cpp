@@ -68,6 +68,6 @@ void MsgStrategy::disconnect(int fd, int bytes, IRCServer &server)
 
 	if (bytes != 0)
 		std::cerr << "[ERROR] Failed to recv client " << fd << ": " << strerror(errno) << std::endl;
-
+	sockBuffer.erase(fd);
 	eventDispatcher.disconnectClient(fd, server);
 }
