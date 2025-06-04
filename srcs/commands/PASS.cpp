@@ -12,7 +12,7 @@ PASS::~PASS()
 void PASS::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
 	int fd = client->getClientFd();
-	if (cmd.params.size() < 1)
+	if (cmd.params.empty())
 	{
 		std::string reply = ":localhost 461 pass :Not enough parameters\r\n";
 		Utils::sendWrapper(reply, fd);
