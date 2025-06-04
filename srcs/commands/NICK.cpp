@@ -34,14 +34,14 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	}
 	String current_nick = client->getNickname();
 	String nickname = Utils::strToLower(cmd.params[0]);
-	if (nickname == current_nick)
-		return;
-	else if (!isValidNick(cmd.params[0]))
+	if (!isValidNick(cmd.params[0]))
 	{
 		std::string reply = ":localhost 432 " + current_nick + " " + nickname + " :Erroneous nickname\r\n";
 		Utils::sendWrapper(reply, fd);
 		return;
 	}
+	else if (nickname == current_nick)
+		return;
 	else if (!isNickAvalible(nickname, clientManager))
 	{
 		std::string reply = ":localhost 433 " + nickname + " :Nickname is already in use\r\n";
