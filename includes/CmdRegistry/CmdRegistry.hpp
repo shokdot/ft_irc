@@ -7,6 +7,7 @@
 #include <USER.hpp>
 #include <QUIT.hpp>
 #include <JOIN.hpp>
+#include <PART.hpp>
 
 class CmdRegistry
 {
