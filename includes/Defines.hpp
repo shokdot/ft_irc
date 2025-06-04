@@ -43,5 +43,13 @@ struct CmdStruct
 	String trailing;
 };
 
+struct ChannelKey
+{
+	String channel;
+	String key;
+
+	ChannelKey(const String &ch, const String &k) : channel(ch), key(k) {}
+};
+
 #endif
 // DEFINES_HPP
