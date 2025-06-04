@@ -11,6 +11,7 @@ private:
 	String _nickname;
 	String _realname;
 	String _hostname;
+	std::set<Channel *> _joinedChannels;
 	bool _isAuth;
 
 public:
@@ -30,6 +31,10 @@ public:
 	int getClientFd() const;
 	bool getAuth() const;
 	bool isRegistered() const;
+	void joinChannel(Channel *channel);
+	void removeChannel(Channel *channel);
+	bool isJoinedChannel(Channel *channel);
+	std::set<Channel *> &getJoinedChannels();
 };
 
 #endif

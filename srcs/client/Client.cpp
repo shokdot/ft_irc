@@ -70,3 +70,23 @@ bool Client::isRegistered() const
 		return true;
 	return false;
 }
+
+void Client::joinChannel(Channel *channel)
+{
+	_joinedChannels.insert(channel);
+}
+
+void Client::removeChannel(Channel *channel)
+{
+	_joinedChannels.erase(channel);
+}
+
+bool Client::isJoinedChannel(Channel *channel)
+{
+	return _joinedChannels.count(channel);
+}
+
+std::set<Channel *> &Client::getJoinedChannels()
+{
+	return _joinedChannels;
+}
