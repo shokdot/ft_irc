@@ -24,13 +24,6 @@ void JOIN::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (cmd.params[0] == "0")
 	{
 		channelManager.partAll(client);
-		std::set<Channel *> chans = client->getJoinedChannels();
-		std::set<Channel *>::iterator it = chans.begin();
-		for (; it != chans.end(); ++it)
-		{
-			std::cout << (*it)->getName() << std::endl;
-		}
-		std::cout << "verj is it" << std::endl;
 		return;
 	}
 	std::vector<ChannelKey> channelKeyPairs = parseChannels(client, cmd.params);
