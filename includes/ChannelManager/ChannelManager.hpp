@@ -17,6 +17,7 @@ public:
 	void joinChannel(Client *client, const String &name, const String &password);
 	void partChannel(Client *client, const String &name);
 	void partAll(Client *clinet);
+	void broadcastToChannel(const String &name, const String &msg, int senderFd);
 	static bool isValidChannelName(const String &name);
 	static bool isValidKey(const String &name);
 	// void broadcastToChannel

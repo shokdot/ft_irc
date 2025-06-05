@@ -84,6 +84,21 @@ void ChannelManager::partChannel(Client *client, const String &name)
 		deleteChannel(name);
 }
 
+void ChannelManager::broadcastToChannel(const String &name, const String &msg, int senderFd = -1)
+{
+	Channel *channel = getChannelByName(name);
+	if (!channel)
+		return;
+	std::set<Client *> channelUsers = channel->getChannelUsers();
+	std::set<Client *>::iterator it = channelUsers.begin();
+	for (; it != channelUsers.end(); ++it)
+	{
+		int fd = (*it)->getClientFd();
+		if (fd != senderFd)
+			Utils::sendWrapper(msg, fd);
+	}
+}
+
 void ChannelManager::partAll(Client *client)
 {
 	std::set<Channel *> channels = client->getJoinedChannels();

@@ -150,3 +150,8 @@ bool Channel::canJoin(Client *client)
 {
 	return !isInviteOnly() || isClientInvited(client);
 }
+
+std::set<Client *> &Channel::getChannelUsers()
+{
+	return _channelUsers;
+}

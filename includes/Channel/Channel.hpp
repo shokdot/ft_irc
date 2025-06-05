@@ -39,6 +39,7 @@ public:
 	void removeInvitedUser(Client *client);
 	bool isUserInvited(Client *client);
 	bool hasClient(Client *client);
+	std::set<Client *> &getChannelUsers();
 	bool isClientInvited(Client *client);
 	void addMode(char c);
 	void removeMode(char c);
