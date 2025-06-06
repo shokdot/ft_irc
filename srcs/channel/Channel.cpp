@@ -155,3 +155,15 @@ std::set<Client *> &Channel::getChannelUsers()
 {
 	return _channelUsers;
 }
+
+void Channel::broadcastToChannel(const String &msg, int senderFd = -1)
+{
+	std::set<Client *> channelUsers = getChannelUsers();
+	std::set<Client *>::iterator it = channelUsers.begin();
+	for (; it != channelUsers.end(); ++it)
+	{
+		int fd = (*it)->getClientFd();
+		if (fd != senderFd)
+			Utils::sendReply(msg, fd);
+	}
+}
