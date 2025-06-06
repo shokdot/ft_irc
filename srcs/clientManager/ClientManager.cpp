@@ -52,9 +52,9 @@ bool ClientManager::changeNick(const String &nickname, Client *client)
 	std::map<String, Client *>::iterator it = _clientsByNick.find(nickname);
 	if (it != _clientsByNick.end() && it->second != client)
 		return false;
-	const String &old_nick = client->getNickname();
-	if (old_nick != "*")
-		_clientsByNick.erase(old_nick);
+	const String &oldNick = client->getNickname();
+	if (oldNick != "*")
+		_clientsByNick.erase(oldNick);
 	client->setNickname(nickname);
 	_clientsByNick[nickname] = client;
 	return true;
