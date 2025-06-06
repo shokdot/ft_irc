@@ -1,6 +1,5 @@
 #include <PASS.hpp>
 #include <IRCServer.hpp>
-#include <Replies.hpp>
 
 PASS::PASS()
 {
