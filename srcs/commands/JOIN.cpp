@@ -12,13 +12,13 @@ void JOIN::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (cmd.params.empty())
 	{
 		std::string reply = ":localhost 461 JOIN :Not enough parameters\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	else if (!client->isRegistered())
 	{
 		std::string reply = ":localhost 451 :You have not registered\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	if (cmd.params[0] == "0")
@@ -56,7 +56,7 @@ std::vector<ChannelKey> JOIN::parseChannels(Client *client, std::vector<String> 
 		if (!ChannelManager::isValidChannelName(channel) || (!key.empty() && !ChannelManager::isValidKey(key)))
 		{
 			std::string reply = ":localhost 403 " + nickname + " " + channel + " :No such channel\r\n";
-			Utils::sendWrapper(reply, fd);
+			Utils::sendReply(reply, fd);
 			continue;
 		}
 

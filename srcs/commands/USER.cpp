@@ -21,31 +21,31 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (cmd.params.size() < 3 || cmd.trailing.empty())
 	{
 		std::string reply = ":localhost 461 USER :Not enough parameters\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	else if (!client)
 	{
 		std::string reply = ":localhost 451 :You have not registered\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	else if (!client->getAuth())
 	{
 		std::string reply = ":localhost 464 :Password required\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	else if (client->isRegistered())
 	{
 		std::string reply = ":localhost 462 :" + client->getNickname() + " You may not reregister\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	else if (!isValidUsername(cmd.params[0]))
 	{
 		std::string reply = ":localhost 468 USER :Invalid username\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	client->setRealname(cmd.trailing);
