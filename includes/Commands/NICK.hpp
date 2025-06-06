@@ -11,9 +11,9 @@ public:
 	void execute(Client *client, CmdStruct &cmd, IRCServer &server);
 
 private:
-	bool isValidNick(const String &nickname);
-	bool isNickAvalible(const String &nickname, ClientManager &clientManager);
-	bool isSpecial(char c);
+	static bool isValidNick(const String &nickname);
+	static bool isNickAvalible(const String &nickname, ClientManager &clientManager);
+	static bool isSpecial(char c);
 };
 
 #endif

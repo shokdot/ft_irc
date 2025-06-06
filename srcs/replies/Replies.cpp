@@ -24,4 +24,19 @@ namespace Reply
 		return ":" + servername + " 431 " + nickname + " :No nickname given";
 	}
 
+	String ERR_ERRONEUSNICKNAME(const String &oldNick, const String &newNick)
+	{
+		return ":" + servername + " 432 " + oldNick + " " + newNick + " :Erroneous nickname";
+	}
+
+	String ERR_NICKNAMEINUSE(const String &oldNick, const String &newNick)
+	{
+		return ":" + servername + " 433 " + oldNick + " " + newNick + " :Nickname is already in use";
+	}
+
+	String RPL_SUCCNICK(const String &prefix, const String &newNick)
+	{
+		return ":" + prefix + " NICK :" + newNick;
+	}
+
 }

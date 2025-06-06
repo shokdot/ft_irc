@@ -11,52 +11,48 @@ NICK::~NICK()
 
 void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
+	if (!client)
+		return;
+
 	ClientManager &clientManager = server.getClientManager();
 	int fd = client->getClientFd();
-	if (!client)
-	{
-		std::string reply = ":localhost 437 * :Nick is temporarily unavailable\r\n";
-		Utils::sendWrapper(reply, fd);
-		std::cout << "[ERROR] Client " << fd << " User not defined" << std::endl;
-		return;
-	}
+	String oldNick = client->getNickname();
+	String oldPrefix = client->getPrefix();
 	if (cmd.params.empty())
 	{
-		std::string reply = ":localhost 431 :No nickname given\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(Reply::ERR_NONICKNAMEGIVEN(oldNick), fd);
 		return;
 	}
 	else if (!client->getAuth())
 	{
-		std::string reply = ":localhost 464 :Password required\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(Reply::ERR_PASSWDMISMATCH(oldNick, "required"), fd);
 		return;
 	}
-	String current_nick = client->getNickname();
-	String nickname = Utils::strToLower(cmd.params[0]);
-	if (!isValidNick(cmd.params[0]))
+	String newNick = Utils::strToLower(cmd.params[0]);
+	if (!isValidNick(newNick))
 	{
-		std::string reply = ":localhost 432 " + current_nick + " " + nickname + " :Erroneous nickname\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(Reply::ERR_ERRONEUSNICKNAME(oldNick, cmd.params[0]), fd);
 		return;
 	}
-	else if (nickname == current_nick)
+	else if (newNick == oldNick)
 		return;
-	else if (!isNickAvalible(nickname, clientManager))
+	else if (!isNickAvalible(newNick, clientManager))
 	{
-		std::string reply = ":localhost 433 " + nickname + " :Nickname is already in use\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(Reply::ERR_NICKNAMEINUSE(oldNick, cmd.params[0]), fd);
 		return;
 	}
-	else if (!clientManager.changeNick(nickname, client))
+	else if (!clientManager.changeNick(newNick, client))
 		return;
-	// broadcast messages
-	std::cout << "nick changed" << std::endl;
+	else if (!client->isRegistered())
+		return;
+
+	String reply = Reply::RPL_SUCCNICK(oldPrefix, newNick);
+	Utils::sendReply(reply, fd);
+	client->broadcastJoinedChannels(reply);
 }
 
 bool NICK::isValidNick(const String &nickname)
 {
-	// trim
 	if (nickname.empty() || nickname.size() > 9)
 		return false;
 	if (!(std::isalpha(static_cast<unsigned char>(nickname[0])) || isSpecial(static_cast<unsigned char>(nickname[0]))))
