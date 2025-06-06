@@ -103,6 +103,10 @@ void Client::broadcastJoinedChannels(const String &msg)
 
 String Client::getPrefix() const
 {
-	String prefix = _nickname + "!" + _username + "@" + _hostname;
+	String prefix;
+	if (isRegistered())
+		prefix = _nickname + "!" + _username + "@" + _hostname;
+	else
+		prefix = _nickname;
 	return prefix;
 }
