@@ -35,6 +35,8 @@ public:
 	void removeChannel(Channel *channel);
 	bool isJoinedChannel(Channel *channel);
 	std::set<Channel *> &getJoinedChannels();
+	void broadcastJoinedChannels(const String &msg);
+	String getPrefix() const;
 };
 
 #endif

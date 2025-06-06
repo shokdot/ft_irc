@@ -90,3 +90,19 @@ std::set<Channel *> &Client::getJoinedChannels()
 {
 	return _joinedChannels;
 }
+
+void Client::broadcastJoinedChannels(const String &msg)
+{
+	std::set<Channel *>::iterator it = _joinedChannels.begin();
+
+	for (; it != _joinedChannels.end(); ++it)
+	{
+		(*it)->broadcastToChannel(msg, _socketFd);
+	}
+}
+
+String Client::getPrefix() const
+{
+	String prefix = _nickname + "!" + _username + "@" + _hostname;
+	return prefix;
+}
