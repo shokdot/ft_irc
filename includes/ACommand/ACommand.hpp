@@ -2,6 +2,7 @@
 #define ACOMMAND_HPP
 
 #include <IRC.hpp>
+#include <Replies.hpp>
 
 class IRCServer;
 class ClientManager;
