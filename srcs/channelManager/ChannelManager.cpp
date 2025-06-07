@@ -49,7 +49,7 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 	if (!channel)
 	{
 		std::string reply = ":localhost 475 " + client->getNickname() + " " + name + " :Cannot join channel (+k)\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	else if (channel->hasClient(client))
@@ -57,13 +57,13 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 	else if (!channel->canJoin(client))
 	{
 		std::string reply = ":localhost 473 " + client->getNickname() + " " + name + " :Cannot join channel (+i)\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	else if (channel->hasReachedLimit())
 	{
 		std::string reply = ":localhost 471 " + client->getNickname() + " " + name + " :Cannot join channel (+l)\r\n";
-		Utils::sendWrapper(reply, fd);
+		Utils::sendReply(reply, fd);
 		return;
 	}
 	channel->addUser(client);
@@ -72,31 +72,24 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 					  // bradcast msg and other thing else
 }
 
-void ChannelManager::partChannel(Client *client, const String &name)
+void ChannelManager::partChannel(Client *client, const String &name, const String &msg) // fix replys
 {
 	Channel *channel = getChannelByName(name);
 	if (!channel)
 		return;
 	if (!client->isJoinedChannel(channel))
 		return;
+	if (!client->isQuitting())
+	{
+		if (!msg.empty())
+			channel->broadcastToChannel(msg, client->getClientFd());
+		String reply = "PART " + name + msg;
+		channel->broadcastToChannel(reply, client->getClientFd());
+	}
+
 	client->removeChannel(channel);
 	if (channel->deleteUser(client))
 		deleteChannel(name);
-}
-
-void ChannelManager::broadcastToChannel(const String &name, const String &msg, int senderFd = -1)
-{
-	Channel *channel = getChannelByName(name);
-	if (!channel)
-		return;
-	std::set<Client *> channelUsers = channel->getChannelUsers();
-	std::set<Client *>::iterator it = channelUsers.begin();
-	for (; it != channelUsers.end(); ++it)
-	{
-		int fd = (*it)->getClientFd();
-		if (fd != senderFd)
-			Utils::sendWrapper(msg, fd);
-	}
 }
 
 void ChannelManager::partAll(Client *client)
@@ -106,7 +99,7 @@ void ChannelManager::partAll(Client *client)
 	for (; it != channels.end(); ++it)
 	{
 		String name = (*it)->getName();
-		partChannel(client, name);
+		partChannel(client, name, "");
 	}
 }
 
