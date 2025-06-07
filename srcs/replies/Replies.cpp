@@ -44,4 +44,9 @@ namespace Reply
 		return ":" + prefix + " QUIT :" + msg;
 	}
 
+	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd)
+	{
+		return ":" + servername + " 421 " + nickname + " " + cmd + " :Unknown command";
+	}
+
 }
