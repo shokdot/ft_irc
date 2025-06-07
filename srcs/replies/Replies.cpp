@@ -39,4 +39,9 @@ namespace Reply
 		return ":" + prefix + " NICK :" + newNick;
 	}
 
+	String RPL_QUIT(const String &prefix, const String &msg)
+	{
+		return ":" + prefix + " QUIT :" + msg;
+	}
+
 }

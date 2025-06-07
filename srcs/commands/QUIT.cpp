@@ -11,12 +11,17 @@ QUIT::~QUIT()
 
 void QUIT::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
-	int fd = client->getClientFd();
-	if (!cmd.params.empty())
+	if (!client)
 		return;
-	if (!cmd.trailing.empty())
+	int fd = client->getClientFd();
+	if (client->isRegistered() && !cmd.trailing.empty())
 	{
-		// send braodcast message
+		client->broadcastJoinedChannels(Reply::RPL_QUIT(client->getPrefix(), cmd.trailing));
 	}
+	else if (client->isRegistered())
+	{
+		client->broadcastJoinedChannels(Reply::RPL_QUIT(client->getPrefix()));
+	}
+	client->setIsQuitting(true);
 	server.getEventDispatcher().disconnectClient(fd, server);
 }

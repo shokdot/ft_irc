@@ -13,6 +13,7 @@ private:
 	String _hostname;
 	std::set<Channel *> _joinedChannels;
 	bool _isAuth;
+	bool _isQuitting;
 
 public:
 	Client(int fd);
@@ -37,6 +38,8 @@ public:
 	std::set<Channel *> &getJoinedChannels();
 	void broadcastJoinedChannels(const String &msg);
 	String getPrefix() const;
+	bool isQuitting();
+	void setIsQuitting(bool flag);
 };
 
 #endif
