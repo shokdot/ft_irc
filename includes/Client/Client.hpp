@@ -46,6 +46,7 @@ public:
 	bool hasUser();
 
 	bool isFirstLogin();
+	void sendWelcome();
 };
 
 #endif

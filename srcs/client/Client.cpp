@@ -1,4 +1,5 @@
 #include <Client.hpp>
+#include <Replies.hpp>
 
 Client::Client(int socketFd) : _socketFd(socketFd),
 							   _username("*"),
@@ -141,4 +142,12 @@ bool Client::hasUser()
 bool Client::isFirstLogin()
 {
 	return (!isRegistered() && hasNick() && hasUser());
+}
+
+void Client::sendWelcome()
+{
+	Utils::sendReply(Reply::RPL_WELCOME(_nickname, getPrefix()), _socketFd);
+	Utils::sendReply(Reply::RPL_YOURHOST(_nickname), _socketFd);
+	Utils::sendReply(Reply::RPL_CREATED(_nickname), _socketFd);
+	Utils::sendReply(Reply::RPL_MYINFO(_nickname), _socketFd);
 }
