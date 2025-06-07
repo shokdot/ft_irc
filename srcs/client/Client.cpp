@@ -6,9 +6,12 @@ Client::Client(int socketFd) : _socketFd(socketFd),
 							   _realname("unknown"),
 							   _hostname("unknown"),
 							   _isAuth(false),
-							   _isQuitting(false) {}
+							   _isQuitting(false),
+							   _isRegistered(false) {}
 
-Client::~Client() {}
+Client::~Client()
+{
+}
 
 void Client::setUsername(const String &username)
 {
@@ -67,9 +70,12 @@ bool Client::getAuth() const
 
 bool Client::isRegistered() const
 {
-	if (_isAuth && _nickname != "*" && _username != "*")
-		return true;
-	return false;
+	return _isRegistered;
+}
+
+void Client::setIsRegistered(bool flag)
+{
+	_isRegistered = flag;
 }
 
 void Client::joinChannel(Channel *channel)
@@ -120,4 +126,19 @@ String Client::getPrefix() const
 	else
 		prefix = _nickname;
 	return prefix;
+}
+
+bool Client::hasNick()
+{
+	return _nickname != "*";
+}
+
+bool Client::hasUser()
+{
+	return _username != "*";
+}
+
+bool Client::isFirstLogin()
+{
+	return (!isRegistered() && hasNick() && hasUser());
 }

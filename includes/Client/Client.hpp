@@ -14,6 +14,7 @@ private:
 	std::set<Channel *> _joinedChannels;
 	bool _isAuth;
 	bool _isQuitting;
+	bool _isRegistered;
 
 public:
 	Client(int fd);
@@ -40,6 +41,11 @@ public:
 	String getPrefix() const;
 	bool isQuitting();
 	void setIsQuitting(bool flag);
+	void setIsRegistered(bool flag);
+	bool hasNick();
+	bool hasUser();
+
+	bool isFirstLogin();
 };
 
 #endif
