@@ -24,6 +24,11 @@ namespace Reply
 		return ":" + servername + " 004 " + nickname + " " + servername + " ft_irc-0.1 o itklo";
 	}
 
+	String ERR_NOSUCHCHANNEL(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 403 " + nickname + " " + channelName + " :No such channel";
+	}
+
 	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd)
 	{
 		return ":" + servername + " 421 " + nickname + " " + cmd + " :Unknown command";
@@ -44,7 +49,13 @@ namespace Reply
 		return ":" + servername + " 433 " + oldNick + " " + newNick + " :Nickname is already in use";
 	}
 
-	String ERR_NEEDMOREPARAMS(const String &nickname, const String &cmdName)
+	String ERR_NOTREGISTERED(const String &nickname)
+	{
+		return ":" + servername + " 451 " + nickname + " :You have not registered";
+	}
+
+	String
+	ERR_NEEDMOREPARAMS(const String &nickname, const String &cmdName)
 	{
 		return ":" + servername + " 461 " + nickname + " " + cmdName + " :Not enough parameters";
 	}
