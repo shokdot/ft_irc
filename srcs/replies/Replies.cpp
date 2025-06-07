@@ -4,19 +4,29 @@ namespace Reply
 {
 	const String servername = "irc.42.chat";
 
-	String ERR_NEEDMOREPARAMS(const String &nickname, const String &cmdName)
+	String RPL_WELCOME(const String &nickname, const String &prefix)
 	{
-		return ":" + servername + " 461 " + nickname + " " + cmdName + " :Not enough parameters";
+		return ":" + servername + " 001 " + nickname + " :Welcome to the Internet Relay Network " + prefix;
 	}
 
-	String ERR_ALREADYREGISTRED(const String &nickname)
+	String RPL_YOURHOST(const String &nickname)
 	{
-		return ":" + servername + " 462 " + nickname + " :You may not reregister";
+		return ":" + servername + " 002 " + nickname + " :Your host is " + servername + ", running version ft_irc-0.1";
 	}
 
-	String ERR_PASSWDMISMATCH(const String &nickname, const String &reason)
+	String RPL_CREATED(const String &nickname)
 	{
-		return ":" + servername + " 464 " + nickname + " :Password " + reason;
+		return ":" + servername + " 003 " + nickname + " :Your host is " + servername + ", running version Unreal3.2.10"; /// todo
+	}
+
+	String RPL_MYINFO(const String &nickname)
+	{
+		return ":" + servername + " 004 " + nickname + " " + servername + " ft_irc-0.1 o itklo";
+	}
+
+	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd)
+	{
+		return ":" + servername + " 421 " + nickname + " " + cmd + " :Unknown command";
 	}
 
 	String ERR_NONICKNAMEGIVEN(const String &nickname)
@@ -34,6 +44,21 @@ namespace Reply
 		return ":" + servername + " 433 " + oldNick + " " + newNick + " :Nickname is already in use";
 	}
 
+	String ERR_NEEDMOREPARAMS(const String &nickname, const String &cmdName)
+	{
+		return ":" + servername + " 461 " + nickname + " " + cmdName + " :Not enough parameters";
+	}
+
+	String ERR_ALREADYREGISTRED(const String &nickname)
+	{
+		return ":" + servername + " 462 " + nickname + " :You may not reregister";
+	}
+
+	String ERR_PASSWDMISMATCH(const String &nickname, const String &reason)
+	{
+		return ":" + servername + " 464 " + nickname + " :Password " + reason;
+	}
+
 	String RPL_SUCCNICK(const String &prefix, const String &newNick)
 	{
 		return ":" + prefix + " NICK :" + newNick;
@@ -43,10 +68,4 @@ namespace Reply
 	{
 		return ":" + prefix + " QUIT :" + msg;
 	}
-
-	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd)
-	{
-		return ":" + servername + " 421 " + nickname + " " + cmd + " :Unknown command";
-	}
-
 }
