@@ -46,7 +46,7 @@ public:
 	bool hasUser();
 
 	bool isFirstLogin();
-	void sendWelcome();
+	void sendWelcome(const String &time);
 };
 
 #endif

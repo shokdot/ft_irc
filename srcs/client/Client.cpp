@@ -144,10 +144,10 @@ bool Client::isFirstLogin()
 	return (!isRegistered() && hasNick() && hasUser());
 }
 
-void Client::sendWelcome()
+void Client::sendWelcome(const String &time)
 {
 	Utils::sendReply(Reply::RPL_WELCOME(_nickname, getPrefix()), _socketFd);
 	Utils::sendReply(Reply::RPL_YOURHOST(_nickname), _socketFd);
-	Utils::sendReply(Reply::RPL_CREATED(_nickname), _socketFd);
+	Utils::sendReply(Reply::RPL_CREATED(_nickname, time), _socketFd);
 	Utils::sendReply(Reply::RPL_MYINFO(_nickname), _socketFd);
 }
