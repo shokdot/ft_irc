@@ -24,6 +24,16 @@ namespace Reply
 		return ":" + servername + " 004 " + nickname + " " + servername + " ft_irc-0.1 o itklo";
 	}
 
+	String RPL_NOTOPIC(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 331 " + nickname + " " + channelName + " :No topic is set";
+	}
+
+	String RPL_TOPIC(const String &nickname, const String &channelName, const String &topic)
+	{
+		return ":" + servername + " 332 " + nickname + " " + channelName + " :" + topic;
+	}
+
 	String ERR_NOSUCHCHANNEL(const String &nickname, const String &channelName)
 	{
 		return ":" + servername + " 403 " + nickname + " " + channelName + " :No such channel";
@@ -97,5 +107,10 @@ namespace Reply
 	String RPL_QUIT(const String &prefix, const String &msg)
 	{
 		return ":" + prefix + " QUIT :" + msg;
+	}
+
+	String RPL_JOIN(const String &prefix, const String &channelName)
+	{
+		return ":" + prefix + " JOIN :" + channelName;
 	}
 }

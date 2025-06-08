@@ -9,6 +9,8 @@ namespace Reply
 	String RPL_YOURHOST(const String &nickname);
 	String RPL_CREATED(const String &nickname, const String &time);
 	String RPL_MYINFO(const String &nickname);
+	String RPL_NOTOPIC(const String &nickname, const String &channelName);
+	String RPL_TOPIC(const String &nickname, const String &channelName, const String &topic);
 	String ERR_NOSUCHCHANNEL(const String &nickname, const String &channelName);
 	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd);
 	String ERR_NONICKNAMEGIVEN(const String &nickname);
@@ -24,6 +26,7 @@ namespace Reply
 	String ERR_BADCHANNELKEY(const String &username, const String &channelName);
 	String RPL_SUCCNICK(const String &prefix, const String &newNick);
 	String RPL_QUIT(const String &prefix, const String &msg = "Client Quit");
+	String RPL_JOIN(const String &prefix, const String &channelName);
 }
 
 #endif
