@@ -50,7 +50,7 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	else if (client->isFirstLogin())
 	{
 		client->setIsRegistered(true);
-		client->sendWelcome();
+		client->sendWelcome(server.getCreationTime());
 		return;
 	}
 	else if (client->isRegistered())

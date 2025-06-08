@@ -50,7 +50,7 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (client->isFirstLogin())
 	{
 		client->setIsRegistered(true);
-		client->sendWelcome();
+		client->sendWelcome(server.getCreationTime());
 	}
 }
 
