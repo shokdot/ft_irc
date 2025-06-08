@@ -49,6 +49,7 @@ public:
 	bool hasUser();
 
 	bool isFirstLogin();
+	void sendReply(const String &str);
 };
 
 #endif

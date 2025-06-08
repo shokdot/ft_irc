@@ -47,12 +47,6 @@ String Utils::strToLower(const String &str)
 	return res;
 }
 
-void Utils::sendReply(const String &str, int sock_fd)
-{
-	String msg = str + "\n\r";
-	send(sock_fd, msg.c_str(), msg.length(), 0);
-}
-
 std::vector<String> Utils::splitByDelim(const String &line, char delimeter)
 {
 	std::vector<String> tokens;

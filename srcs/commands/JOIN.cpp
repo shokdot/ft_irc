@@ -10,18 +10,17 @@ void JOIN::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (!client)
 		return;
 
-	int fd = client->getClientFd();
 	String nickname = client->getNickname();
 	ChannelManager &channelManager = server.getChannelManager();
 
 	if (cmd.params.empty())
 	{
-		Utils::sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "JOIN"), fd);
+		client->sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "JOIN"));
 		return;
 	}
 	else if (!client->isRegistered())
 	{
-		Utils::sendReply(Reply::ERR_NOTREGISTERED(nickname), fd);
+		client->sendReply(Reply::ERR_NOTREGISTERED(nickname));
 		return;
 	}
 	if (cmd.params[0] == "0")
@@ -45,7 +44,6 @@ std::vector<ChannelKey> JOIN::parseChannels(Client *client, std::vector<String> 
 	std::vector<ChannelKey> channelKeyPairs;
 	std::vector<String> channels = Utils::splitByDelim(params[0], ',');
 	std::vector<String> keys;
-	int fd = client->getClientFd();
 	String nickname = client->getNickname();
 
 	if (params.size() > 1)
@@ -58,7 +56,7 @@ std::vector<ChannelKey> JOIN::parseChannels(Client *client, std::vector<String> 
 
 		if (!ChannelManager::isValidChannelName(channel) || (!key.empty() && !ChannelManager::isValidKey(key)))
 		{
-			Utils::sendReply(Reply::ERR_NOSUCHCHANNEL(nickname, channel), fd);
+			client->sendReply(Reply::ERR_NOSUCHCHANNEL(nickname, channel));
 			continue;
 		}
 

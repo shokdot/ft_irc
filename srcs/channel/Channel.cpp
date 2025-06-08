@@ -162,9 +162,9 @@ void Channel::broadcastToChannel(const String &msg, int senderFd)
 	std::set<Client *>::iterator it = channelUsers.begin();
 	for (; it != channelUsers.end(); ++it)
 	{
-		int fd = (*it)->getClientFd();
-		if (fd != senderFd)
-			Utils::sendReply(msg, fd);
+		Client *client = *it;
+		if (client->getClientFd() != senderFd)
+			client->sendReply(msg);
 	}
 }
 

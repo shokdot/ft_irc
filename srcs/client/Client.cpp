@@ -146,8 +146,14 @@ bool Client::isFirstLogin()
 
 void Client::sendWelcome(const String &time)
 {
-	Utils::sendReply(Reply::RPL_WELCOME(_nickname, getPrefix()), _socketFd);
-	Utils::sendReply(Reply::RPL_YOURHOST(_nickname), _socketFd);
-	Utils::sendReply(Reply::RPL_CREATED(_nickname, time), _socketFd);
-	Utils::sendReply(Reply::RPL_MYINFO(_nickname), _socketFd);
+	sendReply(Reply::RPL_WELCOME(_nickname, getPrefix()));
+	sendReply(Reply::RPL_YOURHOST(_nickname));
+	sendReply(Reply::RPL_CREATED(_nickname, time));
+	sendReply(Reply::RPL_MYINFO(_nickname));
+}
+
+void Client::sendReply(const String &str)
+{
+	String msg = str + "\n\r";
+	send(_socketFd, msg.c_str(), msg.length(), 0);
 }

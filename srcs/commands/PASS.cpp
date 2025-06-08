@@ -19,17 +19,17 @@ void PASS::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 
 	if (client->getAuth())
 	{
-		Utils::sendReply(Reply::ERR_ALREADYREGISTRED(nickname), fd);
+		client->sendReply(Reply::ERR_ALREADYREGISTRED(nickname));
 		return;
 	}
 	else if (cmd.params.empty())
 	{
-		Utils::sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "PASS"), fd);
+		client->sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "PASS"));
 		return;
 	}
 	else if (cmd.params[0] != server.getPass())
 	{
-		Utils::sendReply(Reply::ERR_PASSWDMISMATCH(nickname, "incorrect"), fd);
+		client->sendReply(Reply::ERR_PASSWDMISMATCH(nickname, "incorrect"));
 		server.getEventDispatcher().disconnectClient(fd, server);
 		return;
 	}

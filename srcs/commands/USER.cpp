@@ -24,22 +24,22 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	}
 	if (cmd.params.size() < 3 || cmd.trailing.empty())
 	{
-		Utils::sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "USER"), fd);
+		client->sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "USER"));
 		return;
 	}
 	if (!client->getAuth())
 	{
-		Utils::sendReply(Reply::ERR_PASSWDMISMATCH(nickname, "required"), fd);
+		client->sendReply(Reply::ERR_PASSWDMISMATCH(nickname, "required"));
 		return;
 	}
 	if (client->isRegistered())
 	{
-		Utils::sendReply(Reply::ERR_ALREADYREGISTRED(nickname), fd);
+		client->sendReply(Reply::ERR_ALREADYREGISTRED(nickname));
 		return;
 	}
 	if (!isValidUsername(cmd.params[0]))
 	{
-		Utils::sendReply(Reply::ERR_INVALIDUSERNAME(cmd.params[0]), fd);
+		client->sendReply(Reply::ERR_INVALIDUSERNAME(cmd.params[0]));
 		return;
 	}
 

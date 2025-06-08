@@ -15,18 +15,17 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 
 	ClientManager &clientManager = server.getClientManager();
-	int fd = client->getClientFd();
 	String oldNick = client->getNickname();
 	String prefix = client->getPrefix();
 
 	if (cmd.params.empty())
 	{
-		Utils::sendReply(Reply::ERR_NONICKNAMEGIVEN(oldNick), fd);
+		client->sendReply(Reply::ERR_NONICKNAMEGIVEN(oldNick));
 		return;
 	}
 	else if (!client->getAuth())
 	{
-		Utils::sendReply(Reply::ERR_PASSWDMISMATCH(oldNick, "required"), fd);
+		client->sendReply(Reply::ERR_PASSWDMISMATCH(oldNick, "required"));
 		return;
 	}
 
@@ -34,14 +33,14 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 
 	if (!isValidNick(newNick))
 	{
-		Utils::sendReply(Reply::ERR_ERRONEUSNICKNAME(oldNick, cmd.params[0]), fd);
+		client->sendReply(Reply::ERR_ERRONEUSNICKNAME(oldNick, cmd.params[0]));
 		return;
 	}
 	else if (newNick == oldNick)
 		return;
 	else if (!isNickAvalible(newNick, clientManager))
 	{
-		Utils::sendReply(Reply::ERR_NICKNAMEINUSE(oldNick, cmd.params[0]), fd);
+		client->sendReply(Reply::ERR_NICKNAMEINUSE(oldNick, cmd.params[0]));
 		return;
 	}
 	else if (!clientManager.changeNick(newNick, client)) // check, fix
@@ -56,7 +55,7 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	else if (client->isRegistered())
 	{
 		String reply = Reply::RPL_SUCCNICK(prefix, newNick);
-		Utils::sendReply(reply, fd);
+		client->sendReply(reply);
 		client->broadcastJoinedChannels(reply);
 	}
 }

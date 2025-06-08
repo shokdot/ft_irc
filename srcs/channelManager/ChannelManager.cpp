@@ -49,17 +49,16 @@ void ChannelManager::sendJoinRPL(Client *client, Channel *channel)
 	if (!channel || !client)
 		return;
 
-	int fd = client->getClientFd();
 	String nickname = client->getNickname();
 	String channelName = channel->getName();
 
 	if (channel->getTopic().empty())
-		Utils::sendReply(Reply::RPL_NOTOPIC(nickname, channelName), fd);
+		client->sendReply(Reply::RPL_NOTOPIC(nickname, channelName));
 	else
-		Utils::sendReply(Reply::RPL_TOPIC(nickname, channelName, channel->getTopic()), fd);
+		client->sendReply(Reply::RPL_TOPIC(nickname, channelName, channel->getTopic()));
 
-	Utils::sendReply(Reply::RPL_NAMREPLY(nickname, channelName, channel->getUsersList()), fd);
-	Utils::sendReply(Reply::RPL_ENDOFNAMES(nickname, channelName), fd);
+	client->sendReply(Reply::RPL_NAMREPLY(nickname, channelName, channel->getUsersList()));
+	client->sendReply(Reply::RPL_ENDOFNAMES(nickname, channelName));
 }
 
 void ChannelManager::joinChannel(Client *client, const String &name, const String &password)
@@ -67,25 +66,24 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 	if (!client)
 		return;
 
-	int fd = client->getClientFd();
 	String nickname = client->getNickname();
 	Channel *channel = getOrCreateChannel(name, password);
 
 	if (!channel)
 	{
-		Utils::sendReply(Reply::ERR_BADCHANNELKEY(nickname, name), fd);
+		client->sendReply(Reply::ERR_BADCHANNELKEY(nickname, name));
 		return;
 	}
 	if (channel->hasClient(client))
 		return;
 	if (!channel->canJoin(client))
 	{
-		Utils::sendReply(Reply::ERR_INVITEONLYCHAN(nickname, name), fd);
+		client->sendReply(Reply::ERR_INVITEONLYCHAN(nickname, name));
 		return;
 	}
 	if (channel->hasReachedLimit())
 	{
-		Utils::sendReply(Reply::ERR_CHANNELISFULL(nickname, name), fd);
+		client->sendReply(Reply::ERR_CHANNELISFULL(nickname, name));
 		return;
 	}
 

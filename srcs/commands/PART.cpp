@@ -11,18 +11,17 @@ PART::~PART()
 
 void PART::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
-	int fd = client->getClientFd();
 	String nickname = client->getNickname();
 	ChannelManager &channelManager = server.getChannelManager();
 	String msg = "";
 	if (cmd.params.empty())
 	{
-		Utils::sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "PART"), fd);
+		client->sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "PART"));
 		return;
 	}
 	if (!client->isRegistered())
 	{
-		Utils::sendReply(Reply::ERR_NOTREGISTERED(nickname), fd);
+		client->sendReply(Reply::ERR_NOTREGISTERED(nickname));
 		return;
 	}
 	if (!cmd.trailing.empty())
@@ -32,7 +31,7 @@ void PART::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	{
 		if (!ChannelManager::isValidChannelName(channels[i]))
 		{
-			Utils::sendReply(Reply::ERR_NOSUCHCHANNEL(nickname, channels[i]), fd);
+			client->sendReply(Reply::ERR_NOSUCHCHANNEL(nickname, channels[i]));
 			continue;
 		}
 		channelManager.partChannel(client, channels[i], msg);
