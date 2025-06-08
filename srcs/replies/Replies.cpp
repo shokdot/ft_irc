@@ -34,6 +34,11 @@ namespace Reply
 		return ":" + servername + " 332 " + nickname + " " + channelName + " :" + topic;
 	}
 
+	String RPL_INVITING(const String &nickname, const String &targetNick, const String &channelName)
+	{
+		return ":" + servername + " 341 " + nickname + " " + targetNick + " " + channelName;
+	}
+
 	String RPL_NAMREPLY(const String &nickname, const String &channelName, const String &userList)
 	{
 		return ":" + servername + " 353 " + nickname + " = " + channelName + " :" + userList;
@@ -42,6 +47,11 @@ namespace Reply
 	String RPL_ENDOFNAMES(const String &nickname, const String &channelName)
 	{
 		return ":" + servername + " 366 " + nickname + " " + channelName + " :End of /NAMES list";
+	}
+
+	String ERR_NOSUCHNICK(const String &nickname, const String &targetNick)
+	{
+		return ":" + servername + " 401 " + nickname + " " + targetNick + " :No such nick/channel";
 	}
 
 	String ERR_NOSUCHCHANNEL(const String &nickname, const String &channelName)
@@ -72,6 +82,11 @@ namespace Reply
 	String ERR_NOTONCHANNEL(const String &nickname, const String &channelName)
 	{
 		return ":" + servername + " 442 " + nickname + " " + channelName + " :You're not on that channel";
+	}
+
+	String ERR_USERONCHANNEL(const String &nickname, const String &targetNick, const String &channelName)
+	{
+		return ":" + servername + " 442 " + nickname + " " + targetNick + " " + channelName + " :is already on channel";
 	}
 
 	String ERR_NOTREGISTERED(const String &nickname)
@@ -114,6 +129,11 @@ namespace Reply
 		return ":" + servername + " 475 " + username + " " + channelName + " :Cannot join channel (+k)";
 	}
 
+	String ERR_CHANOPRIVSNEEDED(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 482 " + nickname + " " + channelName + " :You're not channel operator";
+	}
+
 	String RPL_SUCCNICK(const String &prefix, const String &newNick)
 	{
 		return ":" + prefix + " NICK :" + newNick;
@@ -133,6 +153,11 @@ namespace Reply
 	{
 		String reply = ":" + prefix + " PART " + channelName;
 		return msg.empty() ? reply : reply += " :" + msg;
+	}
+
+	String RPL_SUCCINVITE(const String &prefix, const String &targetNick, const String &channelName)
+	{
+		return ":" + prefix + " INVITE " + targetNick + " :" + channelName;
 	}
 
 }
