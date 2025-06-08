@@ -54,13 +54,12 @@ void ChannelManager::sendJoinRPL(Client *client, Channel *channel)
 	String channelName = channel->getName();
 
 	if (channel->getTopic().empty())
-	{
 		Utils::sendReply(Reply::RPL_NOTOPIC(nickname, channelName), fd);
-	}
 	else
-	{
 		Utils::sendReply(Reply::RPL_TOPIC(nickname, channelName, channel->getTopic()), fd);
-	}
+
+	Utils::sendReply(Reply::RPL_NAMREPLY(nickname, channelName, channel->getUsersList()), fd);
+	Utils::sendReply(Reply::RPL_ENDOFNAMES(nickname, channelName), fd);
 }
 
 void ChannelManager::joinChannel(Client *client, const String &name, const String &password)
@@ -92,7 +91,7 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 
 	channel->addUser(client);
 	client->joinChannel(channel);
-	channel->broadcastToChannel(Reply::RPL_JOIN(client->getPrefix(), name), -1);
+	channel->broadcastToChannel(Reply::RPL_JOIN(client->getPrefix(), name));
 	sendJoinRPL(client, channel);
 }
 
