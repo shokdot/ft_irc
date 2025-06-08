@@ -8,6 +8,7 @@
 #include <QUIT.hpp>
 #include <JOIN.hpp>
 #include <PART.hpp>
+#include <INVITE.hpp>
 
 class CmdRegistry
 {

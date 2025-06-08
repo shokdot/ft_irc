@@ -8,7 +8,7 @@ CmdRegistry::CmdRegistry()
 	_commands["JOIN"] = new JOIN();
 	_commands["PART"] = new PART();
 	// _commands["KICK"] = new KICK();
-	// _commands["INVITE"] = new INVITE();
+	_commands["INVITE"] = new INVITE();
 	// _commands["TOPIC"] = new TOPIC();
 	// _commands["MODE"] = new MODE();
 	// _commands["PRIVMSG"] = new PRIVMSG();
