@@ -11,6 +11,7 @@ USER::~USER()
 
 void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
+	(void)server;
 	if (!client)
 		return;
 
