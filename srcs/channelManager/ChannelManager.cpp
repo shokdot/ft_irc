@@ -89,6 +89,7 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 
 	channel->addUser(client);
 	client->joinChannel(channel);
+	channel->removeInvitedUser(client);
 	channel->broadcastToChannel(Reply::RPL_JOIN(client->getPrefix(), name));
 	sendJoinRPL(client, channel);
 }
