@@ -62,7 +62,7 @@ namespace Reply
 
 	String ERR_ALREADYREGISTRED(const String &nickname)
 	{
-		return ":" + servername + " 462 " + nickname + " :You may not reregister";
+		return ":" + servername + " 462 " + nickname + " :Unauthorized command (already registered)";
 	}
 
 	String ERR_PASSWDMISMATCH(const String &nickname, const String &reason)
