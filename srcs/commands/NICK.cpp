@@ -43,7 +43,7 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		client->sendReply(Reply::ERR_NICKNAMEINUSE(oldNick, cmd.params[0]));
 		return;
 	}
-	else if (!clientManager.changeNick(newNick, client)) // check, fix
+	else if (!clientManager.changeNick(newNick, client))
 		return;
 
 	else if (client->isFirstLogin())
