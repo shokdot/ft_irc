@@ -14,12 +14,13 @@ public:
 	Channel *getChannelByName(const String &name);
 	Channel *getOrCreateChannel(const String &name, const String &password);
 	void deleteChannel(const String &name);
+
 	void joinChannel(Client *client, const String &name, const String &password);
 	void partChannel(Client *client, const String &name, const String &msg);
 	void partAll(Client *clinet);
+
 	static bool isValidChannelName(const String &name);
 	static bool isValidKey(const String &name);
-	// void broadcastToChannel
 };
 
 #endif
