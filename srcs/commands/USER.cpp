@@ -11,8 +11,11 @@ USER::~USER()
 
 void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
-	(void)server;
+	if (!client)
+		return;
+
 	int fd = client->getClientFd();
+	String nickname = client->getNickname();
 	if (cmd.params.size() == 4 && cmd.trailing.empty())
 	{
 		cmd.trailing = cmd.params.back();
@@ -20,37 +23,34 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	}
 	if (cmd.params.size() < 3 || cmd.trailing.empty())
 	{
-		std::string reply = ":localhost 461 USER :Not enough parameters\r\n";
-		Utils::sendReply(reply, fd);
+		Utils::sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "USER"), fd);
 		return;
 	}
-	else if (!client)
+	if (!client->getAuth())
 	{
-		std::string reply = ":localhost 451 :You have not registered\r\n";
-		Utils::sendReply(reply, fd);
+		Utils::sendReply(Reply::ERR_PASSWDMISMATCH(nickname, "required"), fd);
 		return;
 	}
-	else if (!client->getAuth())
+	if (client->isRegistered())
 	{
-		std::string reply = ":localhost 464 :Password required\r\n";
-		Utils::sendReply(reply, fd);
+		Utils::sendReply(Reply::ERR_ALREADYREGISTRED(nickname), fd);
 		return;
 	}
-	else if (client->isRegistered())
+	if (!isValidUsername(cmd.params[0]))
 	{
-		std::string reply = ":localhost 462 :" + client->getNickname() + " You may not reregister\r\n";
-		Utils::sendReply(reply, fd);
+		Utils::sendReply(Reply::ERR_INVALIDUSERNAME(cmd.params[0]), fd);
 		return;
 	}
-	else if (!isValidUsername(cmd.params[0]))
-	{
-		std::string reply = ":localhost 468 USER :Invalid username\r\n";
-		Utils::sendReply(reply, fd);
-		return;
-	}
+
 	client->setRealname(cmd.trailing);
 	client->setUsername(cmd.params[0]);
 	std::cout << "[INFO] Client " << fd << " registered" << std::endl;
+
+	if (client->isFirstLogin())
+	{
+		client->setIsRegistered(true);
+		client->sendWelcome();
+	}
 }
 
 bool USER::isValidUsername(const String &username)
