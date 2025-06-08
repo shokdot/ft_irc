@@ -14,9 +14,9 @@ namespace Reply
 		return ":" + servername + " 002 " + nickname + " :Your host is " + servername + ", running version ft_irc-0.1";
 	}
 
-	String RPL_CREATED(const String &nickname)
+	String RPL_CREATED(const String &nickname, const String &time)
 	{
-		return ":" + servername + " 003 " + nickname + " :Your host is " + servername + ", running version Unreal3.2.10"; /// todo
+		return ":" + servername + " 003 " + nickname + " :Your host is " + servername + ", created on " + time;
 	}
 
 	String RPL_MYINFO(const String &nickname)

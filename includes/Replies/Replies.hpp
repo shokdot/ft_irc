@@ -7,7 +7,7 @@ namespace Reply
 {
 	String RPL_WELCOME(const String &nickname, const String &prefix);
 	String RPL_YOURHOST(const String &nickname);
-	String RPL_CREATED(const String &nickname);
+	String RPL_CREATED(const String &nickname, const String &time);
 	String RPL_MYINFO(const String &nickname);
 	String ERR_NOSUCHCHANNEL(const String &nickname, const String &channelName);
 	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd);
