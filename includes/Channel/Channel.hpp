@@ -50,6 +50,7 @@ public:
 	bool hasReachedLimit();
 	void broadcastToChannel(const String &msg, int senderFd = -1);
 	String getUsersList();
+	bool isOperator(Client *client);
 };
 
 #endif

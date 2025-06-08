@@ -180,3 +180,8 @@ String Channel::getUsersList()
 	}
 	return nameList;
 }
+
+bool Channel::isOperator(Client *client)
+{
+	return _operators.count(client);
+}
