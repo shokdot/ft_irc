@@ -156,7 +156,7 @@ std::set<Client *> &Channel::getChannelUsers()
 	return _channelUsers;
 }
 
-void Channel::broadcastToChannel(const String &msg, int senderFd = -1)
+void Channel::broadcastToChannel(const String &msg, int senderFd)
 {
 	std::set<Client *> channelUsers = getChannelUsers();
 	std::set<Client *>::iterator it = channelUsers.begin();
@@ -166,4 +166,17 @@ void Channel::broadcastToChannel(const String &msg, int senderFd = -1)
 		if (fd != senderFd)
 			Utils::sendReply(msg, fd);
 	}
+}
+
+String Channel::getUsersList()
+{
+	String nameList;
+	for (std::set<Client *>::iterator it = _channelUsers.begin(); it != _channelUsers.end(); ++it)
+	{
+		Client *user = *it;
+		if (_operators.count(user))
+			nameList += "@";
+		nameList += user->getNickname() + " ";
+	}
+	return nameList;
 }

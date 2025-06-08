@@ -48,7 +48,8 @@ public:
 	void removeOperator(Client *client);
 	void print();
 	bool hasReachedLimit();
-	void broadcastToChannel(const String &msg, int senderFd);
+	void broadcastToChannel(const String &msg, int senderFd = -1);
+	String getUsersList();
 };
 
 #endif
