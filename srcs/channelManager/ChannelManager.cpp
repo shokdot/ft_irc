@@ -1,5 +1,6 @@
 #include <ChannelManager.hpp>
 #include <Client.hpp>
+#include <Replies.hpp>
 
 ChannelManager::~ChannelManager()
 {
@@ -42,34 +43,57 @@ Channel *ChannelManager::getOrCreateChannel(const String &name, const String &pa
 	return it->second;
 }
 
+void ChannelManager::sendJoinRPL(Client *client, Channel *channel)
+{
+
+	if (!channel || !client)
+		return;
+
+	int fd = client->getClientFd();
+	String nickname = client->getNickname();
+	String channelName = channel->getName();
+
+	if (channel->getTopic().empty())
+	{
+		Utils::sendReply(Reply::RPL_NOTOPIC(nickname, channelName), fd);
+	}
+	else
+	{
+		Utils::sendReply(Reply::RPL_TOPIC(nickname, channelName, channel->getTopic()), fd);
+	}
+}
+
 void ChannelManager::joinChannel(Client *client, const String &name, const String &password)
 {
+	if (!client)
+		return;
+
 	int fd = client->getClientFd();
+	String nickname = client->getNickname();
 	Channel *channel = getOrCreateChannel(name, password);
+
 	if (!channel)
 	{
-		std::string reply = ":localhost 475 " + client->getNickname() + " " + name + " :Cannot join channel (+k)\r\n";
-		Utils::sendReply(reply, fd);
+		Utils::sendReply(Reply::ERR_BADCHANNELKEY(nickname, name), fd);
 		return;
 	}
-	else if (channel->hasClient(client))
+	if (channel->hasClient(client))
 		return;
-	else if (!channel->canJoin(client))
+	if (!channel->canJoin(client))
 	{
-		std::string reply = ":localhost 473 " + client->getNickname() + " " + name + " :Cannot join channel (+i)\r\n";
-		Utils::sendReply(reply, fd);
+		Utils::sendReply(Reply::ERR_INVITEONLYCHAN(nickname, name), fd);
 		return;
 	}
-	else if (channel->hasReachedLimit())
+	if (channel->hasReachedLimit())
 	{
-		std::string reply = ":localhost 471 " + client->getNickname() + " " + name + " :Cannot join channel (+l)\r\n";
-		Utils::sendReply(reply, fd);
+		Utils::sendReply(Reply::ERR_CHANNELISFULL(nickname, name), fd);
 		return;
 	}
+
 	channel->addUser(client);
 	client->joinChannel(channel);
-	channel->print(); // comment this
-					  // bradcast msg and other thing else
+	channel->broadcastToChannel(Reply::RPL_JOIN(client->getPrefix(), name), -1);
+	sendJoinRPL(client, channel);
 }
 
 void ChannelManager::partChannel(Client *client, const String &name, const String &msg) // fix replys

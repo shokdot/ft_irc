@@ -19,6 +19,8 @@ public:
 	void partChannel(Client *client, const String &name, const String &msg);
 	void partAll(Client *clinet);
 
+	void sendJoinRPL(Client *client, Channel *channel);
+
 	static bool isValidChannelName(const String &name);
 	static bool isValidKey(const String &name);
 };
