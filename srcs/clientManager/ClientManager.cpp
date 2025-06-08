@@ -6,7 +6,7 @@ void ClientManager::addClient(int fd, Client *newClient)
 		return;
 	String nickname = newClient->getNickname();
 	_clientsByFd[fd] = newClient;
-	if (nickname != "*")
+	if (newClient->hasNick())
 		_clientsByNick[nickname] = newClient;
 }
 
@@ -18,7 +18,7 @@ void ClientManager::removeClient(int fd)
 
 	Client *client = it->second;
 	String nickname = client->getNickname();
-	if (nickname != "*")
+	if (client->hasNick())
 		_clientsByNick.erase(nickname);
 	delete client;
 	_clientsByFd.erase(it);
@@ -53,7 +53,7 @@ bool ClientManager::changeNick(const String &nickname, Client *client)
 	if (it != _clientsByNick.end() && it->second != client)
 		return false;
 	const String &oldNick = client->getNickname();
-	if (oldNick != "*")
+	if (client->hasNick())
 		_clientsByNick.erase(oldNick);
 	client->setNickname(nickname);
 	_clientsByNick[nickname] = client;
