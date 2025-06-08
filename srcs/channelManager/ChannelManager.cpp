@@ -126,7 +126,7 @@ void ChannelManager::partAll(Client *client)
 
 bool ChannelManager::isValidChannelName(const String &name)
 {
-	if (name.empty() || name.size() > 50)
+	if (name.size() < 2 || name.size() > 50)
 		return false;
 	else if (name[0] != '#' && name[0] != '&')
 		return false;
