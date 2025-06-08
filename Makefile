@@ -68,6 +68,9 @@ fclean : clean
 
 re : fclean all
 
+test: all
+	./ircserv 6667 password
+
 push:
 	@read -p "Enter branch name: " branch; \
 	read -p "Enter commit message: " msg; \
