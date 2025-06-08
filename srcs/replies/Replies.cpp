@@ -74,6 +74,21 @@ namespace Reply
 		return ":" + servername + " 468 " + username + " :Invalid username";
 	}
 
+	String ERR_CHANNELISFULL(const String &username, const String &channelName)
+	{
+		return ":" + servername + " 471 " + username + " " + channelName + " :Cannot join channel (+l)";
+	}
+
+	String ERR_INVITEONLYCHAN(const String &username, const String &channelName)
+	{
+		return ":" + servername + " 473 " + username + " " + channelName + " :Cannot join channel (+i)";
+	}
+
+	String ERR_BADCHANNELKEY(const String &username, const String &channelName)
+	{
+		return ":" + servername + " 475 " + username + " " + channelName + " :Cannot join channel (+k)";
+	}
+
 	String RPL_SUCCNICK(const String &prefix, const String &newNick)
 	{
 		return ":" + prefix + " NICK :" + newNick;
