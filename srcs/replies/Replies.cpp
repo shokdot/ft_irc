@@ -34,6 +34,16 @@ namespace Reply
 		return ":" + servername + " 332 " + nickname + " " + channelName + " :" + topic;
 	}
 
+	String RPL_NAMREPLY(const String &nickname, const String &channelName, const String &userList)
+	{
+		return ":" + servername + " 353 " + nickname + " = " + channelName + " :" + userList;
+	}
+
+	String RPL_ENDOFNAMES(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 366 " + nickname + " " + channelName + " :End of /NAMES list";
+	}
+
 	String ERR_NOSUCHCHANNEL(const String &nickname, const String &channelName)
 	{
 		return ":" + servername + " 403 " + nickname + " " + channelName + " :No such channel";

@@ -11,6 +11,8 @@ namespace Reply
 	String RPL_MYINFO(const String &nickname);
 	String RPL_NOTOPIC(const String &nickname, const String &channelName);
 	String RPL_TOPIC(const String &nickname, const String &channelName, const String &topic);
+	String RPL_NAMREPLY(const String &nickname, const String &channelName, const String &userList);
+	String RPL_ENDOFNAMES(const String &nickname, const String &channelName);
 	String ERR_NOSUCHCHANNEL(const String &nickname, const String &channelName);
 	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd);
 	String ERR_NONICKNAMEGIVEN(const String &nickname);
