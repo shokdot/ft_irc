@@ -69,6 +69,11 @@ namespace Reply
 		return ":" + servername + " 433 " + oldNick + " " + newNick + " :Nickname is already in use";
 	}
 
+	String ERR_NOTONCHANNEL(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 442 " + nickname + " " + channelName + " :You're not on that channel";
+	}
+
 	String ERR_NOTREGISTERED(const String &nickname)
 	{
 		return ":" + servername + " 451 " + nickname + " :You have not registered";
@@ -123,4 +128,11 @@ namespace Reply
 	{
 		return ":" + prefix + " JOIN :" + channelName;
 	}
+
+	String RPL_PART(const String &prefix, const String &channelName, const String &msg)
+	{
+		String reply = ":" + prefix + " PART " + channelName;
+		return msg.empty() ? reply : reply += " :" + msg;
+	}
+
 }
