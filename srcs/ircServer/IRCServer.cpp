@@ -1,6 +1,15 @@
 #include <IRCServer.hpp>
 
-IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1), _running(false), _eventDispatcher(*this) {}
+#include <iostream>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+
+IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1), _running(false), _eventDispatcher(*this)
+{
+	std::time_t now = std::time(NULL);
+	_creationTime = std::ctime(&now);
+}
 
 IRCServer::~IRCServer() throw()
 {
@@ -61,3 +70,5 @@ ChannelManager &IRCServer::getChannelManager() { return _channelManager; }
 EventDispatcher &IRCServer::getEventDispatcher() { return _eventDispatcher; }
 
 const String &IRCServer::getPass() { return _password; }
+
+const String &IRCServer::getCreationTime() { return _creationTime; }

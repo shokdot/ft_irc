@@ -11,6 +11,7 @@ class IRCServer
 private:
 	const int _port;
 	const String _password;
+	String _creationTime;
 	int _serverFd;
 	bool _running;
 	EventDispatcher _eventDispatcher;
@@ -27,6 +28,7 @@ public:
 	EventDispatcher &getEventDispatcher();
 	ChannelManager &getChannelManager();
 	const String &getPass();
+	const String &getCreationTime();
 
 private:
 	void setup();
