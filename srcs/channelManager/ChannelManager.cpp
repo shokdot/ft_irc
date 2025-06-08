@@ -93,22 +93,22 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 	sendJoinRPL(client, channel);
 }
 
-void ChannelManager::partChannel(Client *client, const String &name, const String &msg) // fix replys
+void ChannelManager::partChannel(Client *client, const String &name, const String &msg)
 {
 	Channel *channel = getChannelByName(name);
-	if (!channel)
+	if (!client || !channel)
 		return;
+
 	if (!client->isJoinedChannel(channel))
-		return;
-	if (!client->isQuitting())
 	{
-		if (!msg.empty())
-			channel->broadcastToChannel(msg, client->getClientFd());
-		String reply = "PART " + name + msg;
-		channel->broadcastToChannel(reply, client->getClientFd());
+		client->sendReply(Reply::ERR_NOTONCHANNEL(client->getNickname(), name));
+		return;
 	}
 
-	client->removeChannel(channel);
+	if (!client->isQuitting())
+		channel->broadcastToChannel(Reply::RPL_PART(client->getPrefix(), name, msg), client->getClientFd());
+
+	client->removeFromChannel(channel);
 	if (channel->deleteUser(client))
 		deleteChannel(name);
 }
@@ -120,7 +120,7 @@ void ChannelManager::partAll(Client *client)
 	for (; it != channels.end(); ++it)
 	{
 		String name = (*it)->getName();
-		partChannel(client, name, "");
+		partChannel(client, name);
 	}
 }
 
