@@ -15,20 +15,21 @@ void PASS::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 
 	int fd = client->getClientFd();
+	String nickname = client->getNickname();
 
 	if (client->getAuth())
 	{
-		Utils::sendReply(Reply::ERR_ALREADYREGISTRED(client->getNickname()), fd);
+		Utils::sendReply(Reply::ERR_ALREADYREGISTRED(nickname), fd);
 		return;
 	}
 	else if (cmd.params.empty())
 	{
-		Utils::sendReply(Reply::ERR_NEEDMOREPARAMS(client->getNickname(), "PASS"), fd);
+		Utils::sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "PASS"), fd);
 		return;
 	}
 	else if (cmd.params[0] != server.getPass())
 	{
-		Utils::sendReply(Reply::ERR_PASSWDMISMATCH(client->getNickname(), "incorrect"), fd);
+		Utils::sendReply(Reply::ERR_PASSWDMISMATCH(nickname, "incorrect"), fd);
 		server.getEventDispatcher().disconnectClient(fd, server);
 		return;
 	}
