@@ -70,6 +70,11 @@ namespace Reply
 		return ":" + servername + " 464 " + nickname + " :Password " + reason;
 	}
 
+	String ERR_INVALIDUSERNAME(const String &username)
+	{
+		return ":" + servername + " 468 " + username + " :Invalid username";
+	}
+
 	String RPL_SUCCNICK(const String &prefix, const String &newNick)
 	{
 		return ":" + prefix + " NICK :" + newNick;
