@@ -54,8 +54,7 @@ namespace Reply
 		return ":" + servername + " 451 " + nickname + " :You have not registered";
 	}
 
-	String
-	ERR_NEEDMOREPARAMS(const String &nickname, const String &cmdName)
+	String ERR_NEEDMOREPARAMS(const String &nickname, const String &cmdName)
 	{
 		return ":" + servername + " 461 " + nickname + " " + cmdName + " :Not enough parameters";
 	}
