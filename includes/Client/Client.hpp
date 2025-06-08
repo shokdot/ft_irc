@@ -40,7 +40,7 @@ public:
 	bool isQuitting();
 
 	void joinChannel(Channel *channel);
-	void removeChannel(Channel *channel);
+	void removeFromChannel(Channel *channel);
 	void broadcastJoinedChannels(const String &msg);
 	void sendWelcome(const String &time);
 	String getPrefix() const;

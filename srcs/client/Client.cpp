@@ -84,7 +84,7 @@ void Client::joinChannel(Channel *channel)
 	_joinedChannels.insert(channel);
 }
 
-void Client::removeChannel(Channel *channel)
+void Client::removeFromChannel(Channel *channel)
 {
 	_joinedChannels.erase(channel);
 }
