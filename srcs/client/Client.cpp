@@ -154,6 +154,6 @@ void Client::sendWelcome(const String &time)
 
 void Client::sendReply(const String &str)
 {
-	String msg = str + "\n\r";
+	String msg = str + "\r\n";
 	send(_socketFd, msg.c_str(), msg.length(), 0);
 }
