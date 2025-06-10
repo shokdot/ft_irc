@@ -86,7 +86,7 @@ namespace Reply
 
 	String ERR_USERONCHANNEL(const String &nickname, const String &targetNick, const String &channelName)
 	{
-		return ":" + servername + " 442 " + nickname + " " + targetNick + " " + channelName + " :is already on channel";
+		return ":" + servername + " 443 " + nickname + " " + targetNick + " " + channelName + " :is already on channel";
 	}
 
 	String ERR_NOTREGISTERED(const String &nickname)
