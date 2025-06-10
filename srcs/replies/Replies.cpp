@@ -160,4 +160,9 @@ namespace Reply
 		return ":" + prefix + " INVITE " + targetNick + " :" + channelName;
 	}
 
+	String RPL_SUCCTOPIC(const String &prefix, const String &channelName, const String &topic)
+	{
+		return ":" + prefix + " TOPIC " + channelName + " :" + topic;
+	}
+
 }

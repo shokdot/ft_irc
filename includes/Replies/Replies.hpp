@@ -36,6 +36,7 @@ namespace Reply
 	String RPL_JOIN(const String &prefix, const String &channelName);
 	String RPL_PART(const String &prefix, const String &channelName, const String &msg);
 	String RPL_SUCCINVITE(const String &prefix, const String &targetNick, const String &channelName);
+	String RPL_SUCCTOPIC(const String &prefix, const String &channelName, const String &topic);
 }
 
 #endif
