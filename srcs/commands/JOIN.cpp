@@ -13,14 +13,14 @@ void JOIN::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	String nickname = client->getNickname();
 	ChannelManager &channelManager = server.getChannelManager();
 
+	if (!client->isRegistered())
+	{
+		client->sendReply(Reply::ERR_NOTREGISTERED(nickname));
+		return;
+	}
 	if (cmd.params.empty())
 	{
 		client->sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "JOIN"));
-		return;
-	}
-	else if (!client->isRegistered())
-	{
-		client->sendReply(Reply::ERR_NOTREGISTERED(nickname));
 		return;
 	}
 	if (cmd.params[0] == "0")
