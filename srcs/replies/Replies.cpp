@@ -79,6 +79,11 @@ namespace Reply
 		return ":" + servername + " 433 " + oldNick + " " + newNick + " :Nickname is already in use";
 	}
 
+	String ERR_USERNOTINCHANNEL(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 441 " + nickname + " " + channelName + " :They aren't on that channel";
+	}
+
 	String ERR_NOTONCHANNEL(const String &nickname, const String &channelName)
 	{
 		return ":" + servername + " 442 " + nickname + " " + channelName + " :You're not on that channel";
@@ -151,8 +156,7 @@ namespace Reply
 
 	String RPL_PART(const String &prefix, const String &channelName, const String &msg)
 	{
-		String reply = ":" + prefix + " PART " + channelName;
-		return msg.empty() ? reply : reply += " :" + msg;
+		return ":" + prefix + " PART " + channelName + (msg.empty() ? "" : " :" + msg);
 	}
 
 	String RPL_SUCCINVITE(const String &prefix, const String &targetNick, const String &channelName)
@@ -163,6 +167,11 @@ namespace Reply
 	String RPL_SUCCTOPIC(const String &prefix, const String &channelName, const String &topic)
 	{
 		return ":" + prefix + " TOPIC " + channelName + " :" + topic;
+	}
+
+	String RPL_SUCCKICK(const String &prefix, const String &channelName, const String &targetNick, const String &msg)
+	{
+		return ":" + prefix + " KICK " + channelName + " " + targetNick + (msg.empty() ? "" : " :" + msg);
 	}
 
 }

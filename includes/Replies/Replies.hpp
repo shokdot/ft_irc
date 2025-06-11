@@ -20,6 +20,7 @@ namespace Reply
 	String ERR_NONICKNAMEGIVEN(const String &nickname);
 	String ERR_ERRONEUSNICKNAME(const String &oldNick, const String &newNick);
 	String ERR_NICKNAMEINUSE(const String &oldNick, const String &newNick);
+	String ERR_USERNOTINCHANNEL(const String &nickname, const String &channelName);
 	String ERR_NOTONCHANNEL(const String &nickname, const String &channelName);
 	String ERR_USERONCHANNEL(const String &nickname, const String &targetNick, const String &channelName);
 	String ERR_NOTREGISTERED(const String &nickname);
@@ -37,6 +38,7 @@ namespace Reply
 	String RPL_PART(const String &prefix, const String &channelName, const String &msg);
 	String RPL_SUCCINVITE(const String &prefix, const String &targetNick, const String &channelName);
 	String RPL_SUCCTOPIC(const String &prefix, const String &channelName, const String &topic);
+	String RPL_SUCCKICK(const String &prefix, const String &channelName, const String &targetNick, const String &msg);
 }
 
 #endif
