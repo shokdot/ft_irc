@@ -10,6 +10,7 @@
 #include <PART.hpp>
 #include <INVITE.hpp>
 #include <TOPIC.hpp>
+#include <KICK.hpp>
 
 class CmdRegistry
 {

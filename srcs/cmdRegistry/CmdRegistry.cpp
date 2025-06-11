@@ -7,7 +7,7 @@ CmdRegistry::CmdRegistry()
 	_commands["USER"] = new USER();
 	_commands["JOIN"] = new JOIN();
 	_commands["PART"] = new PART();
-	// _commands["KICK"] = new KICK();
+	_commands["KICK"] = new KICK();
 	_commands["INVITE"] = new INVITE();
 	_commands["TOPIC"] = new TOPIC();
 	// _commands["MODE"] = new MODE();
