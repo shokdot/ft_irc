@@ -11,6 +11,7 @@
 #include <INVITE.hpp>
 #include <TOPIC.hpp>
 #include <KICK.hpp>
+#include <PRIVMSG.hpp>
 
 class CmdRegistry
 {
