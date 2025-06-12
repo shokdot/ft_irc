@@ -16,6 +16,10 @@ namespace Reply
 	String RPL_ENDOFNAMES(const String &nickname, const String &channelName);
 	String ERR_NOSUCHNICK(const String &nickname, const String &targetNick);
 	String ERR_NOSUCHCHANNEL(const String &nickname, const String &channelName);
+	String ERR_CANNOTSENDTOCHAN(const String &nickname, const String &channelName);
+	String ERR_TOOMANYTARGETS(const String &nickname, const String &targetList);
+	String ERR_NORECIPIENT(const String &nickname, const String &cmdName);
+	String ERR_NOTEXTTOSEND(const String &nickname);
 	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd);
 	String ERR_NONICKNAMEGIVEN(const String &nickname);
 	String ERR_ERRONEUSNICKNAME(const String &oldNick, const String &newNick);
@@ -39,6 +43,7 @@ namespace Reply
 	String RPL_SUCCINVITE(const String &prefix, const String &targetNick, const String &channelName);
 	String RPL_SUCCTOPIC(const String &prefix, const String &channelName, const String &topic);
 	String RPL_SUCCKICK(const String &prefix, const String &channelName, const String &targetNick, const String &msg);
+	String RPL_PRIVMSG(const String &prefix, const String &target, const String &msg);
 }
 
 #endif

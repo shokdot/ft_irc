@@ -59,6 +59,26 @@ namespace Reply
 		return ":" + servername + " 403 " + nickname + " " + channelName + " :No such channel";
 	}
 
+	String ERR_CANNOTSENDTOCHAN(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 404 " + nickname + " " + channelName + " :Cannot send to channel";
+	}
+
+	String ERR_TOOMANYTARGETS(const String &nickname, const String &targetList)
+	{
+		return ":" + servername + " 407 " + nickname + " " + targetList + " :Too many targets. Message not sent";
+	}
+
+	String ERR_NORECIPIENT(const String &nickname, const String &cmdName)
+	{
+		return ":" + servername + " 411 " + nickname + " :No recipient given (" + cmdName + ")";
+	}
+
+	String ERR_NOTEXTTOSEND(const String &nickname)
+	{
+		return ":" + servername + " 412 " + nickname + " :No text to send";
+	}
+
 	String ERR_UNKNOWNCOMMAND(const String &nickname, const String &cmd)
 	{
 		return ":" + servername + " 421 " + nickname + " " + cmd + " :Unknown command";
@@ -172,6 +192,11 @@ namespace Reply
 	String RPL_SUCCKICK(const String &prefix, const String &channelName, const String &targetNick, const String &msg)
 	{
 		return ":" + prefix + " KICK " + channelName + " " + targetNick + (msg.empty() ? "" : " :" + msg);
+	}
+
+	String RPL_PRIVMSG(const String &prefix, const String &target, const String &msg)
+	{
+		return ":" + prefix + " PRIVMSG " + target + " :" + msg;
 	}
 
 }
