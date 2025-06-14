@@ -1,10 +1,5 @@
 #include <IRCServer.hpp>
 
-#include <iostream>
-#include <chrono>
-#include <ctime>
-#include <iomanip>
-
 IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1), _running(false), _eventDispatcher(*this)
 {
 	std::time_t now = std::time(NULL);
