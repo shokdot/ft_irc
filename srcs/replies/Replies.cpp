@@ -139,19 +139,19 @@ namespace Reply
 		return ":" + servername + " 468 " + username + " :Invalid username";
 	}
 
-	String ERR_CHANNELISFULL(const String &username, const String &channelName)
+	String ERR_CHANNELISFULL(const String &nickname, const String &channelName)
 	{
-		return ":" + servername + " 471 " + username + " " + channelName + " :Cannot join channel (+l)";
+		return ":" + servername + " 471 " + nickname + " " + channelName + " :Cannot join channel (+l)";
 	}
 
-	String ERR_INVITEONLYCHAN(const String &username, const String &channelName)
+	String ERR_INVITEONLYCHAN(const String &nickname, const String &channelName)
 	{
-		return ":" + servername + " 473 " + username + " " + channelName + " :Cannot join channel (+i)";
+		return ":" + servername + " 473 " + nickname + " " + channelName + " :Cannot join channel (+i)";
 	}
 
-	String ERR_BADCHANNELKEY(const String &username, const String &channelName)
+	String ERR_BADCHANNELKEY(const String &nickname, const String &channelName)
 	{
-		return ":" + servername + " 475 " + username + " " + channelName + " :Cannot join channel (+k)";
+		return ":" + servername + " 475 " + nickname + " " + channelName + " :Cannot join channel (+k)";
 	}
 
 	String ERR_CHANOPRIVSNEEDED(const String &nickname, const String &channelName)

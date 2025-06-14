@@ -32,9 +32,9 @@ namespace Reply
 	String ERR_ALREADYREGISTRED(const String &nickname);
 	String ERR_PASSWDMISMATCH(const String &nickname, const String &reason);
 	String ERR_INVALIDUSERNAME(const String &username);
-	String ERR_CHANNELISFULL(const String &username, const String &channelName);
-	String ERR_INVITEONLYCHAN(const String &username, const String &channelName);
-	String ERR_BADCHANNELKEY(const String &username, const String &channelName);
+	String ERR_CHANNELISFULL(const String &nickname, const String &channelName);
+	String ERR_INVITEONLYCHAN(const String &nickname, const String &channelName);
+	String ERR_BADCHANNELKEY(const String &nickname, const String &channelName);
 	String ERR_CHANOPRIVSNEEDED(const String &nickname, const String &channelName);
 	String RPL_SUCCNICK(const String &prefix, const String &newNick);
 	String RPL_QUIT(const String &prefix, const String &msg = "Client Quit");
