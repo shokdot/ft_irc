@@ -18,6 +18,6 @@ void AcceptStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &se
 		throw IRCException::ServerError(strerror(errno));
 
 	pollManager.addFd(clientFd, POLLIN);
-	clientManager.addClient(clientFd, clientManager.createClient(clientFd));
+	clientManager.addClient(clientFd, clientManager.createClient(clientFd, clientAddr));
 	std::cout << "[INFO] Client " << clientFd << " connected" << std::endl;
 }

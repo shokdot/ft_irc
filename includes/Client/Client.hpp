@@ -7,6 +7,7 @@ class Client
 {
 private:
 	const int _socketFd;
+	struct sockaddr_in _clientAddr;
 	String _username;
 	String _nickname;
 	String _realname;
@@ -17,13 +18,13 @@ private:
 	bool _isRegistered;
 
 public:
-	Client(int fd);
+	Client(int fd, struct sockaddr_in socketInfo);
 	~Client();
 
 	void setUsername(const String &username);
 	void setNickname(const String &nickname);
 	void setRealname(const String &realname);
-	void setHostname(const String &hostname);
+	void setHostname();
 	void setAuth(bool auth);
 	void setIsQuitting(bool flag);
 	void setIsRegistered(bool flag);

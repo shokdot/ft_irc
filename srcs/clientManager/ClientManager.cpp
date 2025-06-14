@@ -24,9 +24,9 @@ void ClientManager::removeClient(int fd)
 	_clientsByFd.erase(it);
 }
 
-Client *ClientManager::createClient(int fd)
+Client *ClientManager::createClient(int fd, struct sockaddr_in clientAddr)
 {
-	return new Client(fd);
+	return new Client(fd, clientAddr);
 }
 
 Client *ClientManager::getClientByFd(int fd)

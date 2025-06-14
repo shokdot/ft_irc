@@ -1,18 +1,17 @@
 #include <Client.hpp>
 #include <Replies.hpp>
 
-Client::Client(int socketFd) : _socketFd(socketFd),
-							   _username("*"),
-							   _nickname("*"),
-							   _realname("unknown"),
-							   _hostname("unknown"),
-							   _isAuth(false),
-							   _isQuitting(false),
-							   _isRegistered(false) {}
+Client::Client(int socketFd, struct sockaddr_in clientAddr) : _socketFd(socketFd),
+															  _clientAddr(clientAddr),
+															  _username("*"),
+															  _nickname("*"),
+															  _realname("unknown"),
+															  _hostname("unknown"),
+															  _isAuth(false),
+															  _isQuitting(false),
+															  _isRegistered(false) {}
 
-Client::~Client()
-{
-}
+Client::~Client() {}
 
 void Client::setUsername(const String &username)
 {
@@ -29,9 +28,10 @@ void Client::setRealname(const String &realname)
 	this->_realname = realname;
 }
 
-void Client::setHostname(const String &hostname)
+void Client::setHostname()
 {
-	this->_hostname = hostname;
+	char *ip = inet_ntoa(_clientAddr.sin_addr);
+	_hostname = String(ip);
 }
 
 void Client::setAuth(bool auth)

@@ -45,6 +45,7 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 
 	client->setRealname(cmd.trailing);
 	client->setUsername(cmd.params[0]);
+	client->setHostname();
 	std::cout << "[INFO] Client " << fd << " registered" << std::endl;
 
 	if (client->isFirstLogin())
