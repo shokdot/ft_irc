@@ -130,11 +130,9 @@ void Channel::setUserLimit(int limit)
 	_userLimit = limit;
 }
 
-bool Channel::hasReachedLimit() // implement
+bool Channel::hasReachedLimit()
 {
-	if (!hasMode('l'))
-		return false;
-	return true;
+	return hasMode('l') && _channelUsers.size() >= _userLimit;
 }
 
 void Channel::print()
