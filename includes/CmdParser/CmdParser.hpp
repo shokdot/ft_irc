@@ -12,9 +12,9 @@ private:
 	static bool parsePrefix(String &rawLine);
 	static bool parseCmdName(String &rawLine, String &cmdName);
 	static bool parseParams(String &rawLine, std::vector<String> &params, String &trailing);
+	static bool isValidTrailing(const String &trailing);
 	static bool isValidMiddle(const String &middle);
 	static bool isNospcrlfcl(const char c);
-	static bool isValidTrailing(const String &trailing);
 	// static bool extractPrefix(const String &prefix, CmdPrefix &res);
 	// static bool isValidHostname(const String &hostname);
 	// static bool isValidShortName(const String &shortName);

@@ -9,8 +9,8 @@ public:
 	static std::pair<int, String> validateArgs(int, char *[]);
 
 private:
-	static int validatePort(char *);
-	static String validatePassword(char *);
+	static int validatePort(const char *);
+	static String validatePassword(const char *);
 };
 
 #endif

@@ -47,7 +47,7 @@ String Utils::strToLower(const String &str)
 	return res;
 }
 
-std::vector<String> Utils::splitByDelim(const String &line, char delimeter)
+std::vector<String> Utils::splitByDelim(const String &line, const char delimeter)
 {
 	std::vector<String> tokens;
 	std::istringstream iss(line);

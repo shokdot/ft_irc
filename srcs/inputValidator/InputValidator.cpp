@@ -9,7 +9,7 @@ std::pair<int, String> InputValidator::validateArgs(int ac, char *av[])
 	return std::make_pair(port, password);
 }
 
-int InputValidator::validatePort(char *str)
+int InputValidator::validatePort(const char *str)
 {
 	for (int i = 0; str[i]; ++i)
 		if (!std::isdigit(str[i]))
@@ -23,7 +23,7 @@ int InputValidator::validatePort(char *str)
 	return static_cast<int>(port);
 }
 
-String InputValidator::validatePassword(char *str)
+String InputValidator::validatePassword(const char *str)
 {
 	String password = String(str);
 	if (password.length() < 8)

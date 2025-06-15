@@ -25,8 +25,8 @@ public:
 	void start();
 	void stop();
 	ClientManager &getClientManager();
-	EventDispatcher &getEventDispatcher();
 	ChannelManager &getChannelManager();
+	EventDispatcher &getEventDispatcher();
 	const String &getPass();
 	const String &getCreationTime();
 
