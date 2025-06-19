@@ -28,10 +28,18 @@ void KICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 	}
 
-	if (oneChannel && !server.getChannelManager().getChannelByName(channelNames[0]))
+	if (oneChannel)
 	{
-		client->sendReply(Reply::ERR_NOSUCHCHANNEL(nickname, channelNames[0]));
-		return;
+		if (!ChannelManager::isValidChannelName(channelNames[0]))
+		{
+			client->sendReply(Reply::ERR_BADCHANMASK(nickname, channelNames[0]));
+			return;
+		}
+		else if (!server.getChannelManager().getChannelByName(channelNames[0]))
+		{
+			client->sendReply(Reply::ERR_NOSUCHCHANNEL(nickname, channelNames[0]));
+			return;
+		}
 	}
 
 	String msg = cmd.trailing.empty() ? "" : cmd.trailing;
@@ -50,6 +58,12 @@ void KICK::handleKick(Client *client, const String &channelName, const String &t
 
 	ChannelManager &channelManager = server.getChannelManager();
 	ClientManager &clientManager = server.getClientManager();
+
+	if (!ChannelManager::isValidChannelName(channelName))
+	{
+		client->sendReply(Reply::ERR_BADCHANMASK(nickname, channelName));
+		return;
+	}
 
 	Channel *channel = channelManager.getChannelByName(channelName);
 	Client *targetClient = clientManager.getClientByNick(targetNick);
