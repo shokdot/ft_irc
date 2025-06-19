@@ -15,7 +15,7 @@ private:
 	std::set<Client *> _operators;
 	std::set<Client *> _invitedUsers;
 	std::set<char> _mode;
-	int _userLimit;
+	size_t _userLimit;
 
 public:
 	Channel(const String &name, const String &password);
