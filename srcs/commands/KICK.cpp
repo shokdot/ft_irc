@@ -28,6 +28,12 @@ void KICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 	}
 
+	if (oneChannel && !server.getChannelManager().getChannelByName(channelNames[0]))
+	{
+		client->sendReply(Reply::ERR_NOSUCHCHANNEL(nickname, channelNames[0]));
+		return;
+	}
+
 	String msg = cmd.trailing.empty() ? "" : cmd.trailing;
 
 	for (size_t i = 0; i < userNames.size(); ++i)
