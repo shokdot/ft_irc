@@ -35,6 +35,7 @@ namespace Reply
 	String ERR_CHANNELISFULL(const String &nickname, const String &channelName);
 	String ERR_INVITEONLYCHAN(const String &nickname, const String &channelName);
 	String ERR_BADCHANNELKEY(const String &nickname, const String &channelName);
+	String ERR_BADCHANMASK(const String &nickname, const String &channelName);
 	String ERR_CHANOPRIVSNEEDED(const String &nickname, const String &channelName);
 	String RPL_SUCCNICK(const String &prefix, const String &newNick);
 	String RPL_QUIT(const String &prefix, const String &msg = "Client Quit");

@@ -154,6 +154,11 @@ namespace Reply
 		return ":" + servername + " 475 " + nickname + " " + channelName + " :Cannot join channel (+k)";
 	}
 
+	String ERR_BADCHANMASK(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 476 " + nickname + " " + channelName + " :Bad Channel Mask";
+	}
+
 	String ERR_CHANOPRIVSNEEDED(const String &nickname, const String &channelName)
 	{
 		return ":" + servername + " 482 " + nickname + " " + channelName + " :You're not channel operator";
