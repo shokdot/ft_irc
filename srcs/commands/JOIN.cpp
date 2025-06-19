@@ -56,7 +56,7 @@ std::vector<ChannelKey> JOIN::parseChannels(Client *client, std::vector<String> 
 
 		if (!ChannelManager::isValidChannelName(channel) || (!key.empty() && !ChannelManager::isValidKey(key)))
 		{
-			client->sendReply(Reply::ERR_NOSUCHCHANNEL(nickname, channel));
+			client->sendReply(Reply::ERR_BADCHANMASK(nickname, channel));
 			continue;
 		}
 
