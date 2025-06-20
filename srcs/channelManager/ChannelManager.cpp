@@ -107,7 +107,7 @@ void ChannelManager::partChannel(Client *client, const String &name, const Strin
 	}
 
 	if (!client->isQuitting())
-		channel->broadcastToChannel(Reply::RPL_PART(client->getPrefix(), name, msg), client->getClientFd());
+		channel->broadcastToChannel(Reply::RPL_PART(client->getPrefix(), name, msg));
 
 	client->removeFromChannel(channel);
 	if (channel->deleteUser(client))
