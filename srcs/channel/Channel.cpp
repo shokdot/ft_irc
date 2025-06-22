@@ -6,6 +6,7 @@ Channel::Channel(const String &name, const String &password) : _name(name),
 															   _topic(""),
 															   _userLimit(0)
 {
+	addMode('t');
 	if (!password.empty())
 		addMode('k');
 }
@@ -182,4 +183,35 @@ String Channel::getUsersList()
 bool Channel::isOperator(Client *client)
 {
 	return _operators.count(client);
+}
+
+String Channel::getModeString() const
+{
+	String modeStr = "+";
+
+	if (hasMode('i'))
+		modeStr += "i";
+	if (hasMode('t'))
+		modeStr += "t";
+	if (hasMode('k'))
+		modeStr += "k";
+	if (hasMode('l'))
+		modeStr += "l";
+
+	return modeStr;
+}
+
+String Channel::getModeParams() const
+{
+	String params;
+
+	if (hasMode('k'))
+		params += _password + " ";
+	if (hasMode('l'))
+		params += std::to_string(_userLimit) + " ";
+
+	if (!params.empty() && params[params.size() - 1] == ' ')
+		params.erase(params.size() - 1);
+
+	return params;
 }

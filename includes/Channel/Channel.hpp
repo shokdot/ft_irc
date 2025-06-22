@@ -51,6 +51,8 @@ public:
 	void broadcastToChannel(const String &msg, int senderFd = -1);
 	String getUsersList();
 	bool isOperator(Client *client);
+	String getModeString() const;
+	String getModeParams() const;
 };
 
 #endif
