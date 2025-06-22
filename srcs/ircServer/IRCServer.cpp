@@ -1,6 +1,6 @@
 #include <IRCServer.hpp>
 
-IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1), _running(false), _eventDispatcher(*this)
+IRCServer::IRCServer(int port, String password) : _port(port), _password(password), _serverFd(-1), _eventDispatcher(*this)
 {
 	std::time_t now = std::time(NULL);
 	_creationTime = std::ctime(&now);
@@ -9,7 +9,14 @@ IRCServer::IRCServer(int port, String password) : _port(port), _password(passwor
 
 IRCServer::~IRCServer() throw()
 {
-	stop();
+	try
+	{
+		stop();
+	}
+	catch (...)
+	{
+		std::cerr << "[ERROR] Something went wrong" << '\n';
+	}
 }
 
 void IRCServer::start()
@@ -41,8 +48,7 @@ void IRCServer::setup()
 
 void IRCServer::run()
 {
-	_running = true;
-	while (_running)
+	while (g_running)
 	{
 		_eventDispatcher.handleEvents();
 	}
@@ -50,13 +56,9 @@ void IRCServer::run()
 
 void IRCServer::stop()
 {
-	_running = false;
-	if (_serverFd >= 0)
-	{
-		if (close(_serverFd) < 0)
-			throw IRCException::ServerError(std::strerror(errno));
-		_serverFd = -1;
-	}
+	std::cout << std::endl;
+	_eventDispatcher.disconnectServer();
+	_eventDispatcher.disconnectAllClients();
 }
 
 ClientManager &IRCServer::getClientManager() { return _clientManager; }

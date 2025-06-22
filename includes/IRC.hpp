@@ -19,6 +19,7 @@
 #include <poll.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <csignal>
 
 #include <Types.hpp>
 #include <Defines.hpp>

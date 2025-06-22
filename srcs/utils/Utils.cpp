@@ -1,5 +1,7 @@
 #include <Utils.hpp>
 
+bool g_running = true;
+
 String Utils::rtrim(const String &str)
 {
 	std::string::size_type end = str.find_last_not_of(" \t\n\r\f\v");
@@ -76,4 +78,17 @@ struct pollfd Utils::createPollStruct(int fd, short events)
 	pollStruct.events = events;
 	pollStruct.revents = 0;
 	return pollStruct;
+}
+
+void Utils::handleSignal(int signal)
+{
+	switch (signal)
+	{
+	case SIGINT:
+	case SIGTERM:
+		g_running = false;
+		break;
+	default:
+		break;
+	}
 }

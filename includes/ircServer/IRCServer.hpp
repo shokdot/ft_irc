@@ -6,6 +6,8 @@
 #include <EventDispatcher.hpp>
 #include <ChannelManager.hpp>
 
+extern bool g_running;
+
 class IRCServer
 {
 private:
@@ -13,7 +15,6 @@ private:
 	const String _password;
 	String _creationTime;
 	int _serverFd;
-	bool _running;
 	EventDispatcher _eventDispatcher;
 	ChannelManager _channelManager;
 	ClientManager _clientManager;
