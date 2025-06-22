@@ -23,5 +23,5 @@ void QUIT::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		client->broadcastJoinedChannels(Reply::RPL_QUIT(client->getPrefix()));
 	}
 	client->setIsQuitting(true);
-	server.getEventDispatcher().disconnectClient(fd, server);
+	server.getEventDispatcher().disconnectClient(fd);
 }

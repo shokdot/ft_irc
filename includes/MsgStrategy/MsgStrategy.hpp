@@ -21,9 +21,9 @@ public:
 
 private:
 	void processMsg(int fd, IRCServer &server);
-	bool readFromSock(int fd, IRCServer &server);
-	bool checkBuffLength(int fd, IRCServer &server);
-	void disconnect(int fd, int bytes, IRCServer &server);
+	bool readFromSock(int fd, EventDispatcher &eventDispatcher);
+	bool checkBuffLength(int fd, EventDispatcher &eventDispatcher);
+	void disconnect(int fd, int bytes, EventDispatcher &sereventDispatcherver);
 };
 
 #endif

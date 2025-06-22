@@ -30,7 +30,7 @@ void PASS::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	else if (cmd.params[0] != server.getPass())
 	{
 		client->sendReply(Reply::ERR_PASSWDMISMATCH(nickname, "incorrect"));
-		server.getEventDispatcher().disconnectClient(fd, server);
+		server.getEventDispatcher().disconnectClient(fd);
 		return;
 	}
 

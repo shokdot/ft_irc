@@ -15,7 +15,9 @@ public:
 	~EventDispatcher();
 	void init(int fd);
 	void handleEvents();
-	void disconnectClient(int fd, IRCServer &server);
+	void disconnectServer();
+	void disconnectClient(int fd);
+	void disconnectAllClients();
 
 private:
 	int _serverFd;

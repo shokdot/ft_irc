@@ -8,9 +8,11 @@ MsgStrategy::~MsgStrategy() {}
 void MsgStrategy::handleEvent(int fd, PollManager &pollManager, IRCServer &server)
 {
 	(void)pollManager;
-	if (!readFromSock(fd, server))
+	EventDispatcher &eventDispatcher = server.getEventDispatcher();
+
+	if (!readFromSock(fd, eventDispatcher))
 		return;
-	if (!checkBuffLength(fd, server))
+	if (!checkBuffLength(fd, eventDispatcher))
 		return;
 	processMsg(fd, server);
 }
@@ -34,7 +36,7 @@ void MsgStrategy::processMsg(int fd, IRCServer &server)
 	}
 }
 
-bool MsgStrategy::readFromSock(int fd, IRCServer &server)
+bool MsgStrategy::readFromSock(int fd, EventDispatcher &eventDispatcher)
 {
 	char buffer[1024];
 	std::memset(buffer, 0, sizeof(buffer));
@@ -43,31 +45,29 @@ bool MsgStrategy::readFromSock(int fd, IRCServer &server)
 	{
 		if (errno == EAGAIN || errno == EWOULDBLOCK)
 			return false;
-		disconnect(fd, bytes, server);
+		disconnect(fd, bytes, eventDispatcher);
 		return false;
 	}
 	sockBuffer[fd] += String(buffer, bytes);
 	return true;
 }
 
-bool MsgStrategy::checkBuffLength(int fd, IRCServer &server)
+bool MsgStrategy::checkBuffLength(int fd, EventDispatcher &eventDispatcher)
 {
 	std::string &data = sockBuffer[fd];
 	if (data.length() > 2048)
 	{
 		std::cout << "[WARNING] Client " << fd << " sent too much data" << std::endl;
-		disconnect(fd, -1, server);
+		disconnect(fd, -1, eventDispatcher);
 		return false;
 	}
 	return true;
 }
 
-void MsgStrategy::disconnect(int fd, int bytes, IRCServer &server)
+void MsgStrategy::disconnect(int fd, int bytes, EventDispatcher &eventDispatcher)
 {
-	EventDispatcher &eventDispatcher = server.getEventDispatcher();
-
 	if (bytes != 0)
 		std::cerr << "[ERROR] Failed to recv client " << fd << ": " << strerror(errno) << std::endl;
 	sockBuffer.erase(fd);
-	eventDispatcher.disconnectClient(fd, server);
+	eventDispatcher.disconnectClient(fd);
 }

@@ -47,9 +47,29 @@ void EventDispatcher::handleEvents()
 	}
 }
 
-void EventDispatcher::disconnectClient(int fd, IRCServer &server)
+void EventDispatcher::disconnectServer()
+{
+	if (_serverFd >= 0)
+	{
+		_pollManager.removeFd(_serverFd);
+		if (close(_serverFd) < 0)
+			throw IRCException::ServerError(std::strerror(errno));
+		close(_serverFd);
+	}
+}
+
+void EventDispatcher::disconnectClient(int fd)
 {
 	IEventStrategy *strategy = _strategies[ERROR];
 	if (strategy)
-		strategy->handleEvent(fd, _pollManager, server);
+		strategy->handleEvent(fd, _pollManager, _server);
+}
+
+void EventDispatcher::disconnectAllClients()
+{
+	std::vector<struct pollfd> clients = _pollManager.getPollFds();
+	for (size_t i = 0; i < clients.size(); ++i)
+	{
+		disconnectClient(clients[i].fd);
+	}
 }
