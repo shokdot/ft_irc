@@ -54,7 +54,6 @@ void EventDispatcher::disconnectServer()
 		_pollManager.removeFd(_serverFd);
 		if (close(_serverFd) < 0)
 			throw IRCException::ServerError(std::strerror(errno));
-		close(_serverFd);
 	}
 }
 
