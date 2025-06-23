@@ -4,7 +4,7 @@ IRCServer::IRCServer(int port, String password) : _port(port), _password(passwor
 {
 	std::time_t now = std::time(NULL);
 	_creationTime = std::ctime(&now);
-	_creationTime.pop_back();
+	_creationTime.erase(_creationTime.end() - 1);
 }
 
 IRCServer::~IRCServer() throw()

@@ -208,7 +208,7 @@ String Channel::getModeParams() const
 	if (hasMode('k'))
 		params += _password + " ";
 	if (hasMode('l'))
-		params += std::to_string(_userLimit) + " ";
+		params += Utils::toString(_userLimit) + " ";
 
 	if (!params.empty() && params[params.size() - 1] == ' ')
 		params.erase(params.size() - 1);

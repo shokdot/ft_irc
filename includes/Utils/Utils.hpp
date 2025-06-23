@@ -14,7 +14,17 @@ struct Utils
 	static struct sockaddr_in createSockStruct(sa_family_t family, in_port_t port, in_addr_t addr);
 	static struct pollfd createPollStruct(int fd, short events);
 	static void handleSignal(int signal);
+	template <typename T>
+	static String toString(const T &value);
 };
+
+template <typename T>
+static String toString(const T &value)
+{
+	std::ostringstream os;
+	os << value;
+	return os.str();
+}
 
 #endif
 // UTILS_HPP
