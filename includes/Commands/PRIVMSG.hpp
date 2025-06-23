@@ -12,6 +12,8 @@ public:
 
 private:
 	bool handleTarget(Client *client, const String &channelName, const String &msg, IRCServer &server);
+	void sendFile(Client *client, Client *recipent, const String &msg);
+	void botHandle(Client *client, const String &msg);
 };
 
 #endif
