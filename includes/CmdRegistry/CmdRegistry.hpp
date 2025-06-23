@@ -12,6 +12,7 @@
 #include <TOPIC.hpp>
 #include <KICK.hpp>
 #include <PRIVMSG.hpp>
+#include <MODE.hpp>
 
 class CmdRegistry
 {

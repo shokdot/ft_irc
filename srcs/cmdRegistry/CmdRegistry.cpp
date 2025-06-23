@@ -10,9 +10,10 @@ CmdRegistry::CmdRegistry()
 	_commands["KICK"] = new KICK();
 	_commands["INVITE"] = new INVITE();
 	_commands["TOPIC"] = new TOPIC();
-	// _commands["MODE"] = new MODE();
+	_commands["MODE"] = new MODE();
 	_commands["PRIVMSG"] = new PRIVMSG();
 	_commands["QUIT"] = new QUIT();
+	// _commands["PING"] = new PING();
 	// _commands["CAP"] = new CAP();
 }
 

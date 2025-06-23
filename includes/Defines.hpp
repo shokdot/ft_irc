@@ -17,6 +17,13 @@ enum PollState
 	NEWCONN
 };
 
+struct ModeChange
+{
+	char action;
+	char mode;
+	std::string param;
+};
+
 struct CmdStruct
 {
 	String cmdName;
