@@ -11,6 +11,7 @@ namespace Reply
 	String RPL_MYINFO(const String &nickname);
 	String RPL_NOTOPIC(const String &nickname, const String &channelName);
 	String RPL_TOPIC(const String &nickname, const String &channelName, const String &topic);
+	String RPL_CHANNELMODEIS(const String &nickname, const String &channelName, const String &modes, const String &modeParams);
 	String RPL_INVITING(const String &nickname, const String &targetNick, const String &channelName);
 	String RPL_NAMREPLY(const String &nickname, const String &channelName, const String &userList);
 	String RPL_ENDOFNAMES(const String &nickname, const String &channelName);
@@ -31,8 +32,10 @@ namespace Reply
 	String ERR_NEEDMOREPARAMS(const String &nickname, const String &cmdName);
 	String ERR_ALREADYREGISTRED(const String &nickname);
 	String ERR_PASSWDMISMATCH(const String &nickname, const String &reason);
+	String ERR_KEYSET(const String &nickname, const String &channelName);
 	String ERR_INVALIDUSERNAME(const String &username);
 	String ERR_CHANNELISFULL(const String &nickname, const String &channelName);
+	String ERR_UNKNOWNMODE(const String &nickname, const char mode, const String &channelName);
 	String ERR_INVITEONLYCHAN(const String &nickname, const String &channelName);
 	String ERR_BADCHANNELKEY(const String &nickname, const String &channelName);
 	String ERR_BADCHANMASK(const String &nickname, const String &channelName);

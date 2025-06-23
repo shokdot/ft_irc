@@ -34,6 +34,11 @@ namespace Reply
 		return ":" + servername + " 332 " + nickname + " " + channelName + " :" + topic;
 	}
 
+	String RPL_CHANNELMODEIS(const String &nickname, const String &channelName, const String &modes, const String &modeParams)
+	{
+		return ":" + servername + " 324 " + nickname + " " + channelName + " " + modes + " " + modeParams;
+	}
+
 	String RPL_INVITING(const String &nickname, const String &targetNick, const String &channelName)
 	{
 		return ":" + servername + " 341 " + nickname + " " + targetNick + " " + channelName;
@@ -134,6 +139,11 @@ namespace Reply
 		return ":" + servername + " 464 " + nickname + " :Password " + reason;
 	}
 
+	String ERR_KEYSET(const String &nickname, const String &channelName)
+	{
+		return ":" + servername + " 467 " + nickname + " " + channelName + " :Channel key already set";
+	}
+
 	String ERR_INVALIDUSERNAME(const String &username)
 	{
 		return ":" + servername + " 468 " + username + " :Invalid username";
@@ -142,6 +152,11 @@ namespace Reply
 	String ERR_CHANNELISFULL(const String &nickname, const String &channelName)
 	{
 		return ":" + servername + " 471 " + nickname + " " + channelName + " :Cannot join channel (+l)";
+	}
+
+	String ERR_UNKNOWNMODE(const String &nickname, const char mode, const String &channelName)
+	{
+		return ":" + servername + " 472 " + nickname + " " + mode + " :is unknown mode char to me for " + channelName;
 	}
 
 	String ERR_INVITEONLYCHAN(const String &nickname, const String &channelName)
