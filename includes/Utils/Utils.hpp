@@ -19,7 +19,7 @@ struct Utils
 };
 
 template <typename T>
-static String toString(const T &value)
+String Utils::toString(const T &value)
 {
 	std::ostringstream os;
 	os << value;
