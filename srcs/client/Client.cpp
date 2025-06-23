@@ -8,7 +8,6 @@ Client::Client(int socketFd, struct sockaddr_in clientAddr) : _socketFd(socketFd
 															  _realname("unknown"),
 															  _hostname("unknown"),
 															  _isAuth(false),
-															  _isQuitting(false),
 															  _isRegistered(false) {}
 
 Client::~Client() {}
@@ -107,16 +106,6 @@ void Client::broadcastJoinedChannels(const String &msg)
 	{
 		(*it)->broadcastToChannel(msg, _socketFd);
 	}
-}
-
-bool Client::isQuitting()
-{
-	return _isQuitting;
-}
-
-void Client::setIsQuitting(bool flag)
-{
-	_isQuitting = flag;
 }
 
 String Client::getPrefix() const

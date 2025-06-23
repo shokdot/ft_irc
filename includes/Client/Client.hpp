@@ -14,7 +14,6 @@ private:
 	String _hostname;
 	std::set<Channel *> _joinedChannels;
 	bool _isAuth;
-	bool _isQuitting;
 	bool _isRegistered;
 
 public:
@@ -26,7 +25,6 @@ public:
 	void setRealname(const String &realname);
 	void setHostname();
 	void setAuth(bool auth);
-	void setIsQuitting(bool flag);
 	void setIsRegistered(bool flag);
 
 	int getClientFd() const;
@@ -38,7 +36,6 @@ public:
 	std::set<Channel *> &getJoinedChannels();
 	bool getAuth() const;
 	bool isRegistered() const;
-	bool isQuitting();
 
 	void joinChannel(Channel *channel);
 	void removeFromChannel(Channel *channel);

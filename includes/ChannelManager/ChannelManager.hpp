@@ -16,7 +16,8 @@ public:
 	void deleteChannel(const String &name);
 
 	void joinChannel(Client *client, const String &name, const String &password);
-	void partChannel(Client *client, const String &name, const String &msg = "");
+	void partChannel(Client *client, const String &name, const String &msg);
+	void partChannel(Client *client, const String &name);
 	void partAll(Client *clinet);
 
 	void sendJoinRPL(Client *client, Channel *channel);

@@ -106,8 +106,24 @@ void ChannelManager::partChannel(Client *client, const String &name, const Strin
 		return;
 	}
 
-	if (!client->isQuitting())
-		channel->broadcastToChannel(Reply::RPL_PART(client->getPrefix(), name, msg));
+	channel->broadcastToChannel(Reply::RPL_PART(client->getPrefix(), name, msg));
+
+	client->removeFromChannel(channel);
+	if (channel->deleteUser(client))
+		deleteChannel(name);
+}
+
+void ChannelManager::partChannel(Client *client, const String &name)
+{
+	Channel *channel = getChannelByName(name);
+	if (!client || !channel)
+		return;
+
+	if (!client->isJoinedChannel(channel))
+	{
+		client->sendReply(Reply::ERR_NOTONCHANNEL(client->getNickname(), name));
+		return;
+	}
 
 	client->removeFromChannel(channel);
 	if (channel->deleteUser(client))
