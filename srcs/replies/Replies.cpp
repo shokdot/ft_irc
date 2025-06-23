@@ -74,6 +74,11 @@ namespace Reply
 		return ":" + servername + " 407 " + nickname + " " + targetList + " :Too many targets. Message not sent";
 	}
 
+	String ERR_NOORIGIN(const String &nickname)
+	{
+		return ":" + servername + " 409 " + nickname + " :No origin specified";
+	}
+
 	String ERR_NORECIPIENT(const String &nickname, const String &cmdName)
 	{
 		return ":" + servername + " 411 " + nickname + " :No recipient given (" + cmdName + ")";
@@ -219,4 +224,13 @@ namespace Reply
 		return ":" + prefix + " PRIVMSG " + target + " :" + msg;
 	}
 
+	String RPL_CAP()
+	{
+		return ":" + servername + " CAP * LS :";
+	}
+
+	String RPL_PONG(const String &msg)
+	{
+		return ":" + servername + " PONG :" + msg;
+	}
 }

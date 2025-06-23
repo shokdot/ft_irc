@@ -13,8 +13,8 @@ CmdRegistry::CmdRegistry()
 	_commands["MODE"] = new MODE();
 	_commands["PRIVMSG"] = new PRIVMSG();
 	_commands["QUIT"] = new QUIT();
-	// _commands["PING"] = new PING();
-	// _commands["CAP"] = new CAP();
+	_commands["PING"] = new PING();
+	_commands["CAP"] = new CAP();
 }
 
 CmdRegistry::~CmdRegistry()

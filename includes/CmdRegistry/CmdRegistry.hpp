@@ -13,6 +13,8 @@
 #include <KICK.hpp>
 #include <PRIVMSG.hpp>
 #include <MODE.hpp>
+#include <PING.hpp>
+#include <CAP.hpp>
 
 class CmdRegistry
 {
