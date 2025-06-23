@@ -57,6 +57,7 @@ void TOPIC::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 			client->sendReply(Reply::ERR_CHANOPRIVSNEEDED(nickname, channelName));
 			return;
 		}
+		cmd.trailing = cmd.trailing.substr(1);
 		channel->setTopic(cmd.trailing);
 		channel->broadcastToChannel(Reply::RPL_SUCCTOPIC(client->getPrefix(), channelName, cmd.trailing));
 	}

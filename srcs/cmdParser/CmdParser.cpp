@@ -8,7 +8,7 @@ bool CmdParser::parseCmd(String &rawLine, CmdStruct &command)
 		return false;
 	if (!parseCmdName(rawLine, command.cmdName))
 		return false;
-	if (!parseParams(rawLine, command.params, command.trailing))
+	if (!parseParams(rawLine, command.cmdName, command.params, command.trailing))
 		return false;
 	return true;
 }
@@ -51,7 +51,7 @@ bool CmdParser::parseCmdName(String &rawLine, String &cmdName)
 	return true;
 }
 
-bool CmdParser::parseParams(String &rawLine, std::vector<String> &params, String &trailing)
+bool CmdParser::parseParams(String &rawLine, String &cmdName, std::vector<String> &params, String &trailing)
 {
 	params.clear();
 	trailing = "";
@@ -64,7 +64,7 @@ bool CmdParser::parseParams(String &rawLine, std::vector<String> &params, String
 		if (token[0] == ':' || paramCount == 14)
 		{
 			std::string tmp_trailing;
-			if (token[0] == ':')
+			if (token[0] == ':' && cmdName != "TOPIC")
 				tmp_trailing = token.substr(1);
 			else
 				tmp_trailing = token;
