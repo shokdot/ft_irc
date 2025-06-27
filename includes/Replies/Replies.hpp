@@ -49,6 +49,7 @@ namespace Reply
 	String RPL_SUCCTOPIC(const String &prefix, const String &channelName, const String &topic);
 	String RPL_SUCCKICK(const String &prefix, const String &channelName, const String &targetNick, const String &msg);
 	String RPL_PRIVMSG(const String &prefix, const String &target, const String &msg);
+	String RPL_SUCCMODE(const String &prefix, const String &channelName, const String &changes);
 	String RPL_CAP();
 	String RPL_PONG(const String &msg);
 }

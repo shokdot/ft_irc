@@ -224,6 +224,11 @@ namespace Reply
 		return ":" + prefix + " PRIVMSG " + target + " :" + msg;
 	}
 
+	String RPL_SUCCMODE(const String &prefix, const String &channelName, const String &changes)
+	{
+		return ":" + prefix + " MODE " + channelName + " " + changes;
+	}
+
 	String RPL_CAP()
 	{
 		return ":" + servername + " CAP * LS :";
