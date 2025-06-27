@@ -10,7 +10,7 @@ void MODE::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (!client)
 		return;
 
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 	ChannelManager &channelManager = server.getChannelManager();
 
 	if (cmd.params.empty())
@@ -19,7 +19,7 @@ void MODE::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 	}
 
-	String channelName = cmd.params[0];
+	String &channelName = cmd.params[0];
 	Channel *channel = channelManager.getChannelByName(channelName);
 
 	if (!channel)

@@ -15,8 +15,8 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 
 	ClientManager &clientManager = server.getClientManager();
-	String oldNick = client->getNickname();
-	String prefix = client->getPrefix();
+	const String &oldNick = client->getNickname();
+	const String &prefix = client->getPrefix();
 
 	if (cmd.params.empty())
 	{

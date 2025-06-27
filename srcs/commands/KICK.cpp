@@ -10,7 +10,7 @@ void KICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (!client)
 		return;
 
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 
 	if (cmd.params.size() < 2)
 	{
@@ -54,7 +54,7 @@ void KICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 
 void KICK::handleKick(Client *client, const String &channelName, const String &targetNick, const String &msg, IRCServer &server)
 {
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 
 	ChannelManager &channelManager = server.getChannelManager();
 	ClientManager &clientManager = server.getClientManager();

@@ -38,7 +38,7 @@ void Channel::removeInvitedUser(Client *client)
 	_invitedUsers.erase(client);
 }
 
-bool Channel::isUserInvited(Client *client)
+bool Channel::isUserInvited(Client *client) const
 {
 	return _invitedUsers.count(client);
 }
@@ -71,17 +71,17 @@ const String &Channel::getName() const
 	return _name;
 }
 
-bool Channel::hasClient(Client *clinet)
+bool Channel::hasClient(Client *clinet) const
 {
 	return _channelUsers.count(clinet);
 }
 
-bool Channel::isClientInvited(Client *client)
+bool Channel::isClientInvited(Client *client) const
 {
 	return _invitedUsers.count(client);
 }
 
-int Channel::getChannelSize()
+int Channel::getChannelSize() const
 {
 	return _channelUsers.size();
 }
@@ -131,21 +131,12 @@ void Channel::setUserLimit(int limit)
 	_userLimit = limit;
 }
 
-bool Channel::hasReachedLimit()
+bool Channel::hasReachedLimit() const
 {
 	return hasMode('l') && _channelUsers.size() >= _userLimit;
 }
 
-void Channel::print()
-{
-	for (std::set<Client *>::iterator it = _channelUsers.begin(); it != _channelUsers.end(); ++it)
-	{
-		std::cout << (*it)->getNickname() << " ";
-	}
-	std::cout << std::endl;
-}
-
-bool Channel::canJoin(Client *client)
+bool Channel::canJoin(Client *client) const
 {
 	return !isInviteOnly() || isClientInvited(client);
 }
@@ -167,7 +158,7 @@ void Channel::broadcastToChannel(const String &msg, int senderFd)
 	}
 }
 
-String Channel::getUsersList()
+String Channel::getUsersList() const
 {
 	String nameList;
 	for (std::set<Client *>::iterator it = _channelUsers.begin(); it != _channelUsers.end(); ++it)
@@ -180,7 +171,7 @@ String Channel::getUsersList()
 	return nameList;
 }
 
-bool Channel::isOperator(Client *client)
+bool Channel::isOperator(Client *client) const
 {
 	return _operators.count(client);
 }

@@ -10,7 +10,7 @@ void JOIN::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (!client)
 		return;
 
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 	ChannelManager &channelManager = server.getChannelManager();
 
 	if (!client->isRegistered())
@@ -44,7 +44,7 @@ std::vector<ChannelKey> JOIN::parseChannels(Client *client, std::vector<String> 
 	std::vector<ChannelKey> channelKeyPairs;
 	std::vector<String> channels = Utils::splitByDelim(params[0], ',');
 	std::vector<String> keys;
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 
 	if (params.size() > 1)
 		keys = Utils::splitByDelim(params[1], ',');

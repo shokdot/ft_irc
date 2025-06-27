@@ -49,8 +49,8 @@ void ChannelManager::sendJoinRPL(Client *client, Channel *channel)
 	if (!channel || !client)
 		return;
 
-	String nickname = client->getNickname();
-	String channelName = channel->getName();
+	const String &nickname = client->getNickname();
+	const String &channelName = channel->getName();
 
 	if (channel->getTopic().empty())
 		client->sendReply(Reply::RPL_NOTOPIC(nickname, channelName));
@@ -66,7 +66,7 @@ void ChannelManager::joinChannel(Client *client, const String &name, const Strin
 	if (!client)
 		return;
 
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 	Channel *channel = getOrCreateChannel(name, password);
 
 	if (!channel)

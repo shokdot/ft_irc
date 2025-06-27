@@ -32,22 +32,22 @@ public:
 	const String &getNickname() const;
 	const String &getRealname() const;
 	const String &getHostname() const;
-	bool isJoinedChannel(Channel *channel);
+	bool isJoinedChannel(Channel *channel) const;
 	std::set<Channel *> &getJoinedChannels();
 	bool getAuth() const;
 	bool isRegistered() const;
 
 	void joinChannel(Channel *channel);
 	void removeFromChannel(Channel *channel);
-	void broadcastJoinedChannels(const String &msg);
-	void sendWelcome(const String &time);
+	void broadcastJoinedChannels(const String &msg) const;
+	void sendWelcome(const String &time) const;
 	String getPrefix() const;
 
-	bool hasNick();
-	bool hasUser();
+	bool hasNick() const;
+	bool hasUser() const;
 
-	bool isFirstLogin();
-	void sendReply(const String &str);
+	bool isFirstLogin() const;
+	void sendReply(const String &str) const;
 };
 
 #endif

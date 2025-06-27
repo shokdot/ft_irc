@@ -17,19 +17,6 @@ public:
 	Client *getClientByFd(int fd);
 	Client *getClientByNick(const String &nick);
 	bool changeNick(const String &nickname, Client *client);
-	void print()
-	{
-		std::map<int, Client *>::iterator it = _clientsByFd.begin();
-		for (; it != _clientsByFd.end(); ++it)
-		{
-			std::cout << it->first << "\t" << it->second << std::endl;
-		}
-		std::map<String, Client *>::iterator it2 = _clientsByNick.begin();
-		for (; it2 != _clientsByNick.end(); ++it2)
-		{
-			std::cout << it2->first << "\t" << it2->second << std::endl;
-		}
-	}
 };
 
 #endif

@@ -10,7 +10,7 @@ void TOPIC::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (!client)
 		return;
 
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 
 	if (!client->isRegistered())
 	{
@@ -23,7 +23,7 @@ void TOPIC::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 	}
 
-	String channelName = cmd.params[0];
+	String &channelName = cmd.params[0];
 	ChannelManager &channelManager = server.getChannelManager();
 	Channel *channel = channelManager.getChannelByName(channelName);
 

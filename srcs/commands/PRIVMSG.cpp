@@ -62,7 +62,7 @@ bool PRIVMSG::handleTarget(Client *client, const String &target, const String &m
 {
 	ClientManager &clientManager = server.getClientManager();
 	ChannelManager &channelManager = server.getChannelManager();
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 
 	if (ChannelManager::isValidChannelName(target))
 	{

@@ -17,7 +17,7 @@ void ClientManager::removeClient(int fd)
 		return;
 
 	Client *client = it->second;
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 	if (client->hasNick())
 		_clientsByNick.erase(nickname);
 	delete client;

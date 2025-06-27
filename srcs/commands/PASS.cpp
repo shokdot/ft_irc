@@ -15,7 +15,7 @@ void PASS::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 
 	int fd = client->getClientFd();
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 
 	if (client->getAuth())
 	{

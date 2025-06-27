@@ -11,7 +11,7 @@ PART::~PART()
 
 void PART::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 	ChannelManager &channelManager = server.getChannelManager();
 	String msg = "";
 	if (cmd.params.empty())

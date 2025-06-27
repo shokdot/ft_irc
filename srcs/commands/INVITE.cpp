@@ -14,7 +14,7 @@ void INVITE::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (!client)
 		return;
 
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 	ChannelManager &channelManager = server.getChannelManager();
 	ClientManager &clientManager = server.getClientManager();
 

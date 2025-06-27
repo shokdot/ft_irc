@@ -88,7 +88,7 @@ void Client::removeFromChannel(Channel *channel)
 	_joinedChannels.erase(channel);
 }
 
-bool Client::isJoinedChannel(Channel *channel)
+bool Client::isJoinedChannel(Channel *channel) const
 {
 	return _joinedChannels.count(channel);
 }
@@ -98,7 +98,7 @@ std::set<Channel *> &Client::getJoinedChannels()
 	return _joinedChannels;
 }
 
-void Client::broadcastJoinedChannels(const String &msg)
+void Client::broadcastJoinedChannels(const String &msg) const
 {
 	std::set<Channel *>::iterator it = _joinedChannels.begin();
 
@@ -118,22 +118,22 @@ String Client::getPrefix() const
 	return prefix;
 }
 
-bool Client::hasNick()
+bool Client::hasNick() const
 {
 	return _nickname != "*";
 }
 
-bool Client::hasUser()
+bool Client::hasUser() const
 {
 	return _username != "*";
 }
 
-bool Client::isFirstLogin()
+bool Client::isFirstLogin() const
 {
 	return (!isRegistered() && hasNick() && hasUser());
 }
 
-void Client::sendWelcome(const String &time)
+void Client::sendWelcome(const String &time) const
 {
 	sendReply(Reply::RPL_WELCOME(_nickname, getPrefix()));
 	sendReply(Reply::RPL_YOURHOST(_nickname));
@@ -141,7 +141,7 @@ void Client::sendWelcome(const String &time)
 	sendReply(Reply::RPL_MYINFO(_nickname));
 }
 
-void Client::sendReply(const String &str)
+void Client::sendReply(const String &str) const
 {
 	String msg = str + "\r\n";
 	send(_socketFd, msg.c_str(), msg.length(), 0);

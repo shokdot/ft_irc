@@ -16,7 +16,7 @@ void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 
 	int fd = client->getClientFd();
-	String nickname = client->getNickname();
+	const String &nickname = client->getNickname();
 	if (cmd.params.size() == 4 && cmd.trailing.empty())
 	{
 		cmd.trailing = cmd.params.back();
@@ -59,7 +59,7 @@ bool USER::isValidUsername(const String &username)
 {
 	if (username.empty())
 		return false;
-	std::string invalidChars = " *@\n\r\0";
+	const String invalidChars = " *@\n\r\0";
 	for (size_t i = 0; i < username.size(); ++i)
 	{
 		if (invalidChars.find(username[i]) != std::string::npos)
