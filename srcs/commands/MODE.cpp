@@ -58,6 +58,39 @@ void MODE::handleChannelMode(Client *client, CmdStruct &cmd, Channel *channel, I
 		else
 			unsetMode(cmd, channel, clientManager);
 	}
+
+	if (validModes.size() > 0)
+	{
+		String changes = getOperations(validModes);
+		channel->broadcastToChannel(Reply::RPL_SUCCMODE(client->getPrefix(), channel->getName(), changes));
+	}
+}
+
+String MODE::getOperations(const std::vector<ModeChange> &operations)
+{
+	std::ostringstream operationsString;
+	std::vector<String> params;
+
+	char currentAction = '\0';
+	for (std::size_t i = 0; i < operations.size(); ++i)
+	{
+		const ModeChange &mc = operations[i];
+		if (mc.action != currentAction)
+		{
+			currentAction = mc.action;
+			operationsString << currentAction;
+		}
+		operationsString << mc.mode;
+		if (!mc.param.empty())
+		{
+			params.push_back(mc.param);
+		}
+	}
+
+	for (std::size_t i = 0; i < params.size(); ++i)
+		operationsString << " " << params[i];
+
+	return operationsString.str();
 }
 
 bool MODE::isValidMode(char c)
