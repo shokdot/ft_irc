@@ -43,8 +43,6 @@ bool MsgStrategy::readFromSock(int fd, EventDispatcher &eventDispatcher)
 	int bytes = recv(fd, buffer, sizeof(buffer) - 1, 0);
 	if (bytes <= 0)
 	{
-		if (errno == EAGAIN || errno == EWOULDBLOCK)
-			return false;
 		disconnect(fd, bytes, eventDispatcher);
 		return false;
 	}

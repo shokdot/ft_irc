@@ -34,8 +34,6 @@ void IRCServer::setup()
 	int opt = 1;
 	if (setsockopt(_serverFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
 		throw IRCException::ServerError(std::strerror(errno));
-	if (fcntl(_serverFd, F_SETFL, O_NONBLOCK) < 0)
-		throw IRCException::ServerError(std::strerror(errno));
 
 	struct sockaddr_in sockStruct = Utils::createSockStruct(AF_INET, _port, INADDR_ANY);
 	if (bind(_serverFd, (struct sockaddr *)&sockStruct, sizeof(sockStruct)) < 0)

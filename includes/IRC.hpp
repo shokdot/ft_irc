@@ -10,6 +10,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <climits>
+#include <cerrno>
+#include <csignal>
+#include <ctime>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -17,10 +20,6 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <poll.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <csignal>
-#include <ctime>
 
 #include <Types.hpp>
 #include <Defines.hpp>
