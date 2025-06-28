@@ -83,7 +83,7 @@ bool NICK::isSpecial(char c)
 
 bool NICK::isNickAvalible(const String &nickname, ClientManager &clientManager)
 {
-	if (clientManager.getClientByNick(nickname))
+	if (nickname == "bot" || clientManager.getClientByNick(nickname))
 		return false;
 	return true;
 }
