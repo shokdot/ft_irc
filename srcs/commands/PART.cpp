@@ -14,6 +14,7 @@ void PART::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	const String &nickname = client->getNickname();
 	ChannelManager &channelManager = server.getChannelManager();
 	String msg = "";
+
 	if (cmd.params.empty())
 	{
 		client->sendReply(Reply::ERR_NEEDMOREPARAMS(nickname, "PART"));
@@ -26,6 +27,7 @@ void PART::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	}
 	if (!cmd.trailing.empty())
 		msg = cmd.trailing;
+
 	std::vector<String> channels = Utils::splitByDelim(cmd.params[0], ',');
 	for (size_t i = 0; i < channels.size(); ++i)
 	{

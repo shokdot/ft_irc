@@ -12,6 +12,7 @@ PING::~PING()
 void PING::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
 	(void)server;
+
 	if (!client)
 		return;
 

@@ -61,6 +61,7 @@ void INVITE::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	}
 	if (channel->isUserInvited(invitee))
 		return;
+
 	channel->addInviteUser(invitee);
 	client->sendReply(Reply::RPL_INVITING(nickname, inviteeName, channelName));
 	invitee->sendReply(Reply::RPL_SUCCINVITE(client->getPrefix(), inviteeName, channelName));

@@ -18,9 +18,6 @@ bool CmdParser::parsePrefix(String &rawLine)
 	size_t spacePos = rawLine.find(' ');
 	if (spacePos == String::npos || spacePos == 1)
 		return false;
-	// String prefix = rawLine.substr(1, spacePos - 1);
-	// if (!extractPrefix(prefix, cmdPrefix))
-	// 	return false;
 	rawLine = rawLine.erase(0, spacePos + 1);
 	return true;
 }

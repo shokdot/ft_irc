@@ -12,11 +12,13 @@ USER::~USER()
 void USER::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 {
 	(void)server;
+
 	if (!client)
 		return;
 
 	int fd = client->getClientFd();
 	const String &nickname = client->getNickname();
+
 	if (cmd.params.size() == 4 && cmd.trailing.empty())
 	{
 		cmd.trailing = cmd.params.back();
