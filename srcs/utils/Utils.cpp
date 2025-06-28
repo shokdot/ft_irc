@@ -53,7 +53,7 @@ std::vector<String> Utils::splitByDelim(const String &line, const char delimeter
 {
 	std::vector<String> tokens;
 	std::istringstream iss(line);
-	std::string token;
+	String token;
 
 	while (std::getline(iss, token, delimeter))
 	{

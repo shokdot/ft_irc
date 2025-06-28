@@ -28,8 +28,8 @@ public:
 	ClientManager &getClientManager();
 	ChannelManager &getChannelManager();
 	EventDispatcher &getEventDispatcher();
-	const String &getPass();
-	const String &getCreationTime();
+	const String &getPass() const;
+	const String &getCreationTime() const;
 
 private:
 	void setup();

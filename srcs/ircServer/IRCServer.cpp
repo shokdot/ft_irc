@@ -65,6 +65,6 @@ ChannelManager &IRCServer::getChannelManager() { return _channelManager; }
 
 EventDispatcher &IRCServer::getEventDispatcher() { return _eventDispatcher; }
 
-const String &IRCServer::getPass() { return _password; }
+const String &IRCServer::getPass() const { return _password; }
 
-const String &IRCServer::getCreationTime() { return _creationTime; }
+const String &IRCServer::getCreationTime() const { return _creationTime; }

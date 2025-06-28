@@ -21,7 +21,7 @@ void MsgStrategy::processMsg(int fd, IRCServer &server)
 {
 	ClientManager &clientManager = server.getClientManager();
 	Client *client = clientManager.getClientByFd(fd);
-	String &data = sockBuffer[fd];
+	String &data = _sockBuffer[fd];
 	size_t pos;
 	while ((pos = data.find("\r\n")) != String::npos)
 	{
@@ -46,13 +46,13 @@ bool MsgStrategy::readFromSock(int fd, EventDispatcher &eventDispatcher)
 		disconnect(fd, bytes, eventDispatcher);
 		return false;
 	}
-	sockBuffer[fd] += String(buffer, bytes);
+	_sockBuffer[fd] += String(buffer, bytes);
 	return true;
 }
 
 bool MsgStrategy::checkBuffLength(int fd, EventDispatcher &eventDispatcher)
 {
-	std::string &data = sockBuffer[fd];
+	std::string &data = _sockBuffer[fd];
 	if (data.length() > 2048)
 	{
 		std::cout << "[WARNING] Client " << fd << " sent too much data" << std::endl;
@@ -66,6 +66,6 @@ void MsgStrategy::disconnect(int fd, int bytes, EventDispatcher &eventDispatcher
 {
 	if (bytes != 0)
 		std::cerr << "[ERROR] Failed to recv client " << fd << ": " << strerror(errno) << std::endl;
-	sockBuffer.erase(fd);
+	_sockBuffer.erase(fd);
 	eventDispatcher.disconnectClient(fd);
 }
