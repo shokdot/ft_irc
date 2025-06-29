@@ -28,7 +28,7 @@ void MODE::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		return;
 	}
 
-	if (cmd.params.size() == 1 || (cmd.params[1][0] != '+' && cmd.params[1][0] != '-')) // fix it
+	if (cmd.params.size() == 1)
 	{
 		client->sendReply(Reply::RPL_CHANNELMODEIS(nickname, channelName, channel->getModeString(), channel->getModeParams()));
 		return;
@@ -37,6 +37,12 @@ void MODE::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	if (!channel->isOperator(client))
 	{
 		client->sendReply(Reply::ERR_CHANOPRIVSNEEDED(nickname, channelName));
+		return;
+	}
+
+	if (cmd.params[1].find('+') == cmd.params[1].find('-'))
+	{
+		client->sendReply(Reply::ERR_UNKNOWNMODE(nickname, cmd.params[1][0], channelName));
 		return;
 	}
 
