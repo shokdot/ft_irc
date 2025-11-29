@@ -23,7 +23,7 @@ private:
 	void processMsg(int fd, IRCServer &server);
 	bool readFromSock(int fd, EventDispatcher &eventDispatcher);
 	bool checkBuffLength(int fd, EventDispatcher &eventDispatcher);
-	void disconnect(int fd, int bytes, EventDispatcher &sereventDispatcherver);
+	void disconnect(int fd, int bytes, EventDispatcher &eventDispatcher);
 };
 
 #endif
