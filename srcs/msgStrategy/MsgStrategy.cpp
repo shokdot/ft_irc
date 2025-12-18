@@ -25,7 +25,13 @@ void MsgStrategy::processMsg(int fd, IRCServer &server)
 	size_t pos;
 	while ((pos = data.find("\r\n")) != String::npos)
 	{
+		if (!clientManager.getClientByFd(fd))
+		{
+			_sockBuffer.erase(fd);
+			return;
+		}
 		String line = Utils::trim(data.substr(0, pos));
+		std::cout << line << std::endl;
 		data.erase(0, pos + 2);
 		if (line.length() > 510)
 		{
