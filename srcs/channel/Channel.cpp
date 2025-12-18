@@ -38,11 +38,6 @@ void Channel::removeInvitedUser(Client *client)
 	_invitedUsers.erase(client);
 }
 
-bool Channel::isUserInvited(Client *client) const
-{
-	return _invitedUsers.count(client);
-}
-
 bool Channel::hasMode(char c) const
 {
 	return _mode.count(c);
@@ -71,9 +66,9 @@ const String &Channel::getName() const
 	return _name;
 }
 
-bool Channel::hasClient(Client *clinet) const
+bool Channel::hasClient(Client *client) const
 {
-	return _channelUsers.count(clinet);
+	return _channelUsers.count(client);
 }
 
 bool Channel::isClientInvited(Client *client) const

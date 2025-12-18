@@ -59,7 +59,7 @@ void INVITE::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 		client->sendReply(Reply::ERR_USERONCHANNEL(nickname, inviteeName, channelName));
 		return;
 	}
-	if (channel->isUserInvited(invitee))
+	if (channel->isClientInvited(invitee))
 		return;
 
 	channel->addInviteUser(invitee);

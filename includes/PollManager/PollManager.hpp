@@ -12,7 +12,7 @@ public:
 	int wait();
 	void addFd(int fd, short events);
 	void removeFd(int fd);
-	std::vector<struct pollfd> &getPollFds();
+	const std::vector<struct pollfd> &getPollFds();
 };
 
 #endif

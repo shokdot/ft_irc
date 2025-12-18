@@ -21,4 +21,4 @@ void PollManager::removeFd(int fd)
 	}
 }
 
-std::vector<struct pollfd> &PollManager::getPollFds() { return _fds; }
+const std::vector<struct pollfd> &PollManager::getPollFds() { return _fds; }

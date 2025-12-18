@@ -3,7 +3,7 @@
 
 #include <IEventStrategy.hpp>
 
-class AcceptStrategy : implements IEventStrategy
+class AcceptStrategy : public IEventStrategy
 {
 public:
 	AcceptStrategy();

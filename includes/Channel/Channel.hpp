@@ -37,7 +37,6 @@ public:
 	void setUserLimit(int limit);
 	void addInviteUser(Client *client);
 	void removeInvitedUser(Client *client);
-	bool isUserInvited(Client *client) const;
 	bool hasClient(Client *client) const;
 	std::set<Client *> &getChannelUsers();
 	bool isClientInvited(Client *client) const;

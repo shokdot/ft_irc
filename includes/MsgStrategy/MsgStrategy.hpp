@@ -8,7 +8,7 @@ class IRCServer;
 class EventDispatcher;
 class ClientManager;
 
-class MsgStrategy : implements IEventStrategy
+class MsgStrategy : public IEventStrategy
 {
 private:
 	CmdDispatcher _dispatcher;

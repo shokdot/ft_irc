@@ -1,8 +1,6 @@
 #ifndef DEFINES_HPP
 #define DEFINES_HPP
 
-#define implements public
-
 enum Defines
 {
 	MAX_CONN = 100,

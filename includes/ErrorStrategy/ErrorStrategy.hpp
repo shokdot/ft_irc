@@ -3,7 +3,7 @@
 
 #include <IEventStrategy.hpp>
 
-class ErrorStrategy : implements IEventStrategy
+class ErrorStrategy : public IEventStrategy
 {
 public:
 	ErrorStrategy();

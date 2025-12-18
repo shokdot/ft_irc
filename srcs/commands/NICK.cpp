@@ -38,7 +38,7 @@ void NICK::execute(Client *client, CmdStruct &cmd, IRCServer &server)
 	}
 	else if (newNick == oldNick)
 		return;
-	else if (!isNickAvalible(newNick, clientManager))
+	else if (!isNickAvailable(newNick, clientManager))
 	{
 		client->sendReply(Reply::ERR_NICKNAMEINUSE(oldNick, cmd.params[0]));
 		return;
@@ -81,7 +81,7 @@ bool NICK::isSpecial(char c)
 	return (c >= '[' && c <= '`') || (c >= '{' && c <= '}');
 }
 
-bool NICK::isNickAvalible(const String &nickname, ClientManager &clientManager)
+bool NICK::isNickAvailable(const String &nickname, ClientManager &clientManager)
 {
 	if (nickname == "bot" || clientManager.getClientByNick(nickname))
 		return false;
